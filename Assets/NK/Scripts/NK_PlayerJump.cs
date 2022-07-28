@@ -9,6 +9,7 @@ public class NK_PlayerJump : MonoBehaviour
     private float _posY;        //오브젝트의 초기 높이
     private float _gravity;     //중력가속도
     private float _jumpPower;   //점프력
+    private float _jumpSpeed;
     private float _jumpTime;    //점프 이후 경과시간
 
     void Start()
@@ -16,7 +17,8 @@ public class NK_PlayerJump : MonoBehaviour
         _transform = transform;
         _isJumping = false;
         _posY = transform.position.y;
-        _gravity = 9.8f;
+        _gravity = 20f;
+        _jumpSpeed = 10.0f;
         _jumpPower = 15.0f;
         _jumpTime = 0.0f;
     }
@@ -45,12 +47,15 @@ public class NK_PlayerJump : MonoBehaviour
         //점프시간을 증가시킨다.
         _jumpTime += Time.deltaTime;
 
+        _transform.Rotate(_jumpSpeed, 0, 0);
+
         //처음의 높이 보다 더 내려 갔을때 => 점프전 상태로 복귀한다.
         if (height < 0.0f)
         {
             _isJumping = false;
             _jumpTime = 0.0f;
             _transform.position = new Vector3(_transform.position.x, _posY, _transform.position.z);
+            _transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 }
