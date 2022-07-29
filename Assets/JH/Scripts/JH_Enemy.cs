@@ -20,6 +20,7 @@ public class JH_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // TEST
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
