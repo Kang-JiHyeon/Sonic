@@ -18,10 +18,9 @@ public class NK_PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Vector3 dir = Vector3.right * h;
+        Vector3 dir = Vector3.right * h + Vector3.forward * v;
         dir.Normalize();
 
         transform.position += dir * speed * Time.deltaTime;
-        rigid.AddForce(Vector3.forward * v, ForceMode.Impulse);
     }
 }
