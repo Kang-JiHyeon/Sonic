@@ -6,6 +6,8 @@ public class NK_Booster : MonoBehaviour
 {
     public float boostSpeed = 20f;
     public float boostTime = 5f;
+    public bool isBooster = false;
+
     float normalSpeed;
 
     // Start is called before the first frame update
