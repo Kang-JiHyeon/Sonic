@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// s 키를 누르면 타겟으로 이동하고 싶다.
 public class JH_PlayerMove : MonoBehaviour
 {
-    public Vector3 dir;
+    Vector3 dir;
     public bool isAttack = false;
     public GameObject target;
     JH_Enemy enemy;
@@ -25,22 +24,12 @@ public class JH_PlayerMove : MonoBehaviour
         dir = Vector3.right * h + Vector3.forward * v;
         dir.Normalize();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            targetDir = target.transform.position - transform.position;
-            targetDir.Normalize();
-            isAttack = true;
-        }
-
-        else if (h != 0 || v != 0)
+        if (h != 0 || v != 0)
         {
             transform.rotation = Quaternion.LookRotation(dir);
             transform.position += dir * 10f * Time.deltaTime;
         }
-        if (isAttack)
-        {
-            Vector3.MoveTowards(transform.position, target.transform.position, 10f);
-        }
+
     }
 
 }
