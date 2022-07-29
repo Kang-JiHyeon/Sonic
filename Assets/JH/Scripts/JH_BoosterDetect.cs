@@ -2,23 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 1. 일반
-// 플레이어와 부딪히면 플레이어 이동 방향 + 윗쪽으로 일정거리 날라가고 싶다.
-// 필요속성 : 이동 방향, 이동 거리, 속도, 각도
-
-// 2. 부스터
-// 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
-
-
-// 3. 맵
-// 맵이랑 닿으면 없어지고 싶다.
-public class JH_Enemy : MonoBehaviour
+public class JH_BossterDetect : MonoBehaviour
 {
     // 이동 방향, 이동 거리
     Rigidbody rigid;
-    public GameObject target;
+    JH_PlayerMove player;
 
-    
     Vector3 dir;
     Vector3 originPos;
     public float moveDis;
@@ -31,10 +20,10 @@ public class JH_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();
+        // 부모(Enemy)의 rigidbody 가져오기
+        rigid = GetComponentInParent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
-        
     }
 
     // Update is called once per frame
@@ -53,11 +42,7 @@ public class JH_Enemy : MonoBehaviour
 
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
-        // NK_Booster의 isBooster 대체
-        //if (Vector3.Distance(originPos, transform.position) < boosterDis && target.GetComponent<JH_PlayerMove>.isBooster)
-        //{
 
-        //}
     }
 
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
@@ -70,7 +55,7 @@ public class JH_Enemy : MonoBehaviour
             // 적의 공격 당함 상태를 true로 만든다.
             isHit = true;
             // Player의 방향 설정 스크립트를 가져온다.
-            JH_PlayerMove player = target.GetComponent<JH_PlayerMove>();
+            player = other.gameObject.GetComponent<JH_PlayerMove>();
 
             if (player)
             {
@@ -86,7 +71,7 @@ public class JH_Enemy : MonoBehaviour
         }
 
         // 맵이랑 닿이면 없애고 싶다.
-        if(other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16)
         {
             Destroy(gameObject);
         }

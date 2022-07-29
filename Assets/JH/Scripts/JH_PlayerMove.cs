@@ -9,6 +9,11 @@ public class JH_PlayerMove : MonoBehaviour
     public GameObject target;
     JH_Enemy enemy;
     Vector3 targetDir;
+
+    // NK_Booster¿« isBooster ¥Î√º
+    public bool isBooster;
+
+
     // Start is called before the first frame update
     void Start()
     {
