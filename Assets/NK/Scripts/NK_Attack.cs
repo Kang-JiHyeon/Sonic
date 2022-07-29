@@ -32,7 +32,10 @@ public class NK_Attack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
 
+            }
         }
     }
 }
