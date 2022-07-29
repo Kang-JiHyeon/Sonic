@@ -7,55 +7,56 @@ using UnityEngine;
 public class JH_Enemy : MonoBehaviour
 {
     // 이동 방향, 이동 거리
+    Rigidbody rigid;
+    JH_PlayerMove player;
     Vector3 dir;
     Vector3 originPos;
-    public float moveDis = 10f;
-    public float speed = 15f;
-    public float angleY = 0.5f;
+    public float moveDis;
+    public float force;
+    public float angleY;
+    public bool isHit = false;
 
-    bool isHit = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        rigid = GetComponent<Rigidbody>();
+        // 튕기기 전 위치
         originPos = transform.position;
-        //// 뒷쪽 대각선 윗방향으로 이동하고 싶다.
-        //dir = -transform.forward + new Vector3(0, angleY, 0);
-        //dir.Normalize();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    isHit = true;
-        //}
-
+        // 공격을 받으면
         if (isHit)
         {
-            transform.position += dir * speed * Time.deltaTime;
+            // Player의 방향 설정 스크립트를 가져온다.
+            player = GameObject.Find("Player").GetComponent<JH_PlayerMove>();
+            // 적이 튕겨나갈 방향을 구한다.
+            dir = new Vector3(player.dir.x, angleY, player.dir.z);
+            dir.Normalize();
 
-            if(Vector3.Distance(originPos, transform.position) > moveDis)
+            // 적의 rigidbody컴포넌트
+            rigid.AddForce(dir * force, ForceMode.Impulse);
+
+            if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
                 Destroy(gameObject);
                 isHit = false;
             }
+
         }
     }
 
-    // player와 부딪힌 방향의 대각선 위로 이동하고 싶다.
+    // player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
+    // 일정 거리 이상 날라가면 없어지고 싶다.
     private void OnCollisionEnter(Collision collision)
     {
+        // 부딪힌 대상이 Player이면
         if (collision.gameObject.name.Contains("Player"))
         {
-            ContactPoint cp = collision.GetContact(0);
-            
-            print(cp.point);
-
-            dir = transform.position - cp.point; // 접촉지점에서부터 탄위치 의 방향
-            dir += new Vector3(0, angleY, 0);
-            dir.Normalize();
-
+            // 적의 공격 당함 상태를 true로 만든다.
             isHit = true;
         }
     }
