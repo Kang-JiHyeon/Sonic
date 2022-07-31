@@ -21,6 +21,8 @@ public class JH_Enemy : MonoBehaviour
     
     Vector3 dir;
     Vector3 originPos;
+    JH_PlayerMove player;
+
     public float moveDis;
     public float boosterDis;
     public float force;
@@ -34,7 +36,8 @@ public class JH_Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
-        
+        // Player의 방향 설정 스크립트를 가져온다.
+        player = target.GetComponent<JH_PlayerMove>();
     }
 
     // Update is called once per frame
@@ -54,12 +57,28 @@ public class JH_Enemy : MonoBehaviour
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
         // NK_Booster의 isBooster 대체
-        //if (Vector3.Distance(originPos, transform.position) < boosterDis && target.GetComponent<JH_PlayerMove>.isBooster)
-        //{
-
-        //}
+        if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
+        {
+            Hit();
+        }
     }
+    private void Hit()
+    {
+        // 적의 공격 당함 상태를 true로 만든다.
+        isHit = true;
 
+        if (player)
+        {
+            // 적이 튕겨나갈 방향을 구하고 싶다.
+            // 플레이어의 앞방향을 구한다.
+            dir = player.transform.forward;
+            // y의 값만 변경한다.
+            dir.y = angleY;
+            dir.Normalize();
+            // dir방향으로 힘을 가한다.
+            rigid.AddForce(dir * 1500);
+        }
+    }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
     //일정 거리 이상 날라가면 없어지고 싶다.
     private void OnTriggerEnter(Collider other)
@@ -68,21 +87,7 @@ public class JH_Enemy : MonoBehaviour
         if (other.gameObject.name.Contains("Player") && !isHit)
         {
             // 적의 공격 당함 상태를 true로 만든다.
-            isHit = true;
-            // Player의 방향 설정 스크립트를 가져온다.
-            JH_PlayerMove player = target.GetComponent<JH_PlayerMove>();
-
-            if (player)
-            {
-                // 적이 튕겨나갈 방향을 구하고 싶다.
-                // 플레이어의 앞방향을 구한다.
-                dir = player.transform.forward;
-                // y의 값만 변경한다.
-                dir.y = angleY;
-                dir.Normalize();
-                // dir방향으로 힘을 가한다.
-                rigid.AddForce(dir * 1500);
-            }
+            Hit();
         }
 
         // 맵이랑 닿이면 없애고 싶다.
