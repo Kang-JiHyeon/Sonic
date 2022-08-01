@@ -12,8 +12,11 @@ public class NK_PlayerJump : MonoBehaviour
     private float _jumpSpeed;
     private float _jumpTime;    //점프 이후 경과시간
 
+    public static NK_PlayerJump Instance;
+
     void Start()
     {
+        Instance = this;
         _transform = transform;
         _isJumping = false;
         _posY = transform.position.y;
@@ -37,7 +40,7 @@ public class NK_PlayerJump : MonoBehaviour
         }
     }
 
-    void Jump()
+    public void Jump()
     {
         //y=-a*x+b에서 (a: 중력가속도, b: 초기 점프속도)
         //적분하여 y = (-a/2)*x*x + (b*x) 공식을 얻는다.(x: 점프시간, y: 오브젝트의 높이)
