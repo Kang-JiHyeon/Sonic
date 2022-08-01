@@ -15,19 +15,18 @@ using UnityEngine;
 public class JH_Enemy : MonoBehaviour
 {
     // 이동 방향, 이동 거리
-    Rigidbody rigid;
     public GameObject target;
-
-    
-    Vector3 dir;
-    Vector3 originPos;
+    Rigidbody rigid;
     JH_PlayerMove player;
 
+    Vector3 dir;
+    Vector3 originPos;
+    
     public float moveDis;
-    public float boosterDis;
-    public float force;
     public float angleY;
-    public bool isHit = false;
+    float boosterDis = 5f;
+    float force = 1000f;
+    bool isHit = false;
 
 
     // Start is called before the first frame update
@@ -76,7 +75,7 @@ public class JH_Enemy : MonoBehaviour
             dir.y = angleY;
             dir.Normalize();
             // dir방향으로 힘을 가한다.
-            rigid.AddForce(dir * 1500);
+            rigid.AddForce(dir * force);
         }
     }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
