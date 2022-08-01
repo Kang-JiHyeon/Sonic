@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-    public static float speed = 5f;
+    public static float speed = 1f;
     Rigidbody rigid;
     // Start is called before the first frame update
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();
+        rigid = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -18,9 +18,16 @@ public class NK_PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Vector3 dir = Vector3.right * h + Vector3.forward * v;
-        dir.Normalize();
+        //rigid.AddForce(Vector3.forward * v * speed);
 
-        transform.position += dir * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rigid.AddForce(Vector3.forward * speed);
+        }
+
+/*        Vector3 dir = Vector3.right * h + Vector3.forward * v) * dir;
+        dir.Normalize();*/
+
+        //transform.position += dir * speed * Time.deltaTime;
     }
 }

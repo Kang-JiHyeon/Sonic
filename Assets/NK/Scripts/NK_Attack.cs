@@ -6,7 +6,12 @@ public class NK_Attack : MonoBehaviour
 {
     public List<GameObject> enemys;
     public GameObject enemy;
+    public GameObject aimFactory;
+    public float attackTime = 2;
+
+    float currentTime = 0;
     float shortDistance;
+    bool isAiming = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +30,37 @@ public class NK_Attack : MonoBehaviour
                 shortDistance = distance;
             }
         }
+
+        Debug.Log(enemy.name);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (!isAiming && Input.GetKeyDown(KeyCode.S))
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
+            GameObject aim = Instantiate(aimFactory);
+            aim.transform.position = enemy.transform.position;
+            isAiming = true;
+        }
 
+        if (isAiming)
+        {
+            if (currentTime < attackTime)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    Destroy(enemy);
+                }
+                currentTime = 0;
+                isAiming = false;
             }
+            else
+            {
+                currentTime = 0;
+                isAiming = false;
+            }
+            currentTime += Time.deltaTime;
         }
     }
 }
