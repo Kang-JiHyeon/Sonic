@@ -9,7 +9,9 @@ public class NK_PathFollower : MonoBehaviour
     public EndOfPathInstruction endOfPathInstruction;
     public float speed = 5;
     RoadMeshCreator roadMeshCreator;
-    float distanceTravelled;
+    public float distanceTravelled;
+
+
 
     void Start()
     {
@@ -23,6 +25,9 @@ public class NK_PathFollower : MonoBehaviour
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+            transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
+            transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction), 
+                pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
         }
     }
 
@@ -33,12 +38,13 @@ public class NK_PathFollower : MonoBehaviour
         distanceTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.CompareTag("Rollercoaster"))
+        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        if (rigid.CompareTag("Rollercoaster"))
         {
-            pathCreator = other.GetComponent<PathCreator>();
-            roadMeshCreator = other.GetComponent<RoadMeshCreator>();
+            pathCreator = rigid.GetComponent<PathCreator>();
+            roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
             // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
             pathCreator.pathUpdated += OnPathChanged;
         }

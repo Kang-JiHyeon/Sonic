@@ -22,14 +22,14 @@ public class NK_PlayerCollision : MonoBehaviour
     {
 
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.CompareTag("Wall"))
+        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        if (rigid.CompareTag("Wall"))
         {
             foreach (GameObject coin in coins)
             {
-                coin.transform.position = transform.position;
+                coin.transform.position = transform.position + new Vector3(0, 1, 0);
                 coin.SetActive(true);
                 coin.transform.position += Vector3.back * 1f * Time.deltaTime;
             }
