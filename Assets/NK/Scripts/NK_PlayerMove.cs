@@ -4,47 +4,53 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-    public static float speed = 0f;
+    public float speed = 5f;
+    public float gravity = -20;
+
     Vector3 movement;
-    Rigidbody rigid;
-    float rightMax = 5.0f;
-    float leftMax = -5.0f;
-    
+    CharacterController cc;
+    float zVelocity = 0;
+    float yVelocity = 0;
+
+    public static NK_PlayerMove Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        rigid = gameObject.GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
-        rigid.AddForce(Vector3.forward * speed);
+        Vector3 dir = new Vector3(h, 0, v);
 
-        if (Input.GetKey(KeyCode.UpArrow))
+/*        zVelocity = Mathf.Clamp(zVelocity, 0, 50);
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            speed = 5f;
-            movement = transform.position;
+            zVelocity += speed * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        dir.z = zVelocity;*/
+
+/*        yVelocity += gravity * Time.deltaTime;
+
+        if (cc.collisionFlags == CollisionFlags.Below)
         {
-            movement = new Vector3(transform.position.x + leftMax, transform.position.y, transform.position.z);
+            yVelocity = 0;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            movement = new Vector3(transform.position.x + rightMax, transform.position.y, transform.position.z);
-        }
+        dir.y = yVelocity;*/
 
-        transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * 10f);
-
-        /*        Vector3 dir = Vector3.right * h + Vector3.forward * v) * dir;
-                dir.Normalize();*/
-
-        //transform.position += dir * speed * Time.deltaTime;
+        cc.Move(dir * speed * Time.deltaTime);
     }
 }

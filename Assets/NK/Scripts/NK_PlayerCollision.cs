@@ -7,6 +7,7 @@ public class NK_PlayerCollision : MonoBehaviour
     public GameObject coinFactory;
     public int coinCount = 10;
     List<GameObject> coins = new List<GameObject>();
+    Vector3 impact = Vector3.zero;
 
     private void Start()
     {
@@ -22,17 +23,30 @@ public class NK_PlayerCollision : MonoBehaviour
     {
 
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (other.CompareTag("Wall"))
+        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        if (rigid.CompareTag("Wall"))
         {
+            Vector3 dir = Vector3.up + transform.position - rigid.gameObject.transform.position;
+            AddImpact(dir, 5f);
+            
             foreach (GameObject coin in coins)
             {
-                coin.transform.position = transform.position;
+                coin.transform.position = transform.position + new Vector3(0, 2, 0);
                 coin.SetActive(true);
                 coin.transform.position += Vector3.back * 1f * Time.deltaTime;
             }
         }
+    }
+
+    void AddImpact(Vector3 dir, float force)
+    {
+        dir.Normalize();
+        if (dir.y < 0)
+        {
+            dir.y = -dir.y;
+        }
+        //impact += dir.normalized * force / mass;
     }
 }

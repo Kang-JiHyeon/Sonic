@@ -8,14 +8,19 @@ public class NK_Attack : MonoBehaviour
     public GameObject enemy;
     public GameObject aimFactory;
     public float attackTime = 2;
+    public float attackSpeed = 20;
 
+    CharacterController cc;
     float currentTime = 0;
     float shortDistance;
     bool isAiming = false;
+    bool isAttack = false;
     GameObject aim;
     // Start is called before the first frame update
     void Start()
     {
+        cc = GetComponent<CharacterController>();
+
         enemys = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         shortDistance = Vector3.Distance(gameObject.transform.position, enemys[0].transform.position);
 
@@ -28,47 +33,61 @@ public class NK_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject e in enemys)
+        if (enemys.Count <= 0 && enemys != null)
         {
-            float distance = Vector3.Distance(gameObject.transform.position, e.transform.position);
-
-            if (distance < shortDistance)
-            {
-                enemy = e;
-                shortDistance = distance;
-            }
+            return;
         }
 
-        if (isAiming && aim != null)
+        if (isAttack)
         {
-            if (currentTime < attackTime)
+            Attack();
+        }
+
+        SortEnemy();
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (!isAiming)
             {
-                NK_PlayerJump.Instance.Jump();
-                Vector3 dir = enemy.transform.position - transform.position;
-                dir.Normalize();
-                transform.position += dir * 5f * Time.deltaTime;
-                if (Input.GetKeyDown(KeyCode.S))
-                {
-                    Destroy(enemy);
-                    isAiming = false;
-                    aim.SetActive(false);
-                }
-                currentTime = 0;
+                aim.transform.position = enemy.transform.position;
+                aim.SetActive(true);
+                isAiming = true;
             }
             else
             {
-                currentTime = 0;
-                isAiming = false;
-                aim.SetActive(false);
+                if (currentTime < attackTime)
+                {
+                    isAttack = true;
+                }
+                else
+                {
+                    currentTime = 0;
+                    isAiming = false;
+                    isAttack = false;
+                    aim.SetActive(false);
+                }
+                currentTime += Time.deltaTime;
             }
-            currentTime += Time.deltaTime;
         }
+    }
 
-        if (!isAiming && Input.GetKeyDown(KeyCode.S))
+    private void Attack()
+    {
+        Vector3 dir = enemy.transform.position - transform.position;
+        cc.Move(dir * attackSpeed * Time.deltaTime);
+    }
+
+    private void SortEnemy()
+    {
+        for (int i = 0; i < enemys.Count; i++)
         {
-            aim.transform.position = enemy.transform.position;
-            aim.SetActive(true);
-            isAiming = true;
+            float distance = Vector3.Distance(transform.position, enemys[i].transform.position);
+
+            if (distance < shortDistance)
+            {
+                enemy = enemys[i];
+                shortDistance = distance;
+            }
         }
     }
 }
