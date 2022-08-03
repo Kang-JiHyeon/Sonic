@@ -29,7 +29,6 @@ public class JH_Ring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(Vector3.Distance(transform.position, target.transform.position));
         // 플레이어와 일정 거리 안에 있고, 플레이어가 부스터 상태이면 플레이어 쪽으로 이동하고 싶다.
         if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
         {
