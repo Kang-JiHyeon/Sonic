@@ -7,11 +7,12 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     public bool isAttack = false;
     public GameObject target;
-    JH_Enemy enemy;
-    Vector3 targetDir;
+    float speed = 10f;
+    float boosterSpeed = 30f;
 
     // NK_Booster¿« isBooster ¥Î√º
     public bool isBooster;
+    public bool isHorMode;
 
 
     // Start is called before the first frame update
@@ -26,13 +27,30 @@ public class JH_PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        dir = Vector3.right * h + Vector3.forward * v;
+
+        if (isHorMode)
+        {
+
+            dir = Vector3.forward * h + Vector3.left * v;
+        }
+        else
+        {
+            dir = Vector3.right * h + Vector3.forward * v;
+        }
+
         dir.Normalize();
 
         if (h != 0 || v != 0)
         {
             transform.rotation = Quaternion.LookRotation(dir);
-            transform.position += dir * 10f * Time.deltaTime;
+            if (isBooster)
+            {
+                transform.position += dir * boosterSpeed * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += dir * speed * Time.deltaTime;
+            }
         }
 
     }
