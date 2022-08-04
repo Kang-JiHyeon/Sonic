@@ -74,6 +74,7 @@ public class NK_Attack : MonoBehaviour
     private void Attack()
     {
         Vector3 dir = enemy.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(dir);
         cc.Move(dir * attackSpeed * Time.deltaTime);
     }
 
@@ -98,11 +99,11 @@ public class NK_Attack : MonoBehaviour
         {
             Destroy(enemy);
             enemys.Remove(enemy);
-/*            if (enemys.Count > 0)
+            if (enemys.Count > 0)
             {
                 enemy = enemys[0];
                 SortEnemy();
-            }*/
+            }
         }
     }
 }

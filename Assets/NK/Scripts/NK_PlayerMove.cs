@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-    public float speed = 5f;
-    public float gravity = -20;
-    public bool isHorMode;
+    public float speed = 10f;      // 캐릭터 움직임 스피드.
+    public float jumpSpeed; // 캐릭터 점프 힘.
+    public float gravity;    // 캐릭터에게 작용하는 중력.
+    public bool isJumping;
 
-    Vector3 dir;
-    Vector3 movement;
-    CharacterController cc;
-    float zVelocity = 0;
-    float yVelocity = 0;
+    private CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
+    private Vector3 dir;                // 캐릭터의 움직이는 방향.
+    float jumpPower;   //점프력
+    float jumpTime;    //점프 이후 경과시간
 
     public static NK_PlayerMove Instance;
 
@@ -21,53 +21,65 @@ public class NK_PlayerMove : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-
-        cc = GetComponent<CharacterController>();
+        jumpSpeed = 10.0f;
+        jumpPower = 15.0f;
+        jumpTime = 0.0f;
+        gravity = 20.0f;
+        isJumping = false;
+        dir = Vector3.zero;
+        controller = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        if (isHorMode)
+        // 현재 캐릭터가 땅에 있는가?
+        if (controller.isGrounded)
         {
-            dir = Vector3.forward * h + Vector3.left * v;
-        }
-        else
-        {
-            dir = Vector3.right * h + Vector3.forward * v;
-        }
+            isJumping = false;
+            // 위, 아래 움직임 셋팅. 
+            dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        transform.rotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.LookRotation(dir);
 
-        /*        zVelocity = Mathf.Clamp(zVelocity, 0, 50);
+            // 스피드 증가.
+            dir *= speed;
 
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    zVelocity += speed * Time.deltaTime;
-                }
+            // 캐릭터 점프
+            if (Input.GetButton("Jump") && !isJumping)
+            {
+                isJumping = true;
+            }
 
-                dir.z = zVelocity;*/
-
-        /*        yVelocity += gravity * Time.deltaTime;
-
-                if (cc.collisionFlags == CollisionFlags.Below)
-                {
-                    yVelocity = 0;
-                }
-
-                dir.y = yVelocity;*/
-
-        if (NK_PlayerJump.Instance.isJumping)
-        {
-            //NK_PlayerJump.Instance.Jump(transform);
+            if (isJumping)
+            {
+                Jump();
+            }
         }
 
-        cc.SimpleMove(dir * speed);
+        // 캐릭터에 중력 적용.
+        dir.y -= gravity * Time.deltaTime;
+
+        // 캐릭터 움직임.
+        controller.Move(dir * Time.deltaTime);
+    }
+
+    public void Jump()
+    {
+        //y=-a*x+b에서 (a: 중력가속도, b: 초기 점프속도)
+        //적분하여 y = (-a/2)*x*x + (b*x) 공식을 얻는다.(x: 점프시간, y: 오브젝트의 높이)
+        //변화된 높이 height를 기존 높이 _posY에 더한다.
+        float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
+        dir.y = jumpSpeed + height;
+        //점프시간을 증가시킨다.
+        jumpTime += Time.deltaTime;
+
+        //처음의 높이 보다 더 내려 갔을때 => 점프전 상태로 복귀한다.
+        if (height < 0.0f)
+        {
+            isJumping = false;
+            jumpTime = 0.0f;
+        }
     }
 }
