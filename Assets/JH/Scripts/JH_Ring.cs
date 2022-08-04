@@ -12,18 +12,19 @@ using UnityEngine;
 // 링이 플레이어와 닿으면 +1
 public class JH_Ring : MonoBehaviour
 {
-    public GameObject target;
+    GameObject target;
     Rigidbody rigid;
-    JH_PlayerMove player;
-
-    float boosterDis = 5f;
+    NK_Booster player;
+    public float speed = 30f;
+    public float boosterDis = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.Find("Player");
         rigid = GetComponent<Rigidbody>();
         // Player의 스크립트를 가져온다.
-        player = target.GetComponent<JH_PlayerMove>();
+        player = target.GetComponent<NK_Booster>();
     }
 
     // Update is called once per frame

@@ -17,6 +17,9 @@ public class JH_CamManager : MonoBehaviour
     void Update()
     {
         // 플레이어를 따라 움직인다.
-        transform.position = player.transform.position;
+        transform.position = player.transform.position + new Vector3(0, 0, -3);
+        //transform.forward = player.transform.forward;
+        //transform.LookAt(player.transform.position);
+        transform.rotation = Quaternion.LookRotation(player.transform.forward);
     }
 }
