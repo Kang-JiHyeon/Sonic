@@ -33,6 +33,8 @@ public class NK_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SortEnemy();
+
         if (enemys.Count <= 0 && enemys != null)
         {
             return;
@@ -42,8 +44,6 @@ public class NK_Attack : MonoBehaviour
         {
             Attack();
         }
-
-        SortEnemy();
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -88,6 +88,21 @@ public class NK_Attack : MonoBehaviour
                 enemy = enemys[i];
                 shortDistance = distance;
             }
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        if (isAiming && rigid.CompareTag("Enemy"))
+        {
+            Destroy(enemy);
+            enemys.Remove(enemy);
+/*            if (enemys.Count > 0)
+            {
+                enemy = enemys[0];
+                SortEnemy();
+            }*/
         }
     }
 }
