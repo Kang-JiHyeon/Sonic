@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NK_ShuckShuck : MonoBehaviour
 {
+    public float speed = 3f;
+    CharacterController cc;
     Vector3 movement;
     float rightMax = 3.0f;
     float leftMax = -3.0f;
@@ -11,7 +13,8 @@ public class NK_ShuckShuck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cc = GetComponent<CharacterController>();
+        movement = cc.transform.position;
     }
 
     // Update is called once per frame
@@ -27,6 +30,6 @@ public class NK_ShuckShuck : MonoBehaviour
             movement = new Vector3(transform.position.x + rightMax, transform.position.y, transform.position.z);
         }
 
-        transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * 10f);
+        transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * speed);
     }
 }

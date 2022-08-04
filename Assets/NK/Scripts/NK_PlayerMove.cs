@@ -6,7 +6,9 @@ public class NK_PlayerMove : MonoBehaviour
 {
     public float speed = 5f;
     public float gravity = -20;
+    public bool isHorMode;
 
+    Vector3 dir;
     Vector3 movement;
     CharacterController cc;
     float zVelocity = 0;
@@ -31,26 +33,35 @@ public class NK_PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector3 dir = new Vector3(h, 0, v);
-
-/*        zVelocity = Mathf.Clamp(zVelocity, 0, 50);
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (isHorMode)
         {
-            zVelocity += speed * Time.deltaTime;
+            dir = Vector3.forward * h + Vector3.left * v;
+        }
+        else
+        {
+            dir = Vector3.right * h + Vector3.forward * v;
         }
 
-        dir.z = zVelocity;*/
+        transform.rotation = Quaternion.LookRotation(dir);
 
-/*        yVelocity += gravity * Time.deltaTime;
+        /*        zVelocity = Mathf.Clamp(zVelocity, 0, 50);
 
-        if (cc.collisionFlags == CollisionFlags.Below)
-        {
-            yVelocity = 0;
-        }
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    zVelocity += speed * Time.deltaTime;
+                }
 
-        dir.y = yVelocity;*/
+                dir.z = zVelocity;*/
 
-        cc.Move(dir * speed * Time.deltaTime);
+        /*        yVelocity += gravity * Time.deltaTime;
+
+                if (cc.collisionFlags == CollisionFlags.Below)
+                {
+                    yVelocity = 0;
+                }
+
+                dir.y = yVelocity;*/
+
+        cc.SimpleMove(dir * speed);
     }
 }
