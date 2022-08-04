@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NK_Booster : MonoBehaviour
 {
+    public GameObject booster;
     public float boostSpeed = 70f;
     public float boostTime = 5f;
     public bool isBooster = false;
