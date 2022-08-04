@@ -15,17 +15,16 @@ using UnityEngine;
 public class JH_Enemy : MonoBehaviour
 {
     // 이동 방향, 이동 거리
-    public GameObject target;
     Rigidbody rigid;
-    JH_PlayerMoveCC player;
-
+    public GameObject target;
+    NK_Booster player;
     Vector3 dir;
     Vector3 originPos;
     
-    public float moveDis;
-    public float angleY;
-    float boosterDis = 5f;
-    float force = 1000f;
+    public float moveDis = 15f;
+    public float angleY = 0.2f;
+    public float boosterDis = 5f;
+    public float speed = 50f;
     bool isHit = false;
 
 
@@ -35,8 +34,8 @@ public class JH_Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
-        // Player의 방향 설정 스크립트를 가져온다.
-        player = target.GetComponent<JH_PlayerMoveCC>();
+
+        player = target.GetComponent<NK_Booster>();
     }
 
     // Update is called once per frame
@@ -48,6 +47,8 @@ public class JH_Enemy : MonoBehaviour
             // 일정 거리 날라간 후 없어지고 싶다.
             if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
+
+                
                 Destroy(gameObject);
                 isHit = false;
             }
@@ -65,17 +66,18 @@ public class JH_Enemy : MonoBehaviour
     {
         // 적의 공격 당함 상태를 true로 만든다.
         isHit = true;
-
-        if (player)
+        
+        if (target)
         {
             // 적이 튕겨나갈 방향을 구하고 싶다.
             // 플레이어의 앞방향을 구한다.
-            dir = player.transform.forward;
+            dir = target.transform.forward;
             // y의 값만 변경한다.
             dir.y = angleY;
             dir.Normalize();
             // dir방향으로 힘을 가한다.
-            rigid.AddForce(dir * force);
+            rigid.velocity = dir * speed;
+
         }
     }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
@@ -85,9 +87,7 @@ public class JH_Enemy : MonoBehaviour
         // 부딪힌 대상이 Player이면
         if (other.gameObject.name.Contains("Player") && !isHit)
         {
-            // 적의 공격 당함 상태를 true로 만든다.
             Hit();
-            print("hit");
         }
 
         // 맵이랑 닿이면 없애고 싶다.
