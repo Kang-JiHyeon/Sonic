@@ -7,8 +7,8 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     public bool isAttack = false;
     public GameObject target;
-    float speed = 10f;
-    float boosterSpeed = 30f;
+    public float speed = 10f;
+    public float boosterSpeed = 30f;
 
     // NK_Booster¿« isBooster ¥Î√º
     public bool isBooster;

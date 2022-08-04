@@ -17,7 +17,7 @@ public class JH_Enemy : MonoBehaviour
     // 이동 방향, 이동 거리
     public GameObject target;
     Rigidbody rigid;
-    JH_PlayerMove player;
+    JH_PlayerMoveCC player;
 
     Vector3 dir;
     Vector3 originPos;
@@ -36,7 +36,7 @@ public class JH_Enemy : MonoBehaviour
         // 튕기기 전 위치
         originPos = transform.position;
         // Player의 방향 설정 스크립트를 가져온다.
-        player = target.GetComponent<JH_PlayerMove>();
+        player = target.GetComponent<JH_PlayerMoveCC>();
     }
 
     // Update is called once per frame
@@ -87,6 +87,7 @@ public class JH_Enemy : MonoBehaviour
         {
             // 적의 공격 당함 상태를 true로 만든다.
             Hit();
+            print("hit");
         }
 
         // 맵이랑 닿이면 없애고 싶다.
