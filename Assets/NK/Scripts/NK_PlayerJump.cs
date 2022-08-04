@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class NK_PlayerJump : MonoBehaviour
 {
-    private Transform _transform;
-    private bool isJumping;
-    private float posY;        //오브젝트의 초기 높이
-    private float gravity;     //중력가속도
-    private float jumpPower;   //점프력
-    private float jumpSpeed;
-    private float jumpTime;    //점프 이후 경과시간
+    CharacterController cc;
+    Transform _transform;
+    bool isJumping;
+    float posY;        //오브젝트의 초기 높이
+    float gravity;     //중력가속도
+    float jumpPower;   //점프력
+    float jumpSpeed;
+    float jumpTime;    //점프 이후 경과시간
 
     public static NK_PlayerJump Instance;
 
     void Start()
     {
+        cc = GetComponent<CharacterController>();
         Instance = this;
         _transform = transform;
         isJumping = false;
@@ -57,6 +59,7 @@ public class NK_PlayerJump : MonoBehaviour
         {
             isJumping = false;
             jumpTime = 0.0f;
+
             _transform.position = new Vector3(_transform.position.x, posY, _transform.position.z);
             _transform.eulerAngles = new Vector3(0, 0, 0);
         }

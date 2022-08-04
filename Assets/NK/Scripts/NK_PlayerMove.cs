@@ -51,6 +51,6 @@ public class NK_PlayerMove : MonoBehaviour
 
         dir.y = yVelocity;*/
 
-        cc.Move(dir * speed * Time.deltaTime);
+        cc.SimpleMove(dir * speed);
     }
 }

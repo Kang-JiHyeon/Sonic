@@ -21,6 +21,7 @@ public class NK_Booster : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            isBooster = true;
             NK_PlayerMove.Instance.speed = boostSpeed;
             Invoke("Initialization", boostTime);
         }
@@ -28,6 +29,7 @@ public class NK_Booster : MonoBehaviour
 
     void Initialization()
     {
+        isBooster = false;
         NK_PlayerMove.Instance.speed = normalSpeed;
     }
 }

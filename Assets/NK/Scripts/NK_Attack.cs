@@ -90,4 +90,19 @@ public class NK_Attack : MonoBehaviour
             }
         }
     }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        if (rigid.CompareTag("Enemy"))
+        {
+            Destroy(enemy);
+            enemys.Remove(enemy);
+            if (enemys.Count > 0)
+            {
+                enemy = enemys[0];
+                SortEnemy();
+            }
+        }
+    }
 }
