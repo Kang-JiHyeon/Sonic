@@ -22,6 +22,7 @@ public class NK_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         cc = GetComponent<CharacterController>();
     }
 
