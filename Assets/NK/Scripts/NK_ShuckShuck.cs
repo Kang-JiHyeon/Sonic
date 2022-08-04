@@ -6,6 +6,7 @@ public class NK_ShuckShuck : MonoBehaviour
 {
     public float speed = 3f;
     CharacterController cc;
+    TrailRenderer trailRenderer;
     Vector3 movement;
     float rightMax = 3.0f;
     float leftMax = -3.0f;
@@ -14,6 +15,8 @@ public class NK_ShuckShuck : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer.enabled = true;
         movement = cc.transform.position;
     }
 
