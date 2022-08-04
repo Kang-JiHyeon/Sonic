@@ -11,8 +11,6 @@ public class NK_PathFollower : MonoBehaviour
     RoadMeshCreator roadMeshCreator;
     public float distanceTravelled;
 
-
-
     void Start()
     {
 

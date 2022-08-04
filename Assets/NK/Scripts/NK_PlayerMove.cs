@@ -62,6 +62,11 @@ public class NK_PlayerMove : MonoBehaviour
 
                 dir.y = yVelocity;*/
 
+        if (NK_PlayerJump.Instance.isJumping)
+        {
+            //NK_PlayerJump.Instance.Jump(transform);
+        }
+
         cc.SimpleMove(dir * speed);
     }
 }

@@ -6,7 +6,7 @@ public class NK_PlayerJump : MonoBehaviour
 {
     CharacterController cc;
     Transform _transform;
-    bool isJumping;
+    public bool isJumping;
     float posY;        //오브젝트의 초기 높이
     float gravity;     //중력가속도
     float jumpPower;   //점프력
