@@ -33,8 +33,6 @@ public class NK_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SortEnemy();
-
         if (enemys.Count <= 0 && enemys != null)
         {
             return;
@@ -49,6 +47,7 @@ public class NK_Attack : MonoBehaviour
         {
             if (!isAiming)
             {
+                SortEnemy();
                 aim.transform.position = enemy.transform.position;
                 aim.SetActive(true);
                 isAiming = true;
@@ -74,6 +73,7 @@ public class NK_Attack : MonoBehaviour
     private void Attack()
     {
         Vector3 dir = enemy.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(dir);
         cc.Move(dir * attackSpeed * Time.deltaTime);
     }
 
@@ -96,7 +96,7 @@ public class NK_Attack : MonoBehaviour
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
         if (isAiming && rigid.CompareTag("Enemy"))
         {
-            Destroy(enemy);
+            //Destroy(enemy);
             enemys.Remove(enemy);
 /*            if (enemys.Count > 0)
             {
