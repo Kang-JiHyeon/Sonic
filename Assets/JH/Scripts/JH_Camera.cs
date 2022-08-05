@@ -44,7 +44,6 @@ public class JH_Camera : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 isVertical = true;
-                playerScript.isHorMode = false;
             }
 
         }
@@ -53,7 +52,6 @@ public class JH_Camera : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 isHorizontal = true;
-                playerScript.isHorMode = true; 
             }
         }
 
