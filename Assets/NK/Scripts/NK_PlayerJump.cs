@@ -6,8 +6,6 @@ public class NK_PlayerJump : MonoBehaviour
 {
     float jumpSpeed;
 
-    public static NK_PlayerJump Instance;
-
     void Start()
     {
         jumpSpeed = 10.0f;
@@ -21,7 +19,7 @@ public class NK_PlayerJump : MonoBehaviour
         }
         else
         {
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            transform.eulerAngles = Vector3.zero;
         }
     }
 }

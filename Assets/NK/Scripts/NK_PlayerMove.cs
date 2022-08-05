@@ -8,9 +8,9 @@ public class NK_PlayerMove : MonoBehaviour
     public float jumpSpeed; // 캐릭터 점프 힘.
     public float gravity;    // 캐릭터에게 작용하는 중력.
     public bool isJumping;
+    public CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
 
-    private CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
-    private Vector3 dir;                // 캐릭터의 움직이는 방향.
+    Vector3 dir;                // 캐릭터의 움직이는 방향.
     float jumpPower;   //점프력
     float jumpTime;    //점프 이후 경과시간
 
@@ -24,7 +24,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 20.0f;
+        jumpPower = 30.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;

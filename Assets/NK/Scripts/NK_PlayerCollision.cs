@@ -7,10 +7,12 @@ public class NK_PlayerCollision : MonoBehaviour
     public GameObject coinFactory;
     public int coinCount = 10;
     List<GameObject> coins = new List<GameObject>();
+    CharacterController cc;
     Vector3 impact = Vector3.zero;
 
     private void Start()
     {
+        cc = GetComponent<CharacterController>();
         for (int i = 0; i < coinCount; i++)
         {
             GameObject coin = Instantiate(coinFactory);
@@ -28,14 +30,15 @@ public class NK_PlayerCollision : MonoBehaviour
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
         if (rigid.CompareTag("Wall"))
         {
-            Vector3 dir = Vector3.up + transform.position - rigid.gameObject.transform.position;
-            AddImpact(dir, 5f);
+            Vector3 dir = transform.position - rigid.gameObject.transform.position;
+            //AddImpact(dir, 5f);
+            cc.SimpleMove(dir);
             
             foreach (GameObject coin in coins)
             {
                 coin.transform.position = transform.position + new Vector3(0, 2, 0);
                 coin.SetActive(true);
-                coin.transform.position += Vector3.back * 1f * Time.deltaTime;
+                coin.transform.position += Vector3.up * 1f * Time.deltaTime;
             }
         }
     }

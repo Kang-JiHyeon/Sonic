@@ -8,18 +8,26 @@ public class NK_PathFollower : MonoBehaviour
     public PathCreator pathCreator;
     public EndOfPathInstruction endOfPathInstruction;
     public float speed = 5;
-    RoadMeshCreator roadMeshCreator;
     public float distanceTravelled;
+
+    RoadMeshCreator roadMeshCreator;
+    NK_PlayerMove playerMove;
+    NK_PlayerJump playerJump;
 
     void Start()
     {
-
+        playerMove = GetComponent<NK_PlayerMove>();
+        GameObject player = transform.GetChild(0).gameObject;
+        playerJump = player.GetComponent<NK_PlayerJump>();
     }
 
     void Update()
     {
         if (pathCreator != null)
         {
+            playerMove.enabled = false;
+            playerJump.enabled = false;
+
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);

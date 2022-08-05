@@ -33,8 +33,13 @@ public class NK_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemys.Count <= 0 && enemy == null)
+        if (enemy == null)
         {
+            Initialization();
+            if (enemys.Count > 0)
+            {
+                enemy = enemys[0];
+            }
             return;
         }
 
@@ -43,7 +48,7 @@ public class NK_Attack : MonoBehaviour
             Attack();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (!isAiming)
             {
@@ -60,21 +65,26 @@ public class NK_Attack : MonoBehaviour
                 }
                 else
                 {
-                    currentTime = 0;
-                    isAiming = false;
-                    isAttack = false;
-                    aim.SetActive(false);
+                    Initialization();
                 }
                 currentTime += Time.deltaTime;
             }
         }
     }
 
+    private void Initialization()
+    {
+        currentTime = 0;
+        isAiming = false;
+        isAttack = false;
+        aim.SetActive(false);
+    }
+
     private void Attack()
     {
-        Vector3 dir = enemy.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(dir);
+        Vector3 dir = aim.transform.position - transform.position;
         cc.Move(dir * attackSpeed * Time.deltaTime);
+        enemys.Remove(enemy);
     }
 
     private void SortEnemy()
@@ -88,21 +98,6 @@ public class NK_Attack : MonoBehaviour
                 enemy = enemys[i];
                 shortDistance = distance;
             }
-        }
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
-        if (isAiming && rigid.CompareTag("Enemy"))
-        {
-            //Destroy(enemy);
-            enemys.Remove(enemy);
-/*            if (enemys.Count > 0)
-            {
-                enemy = enemys[0];
-                SortEnemy();
-            }*/
         }
     }
 }

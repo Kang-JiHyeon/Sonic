@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class NK_Booster : MonoBehaviour
 {
-    public GameObject booster;
+    public GameObject boosterFactory;
     public float boostSpeed = 70f;
     public float boostTime = 5f;
     public bool isBooster = false;
 
+    GameObject booster;
     float normalSpeed;
 
     // Start is called before the first frame update
@@ -24,7 +25,13 @@ public class NK_Booster : MonoBehaviour
         {
             isBooster = true;
             NK_PlayerMove.Instance.speed = boostSpeed;
+            booster = Instantiate(boosterFactory);
             Invoke("Initialization", boostTime);
+        }
+
+        if (booster != null)
+        {
+            booster.transform.position = transform.position;
         }
     }
 
