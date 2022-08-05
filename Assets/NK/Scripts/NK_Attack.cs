@@ -33,7 +33,7 @@ public class NK_Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemys.Count <= 0 && enemys != null)
+        if (enemys.Count <= 0 && enemy == null)
         {
             return;
         }
