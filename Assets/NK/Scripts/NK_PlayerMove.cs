@@ -24,7 +24,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 15.0f;
+        jumpPower = 20.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
