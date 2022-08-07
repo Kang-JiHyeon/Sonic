@@ -8,7 +8,7 @@ public class NK_PlayerJump : MonoBehaviour
 
     void Start()
     {
-        jumpSpeed = 10.0f;
+        jumpSpeed = 30.0f;
     }
 
     void Update()
