@@ -31,8 +31,7 @@ public class JH_PlayerMove : MonoBehaviour
         dir = Vector3.zero;
         controller = GetComponent<CharacterController>();
     }
-
-    void Update()
+    private void FixedUpdate()
     {
         // 현재 캐릭터가 땅에 있는가?
         if (controller.isGrounded)
@@ -41,10 +40,8 @@ public class JH_PlayerMove : MonoBehaviour
             // 위, 아래 움직임 셋팅. 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
+            transform.rotation = Quaternion.LookRotation(dir);
             dir = Camera.main.transform.TransformDirection(dir);
-
-
-            //transform.rotation = Quaternion.LookRotation(dir);
 
             // 스피드 증가.
             dir *= speed;
@@ -67,6 +64,39 @@ public class JH_PlayerMove : MonoBehaviour
         // 캐릭터 움직임.
         controller.Move(dir * Time.deltaTime);
     }
+    //void Update()
+    //{
+    //    // 현재 캐릭터가 땅에 있는가?
+    //    if (controller.isGrounded)
+    //    {
+    //        isJumping = false;
+    //        // 위, 아래 움직임 셋팅. 
+    //        dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+    //        transform.rotation = Quaternion.LookRotation(dir);
+    //        dir = Camera.main.transform.TransformDirection(dir);
+
+    //        // 스피드 증가.
+    //        dir *= speed;
+
+    //        // 캐릭터 점프
+    //        if (Input.GetButton("Jump") && !isJumping)
+    //        {
+    //            isJumping = true;
+    //        }
+
+    //        if (isJumping)
+    //        {
+    //            Jump();
+    //        }
+    //    }
+
+    //    // 캐릭터에 중력 적용.
+    //    dir.y -= gravity * Time.deltaTime;
+
+    //    // 캐릭터 움직임.
+    //    controller.Move(dir * Time.deltaTime);
+    ////}
 
     public void Jump()
     {

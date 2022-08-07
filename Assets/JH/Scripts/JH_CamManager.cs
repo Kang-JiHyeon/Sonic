@@ -8,8 +8,19 @@ public class JH_CamManager : MonoBehaviour
 {
     JH_PlayerMove player;
     public Vector3 offset;
+    Vector3 dir;
     float dirX, dirY;
+    float spinSpeed = 2f;
     // Start is called before the first frame update
+    public static JH_CamManager Instance;
+
+
+    //public Transform curvePos;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<JH_PlayerMove>();
@@ -18,13 +29,8 @@ public class JH_CamManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 플레이어를 따라 움직인다.
-        transform.position = player.transform.position + offset;
+        transform.position = player.transform.position;
 
-        ////dirX = Mathf.Clamp(player.dir.x, -60, 60);
-        //dirY = Mathf.Clamp(player.dir.y, -60, 60);
-        //transform.rotation = Quaternion.LookRotation(new Vector3(player.dir.x, dirY, player.dir.z).normalized);
-        //transform.LookAt(player.transform.position);
     }
 }
 
