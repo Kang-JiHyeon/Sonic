@@ -18,7 +18,9 @@ public class NK_PathFollower : MonoBehaviour
     {
         playerMove = GetComponent<NK_PlayerMove>();
         GameObject player = transform.GetChild(1).gameObject;
-       playerJump = player.GetComponent<NK_PlayerJump>();
+        playerJump = player.GetComponent<NK_PlayerJump>();
+
+
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            playerJump.enabled = false;
+            //playerJump.enabled = false;
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
