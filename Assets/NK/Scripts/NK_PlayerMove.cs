@@ -24,7 +24,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 30.0f;
+        jumpPower = 20.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
@@ -41,8 +41,6 @@ public class NK_PlayerMove : MonoBehaviour
             // 위, 아래 움직임 셋팅. 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            transform.rotation = Quaternion.LookRotation(dir);
-
             // 스피드 증가.
             dir *= speed;
 
@@ -58,11 +56,13 @@ public class NK_PlayerMove : MonoBehaviour
             }
         }
 
+        transform.rotation = Quaternion.LookRotation(dir);
+
         // 캐릭터에 중력 적용.
         dir.y -= gravity * Time.deltaTime;
 
         // 캐릭터 움직임.
-        controller.SimpleMove(dir);
+        controller.Move(dir * Time.deltaTime);
     }
 
     public void Jump()

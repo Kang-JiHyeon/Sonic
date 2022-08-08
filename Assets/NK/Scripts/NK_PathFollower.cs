@@ -7,7 +7,7 @@ public class NK_PathFollower : MonoBehaviour
 {
     public PathCreator pathCreator;
     public EndOfPathInstruction endOfPathInstruction;
-    public float speed = 5;
+    public float speed = 20;
     public float distanceTravelled;
 
     RoadMeshCreator roadMeshCreator;
@@ -19,8 +19,6 @@ public class NK_PathFollower : MonoBehaviour
         playerMove = GetComponent<NK_PlayerMove>();
         GameObject player = transform.GetChild(1).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();
-
-
     }
 
     void Update()
@@ -28,7 +26,7 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            //playerJump.enabled = false;
+            playerJump.enabled = false;
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
@@ -36,6 +34,13 @@ public class NK_PathFollower : MonoBehaviour
             transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
             transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction), 
                 pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
+
+            if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
+            {
+                pathCreator = null;
+                playerMove.enabled = true;
+                playerJump.enabled = true;
+            }
         }
     }
 
