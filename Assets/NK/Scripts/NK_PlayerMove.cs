@@ -24,7 +24,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 20.0f;
+        jumpPower = 30.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
@@ -32,7 +32,7 @@ public class NK_PlayerMove : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 현재 캐릭터가 땅에 있는가?
         if (controller.isGrounded)

@@ -38,6 +38,7 @@ public class NK_PathFollower : MonoBehaviour
             if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
             {
                 pathCreator = null;
+                distanceTravelled = 0;
                 playerMove.enabled = true;
                 playerJump.enabled = true;
             }
