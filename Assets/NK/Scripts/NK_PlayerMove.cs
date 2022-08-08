@@ -62,7 +62,7 @@ public class NK_PlayerMove : MonoBehaviour
         dir.y -= gravity * Time.deltaTime;
 
         // 캐릭터 움직임.
-        controller.Move(dir * Time.deltaTime);
+        controller.SimpleMove(dir);
     }
 
     public void Jump()
