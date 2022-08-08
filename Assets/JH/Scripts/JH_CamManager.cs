@@ -6,7 +6,7 @@ using UnityEngine;
 // 필요속성: 플레이어
 public class JH_CamManager : MonoBehaviour
 {
-    JH_PlayerMove player;
+    NK_PlayerMove player;
     public Vector3 offset;
     Vector3 dir;
     float dirX, dirY;
@@ -23,7 +23,7 @@ public class JH_CamManager : MonoBehaviour
     }
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<JH_PlayerMove>();
+        player = GameObject.Find("Player").GetComponent<NK_PlayerMove>();
     }
 
     // Update is called once per frame

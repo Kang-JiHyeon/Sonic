@@ -16,7 +16,7 @@ public class JH_Enemy : MonoBehaviour
 {
     // 이동 방향, 이동 거리
     Rigidbody rigid;
-    public GameObject target;
+    GameObject target;
     NK_Booster player;
     Vector3 dir;
     Vector3 originPos;
@@ -34,7 +34,7 @@ public class JH_Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
-
+        target = GameObject.Find("Player");
         player = target.GetComponent<NK_Booster>();
     }
 
@@ -47,8 +47,6 @@ public class JH_Enemy : MonoBehaviour
             // 일정 거리 날라간 후 없어지고 싶다.
             if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
-
-                
                 Destroy(gameObject);
                 isHit = false;
             }

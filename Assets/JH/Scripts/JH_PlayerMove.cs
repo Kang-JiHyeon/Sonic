@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class JH_PlayerMove : MonoBehaviour
 {
-    public float speed = 10f;      // 캐릭터 움직임 스피드.
+    public float speed = 70f;      // 캐릭터 움직임 스피드.
     public float jumpSpeed; // 캐릭터 점프 힘.
     public float gravity;    // 캐릭터에게 작용하는 중력.
     public bool isJumping;
+    public CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
+    public bool isJumpBlock = false;
 
-    private CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
-    public Vector3 dir;                // 캐릭터의 움직이는 방향.
+    Vector3 dir;                // 캐릭터의 움직이는 방향.
     float jumpPower;   //점프력
     float jumpTime;    //점프 이후 경과시간
 
@@ -23,15 +24,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Start()
     {
-        jumpSpeed = 10.0f;
-        jumpPower = 15.0f;
+        jumpSpeed = 15.0f;
+        jumpPower = 30.0f;
         jumpTime = 0.0f;
-        gravity = 20.0f;
+        gravity = 5.0f;
         isJumping = false;
         dir = Vector3.zero;
         controller = GetComponent<CharacterController>();
     }
-    private void FixedUpdate()
+
+    void Update()
     {
         // 현재 캐릭터가 땅에 있는가?
         if (controller.isGrounded)
@@ -41,21 +43,20 @@ public class JH_PlayerMove : MonoBehaviour
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
             transform.rotation = Quaternion.LookRotation(dir);
-            dir = Camera.main.transform.TransformDirection(dir);
 
             // 스피드 증가.
             dir *= speed;
 
             // 캐릭터 점프
-            if (Input.GetButton("Jump") && !isJumping)
+            if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
                 isJumping = true;
             }
-
             if (isJumping)
             {
                 Jump();
             }
+
         }
 
         // 캐릭터에 중력 적용.
@@ -64,39 +65,6 @@ public class JH_PlayerMove : MonoBehaviour
         // 캐릭터 움직임.
         controller.Move(dir * Time.deltaTime);
     }
-    //void Update()
-    //{
-    //    // 현재 캐릭터가 땅에 있는가?
-    //    if (controller.isGrounded)
-    //    {
-    //        isJumping = false;
-    //        // 위, 아래 움직임 셋팅. 
-    //        dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-    //        transform.rotation = Quaternion.LookRotation(dir);
-    //        dir = Camera.main.transform.TransformDirection(dir);
-
-    //        // 스피드 증가.
-    //        dir *= speed;
-
-    //        // 캐릭터 점프
-    //        if (Input.GetButton("Jump") && !isJumping)
-    //        {
-    //            isJumping = true;
-    //        }
-
-    //        if (isJumping)
-    //        {
-    //            Jump();
-    //        }
-    //    }
-
-    //    // 캐릭터에 중력 적용.
-    //    dir.y -= gravity * Time.deltaTime;
-
-    //    // 캐릭터 움직임.
-    //    controller.Move(dir * Time.deltaTime);
-    ////}
 
     public void Jump()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class NK_Booster : MonoBehaviour
 {
     public GameObject boosterFactory;
-    public float boostSpeed = 70f;
+    public float boostSpeed = 50f;
     public float boostTime = 5f;
     public bool isBooster = false;
 
@@ -24,8 +24,12 @@ public class NK_Booster : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isBooster = true;
+        }
+
+        if (isBooster)
+        {
             NK_PlayerMove.Instance.speed = boostSpeed;
-            booster = Instantiate(boosterFactory);
+            //booster = Instantiate(boosterFactory);
             Invoke("Initialization", boostTime);
         }
 
