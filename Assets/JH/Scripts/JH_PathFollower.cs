@@ -37,7 +37,7 @@ public class JH_PathFollower : MonoBehaviour
 		targetPoint = pathList[listIndex].GetChild(childIndex);
 		speed = new float[pathList.Count];
 		speed[0] = 30f;
-		speed[1] = 30f;
+		speed[1] = 27f;
 
 
 	}

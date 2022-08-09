@@ -38,7 +38,6 @@ public class NK_PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        camDir = Camera.main.transform.TransformDirection(camDir);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
         if (controller.isGrounded)
@@ -46,6 +45,7 @@ public class NK_PlayerMove : MonoBehaviour
             isJumping = false;
 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            dir = Camera.main.transform.TransformDirection(dir);
 
             dir *= speed;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
