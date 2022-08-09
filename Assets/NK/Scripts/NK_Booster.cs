@@ -16,12 +16,14 @@ public class NK_Booster : MonoBehaviour
     void Start()
     {
         normalSpeed = NK_PlayerMove.Instance.speed;
+        booster = Instantiate(boosterFactory);
+        booster.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             isBooster = true;
         }
@@ -29,7 +31,7 @@ public class NK_Booster : MonoBehaviour
         if (isBooster)
         {
             NK_PlayerMove.Instance.speed = boostSpeed;
-            //booster = Instantiate(boosterFactory);
+            booster.SetActive(true);
             Invoke("Initialization", boostTime);
         }
 

@@ -41,7 +41,7 @@ public class NK_PathFollower : MonoBehaviour
             {
                 pathCreator = null;
                 distanceTravelled = 0;
-                //NK_PlayerMove.Instance.dir = Vector3.zero;
+                NK_PlayerMove.Instance.dir = Vector3.zero;
                 playerMove.enabled = true;
                 //playerJump.enabled = true;
             }
