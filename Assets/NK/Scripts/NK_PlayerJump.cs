@@ -15,9 +15,8 @@ public class NK_PlayerJump : MonoBehaviour
     {
         if (NK_PlayerMove.Instance.isJumping)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(Vector3.forward), 0.2f);
-            transform.position -= transform.forward * Time.deltaTime * jumpSpeed;
+            Vector3 dir = transform.root.forward;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
         }
         else
         {

@@ -14,7 +14,8 @@ public class NK_PlayerMove : MonoBehaviour
     public bool isJumpBlock;        // ���� ���� Ʈ����
 
     Vector3 look = Vector3.forward;
-    Vector3 dir;                // ĳ������ �����̴� ����.
+    public Vector3 dir = Vector3.zero;
+    Vector3 camDir;
     float jumpTime;    //���� ���� �����ð�
 
     public static NK_PlayerMove Instance;
@@ -27,32 +28,28 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 40.0f;
+        jumpPower = 15;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
-        dir = Vector3.zero;
         controller = GetComponent<CharacterController>();
+        transform.localEulerAngles = Vector3.zero;
     }
 
     void FixedUpdate()
     {
-        // ���� ĳ���Ͱ� ���� �ִ°�?
+        camDir = Camera.main.transform.TransformDirection(camDir);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
         if (controller.isGrounded)
         {
-            dir = Vector3.zero;
-
             isJumping = false;
-            // ��, �Ʒ� ������ ����.
+
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            // ī�޶� �ٶ󺸴� ������ �չ������� �ϰ��ʹ�.
-            dir = Camera.main.transform.TransformDirection(dir);
 
-
-            // ���ǵ� ����.
             dir *= speed;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
-            // ĳ���� ����
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
                 isJumping = true;
@@ -60,7 +57,7 @@ public class NK_PlayerMove : MonoBehaviour
 
             if (isJumping)
             {
-                Jump();
+                dir.y = jumpPower;
             }
         }
 
@@ -69,8 +66,6 @@ public class NK_PlayerMove : MonoBehaviour
         {
             look = dir;
         }
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
         // ĳ���Ϳ� �߷� ����.
         dir.y -= gravity * Time.deltaTime;

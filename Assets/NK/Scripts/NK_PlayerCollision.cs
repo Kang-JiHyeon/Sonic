@@ -45,6 +45,11 @@ public class NK_PlayerCollision : MonoBehaviour
                 }
             }
 
+            if (rigid.CompareTag("Enemy"))
+            {
+                rigid.gameObject.SetActive(false);
+            }
+
         }
     }
 
