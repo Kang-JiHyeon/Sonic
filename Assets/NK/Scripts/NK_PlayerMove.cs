@@ -10,6 +10,7 @@ public class NK_PlayerMove : MonoBehaviour
     public bool isJumping;
     public CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
 
+    Vector3 look = Vector3.forward;
     Vector3 dir;                // 캐릭터의 움직이는 방향.
     float jumpPower;   //점프력
     float jumpTime;    //점프 이후 경과시간
@@ -56,7 +57,12 @@ public class NK_PlayerMove : MonoBehaviour
             }
         }
 
-        transform.rotation = Quaternion.LookRotation(dir);
+        if (dir != Vector3.zero)
+        {
+            look = dir;
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
         // 캐릭터에 중력 적용.
         dir.y -= gravity * Time.deltaTime;
