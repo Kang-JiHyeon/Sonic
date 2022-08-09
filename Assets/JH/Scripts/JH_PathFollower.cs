@@ -38,6 +38,7 @@ public class JH_PathFollower : MonoBehaviour
 			index = 0;
         }
 
+		// 커브
         if (isCameraMove)
         {
 			transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
@@ -46,10 +47,10 @@ public class JH_PathFollower : MonoBehaviour
 			if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
 			{
 				index++;
-                //index %= pathParent.childCount;
                 targetPoint = pathParent.GetChild(index);
 			}
         }
+		// 직선
         else
         {
 			transform.position = Vector3.Lerp(transform.position, player.position, speed * Time.deltaTime);
@@ -57,10 +58,8 @@ public class JH_PathFollower : MonoBehaviour
 	}
     private void OnTriggerEnter(Collider other)
     {
-		print("tigger : " + other.name);
         if (other.gameObject.name.Contains("CurveTrigger"))
         {
-			print("tigger??? : " + other.name);
 			isCameraMove = true;
 		}
     }

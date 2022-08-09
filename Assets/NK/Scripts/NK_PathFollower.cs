@@ -7,7 +7,7 @@ public class NK_PathFollower : MonoBehaviour
 {
     public PathCreator pathCreator;
     public EndOfPathInstruction endOfPathInstruction;
-    public float speed = 5;
+    public float speed = 20;
     public float distanceTravelled;
 
     RoadMeshCreator roadMeshCreator;
@@ -19,8 +19,6 @@ public class NK_PathFollower : MonoBehaviour
         playerMove = GetComponent<NK_PlayerMove>();
         GameObject player = transform.GetChild(1).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();
-
-
     }
 
     void Update()
@@ -28,14 +26,22 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            //playerJump.enabled = false;
+            playerJump.enabled = false;
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
             transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
-            transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction), 
+            transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction),
                 pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
+
+            if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
+            {
+                pathCreator = null;
+                distanceTravelled = 0;
+                playerMove.enabled = true;
+                playerJump.enabled = true;
+            }
         }
     }
 
@@ -49,18 +55,12 @@ public class NK_PathFollower : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
-
-        if (rigid)
+        if (rigid.CompareTag("Rollercoaster"))
         {
-            if (rigid.CompareTag("Rollercoaster"))
-            {
-                pathCreator = rigid.GetComponent<PathCreator>();
-                roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
-                // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
-                pathCreator.pathUpdated += OnPathChanged;
-            }
-
+            pathCreator = rigid.GetComponent<PathCreator>();
+            roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
+            // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
+            pathCreator.pathUpdated += OnPathChanged;
         }
     }
 }
-
