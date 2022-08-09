@@ -62,7 +62,7 @@ public class NK_Attack : MonoBehaviour
 
             if (!isAiming)
             {
-                aim.transform.position = enemy.transform.position;
+                aim.transform.position = enemy.transform.position + new Vector3(0,1.5f,0);
                 aim.SetActive(true);
                 isAiming = true;
             }
@@ -91,6 +91,7 @@ public class NK_Attack : MonoBehaviour
 
     private void Attack()
     {
+        aim.SetActive(false);
         Vector3 dir = aim.transform.position - transform.position;
         cc.Move(dir * attackSpeed * Time.deltaTime);
         enemys.Remove(enemy);
@@ -115,6 +116,5 @@ public class NK_Attack : MonoBehaviour
                 shortDistance = distance;
             }
         }
-        print(enemy);
     }
 }

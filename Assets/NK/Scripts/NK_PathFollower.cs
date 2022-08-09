@@ -28,23 +28,22 @@ public class NK_PathFollower : MonoBehaviour
         {
             playerMove.enabled = false;
             //playerJump.enabled = false;
-            player.transform.localEulerAngles = new Vector3(0, 0, 90);
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
             //transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction),
             //    pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
+            transform.Rotate(0, 0, 90);
             //transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
 
             if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
             {
                 pathCreator = null;
                 distanceTravelled = 0;
-                NK_PlayerMove.Instance.dir = Vector3.zero;
+                //NK_PlayerMove.Instance.dir = Vector3.zero;
                 playerMove.enabled = true;
                 //playerJump.enabled = true;
-                player.transform.localEulerAngles = new Vector3(0, 0, 0);
             }
         }
     }
@@ -59,12 +58,15 @@ public class NK_PathFollower : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
-        if (rigid.CompareTag("Rollercoaster"))
+        if (rigid)
         {
-            pathCreator = rigid.GetComponent<PathCreator>();
-            roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
-            // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
-            pathCreator.pathUpdated += OnPathChanged;
+            if (rigid.CompareTag("Rollercoaster"))
+            {
+                pathCreator = rigid.GetComponent<PathCreator>();
+                roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
+                // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
+                pathCreator.pathUpdated += OnPathChanged;
+            }
         }
     }
 }
