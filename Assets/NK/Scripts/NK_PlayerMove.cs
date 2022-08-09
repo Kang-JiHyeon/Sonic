@@ -5,18 +5,18 @@ using UnityEngine;
 public class NK_PlayerMove : MonoBehaviour
 {
 
-    public float speed = 10f;   // ĳ���� ������ ���ǵ�.
-    public float jumpSpeed;     // ĳ���� ���� ��.
-    public float jumpPower;   //������
-    public float gravity;       // ĳ���Ϳ��� �ۿ��ϴ� �߷�.
+    public float speed = 10f;
+    public float jumpSpeed;
+    public float jumpPower;
+    public float gravity;
     public bool isJumping;
-    public CharacterController controller;  // ���� ĳ���Ͱ� �������ִ� ĳ���� ��Ʈ�ѷ� �ݶ��̴�.
-    public bool isJumpBlock;        // ���� ���� Ʈ����
+    public CharacterController controller;
+    public bool isJumpBlock;
 
     Vector3 look = Vector3.forward;
     public Vector3 dir = Vector3.zero;
     Vector3 camDir;
-    float jumpTime;    //���� ���� �����ð�
+/*    float jumpTime;    //���� ���� �����ð�*/
 
     public static NK_PlayerMove Instance;
 
@@ -29,7 +29,7 @@ public class NK_PlayerMove : MonoBehaviour
     {
         jumpSpeed = 10.0f;
         jumpPower = 15;
-        jumpTime = 0.0f;
+        //jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
         controller = GetComponent<CharacterController>();
@@ -61,20 +61,17 @@ public class NK_PlayerMove : MonoBehaviour
             }
         }
 
-
         if (dir != Vector3.zero)
         {
             look = dir;
         }
 
-        // ĳ���Ϳ� �߷� ����.
         dir.y -= gravity * Time.deltaTime;
 
-        // ĳ���� ������.
         controller.Move(dir * Time.deltaTime);
     }
 
-    public void Jump()
+/*    public void Jump()
     {
         //y=-a*x+b���� (a: �߷°��ӵ�, b: �ʱ� �����ӵ�)
         //�����Ͽ� y = (-a/2)*x*x + (b*x) ������ ���´�.(x: �����ð�, y: ������Ʈ�� ����)
@@ -90,5 +87,5 @@ public class NK_PlayerMove : MonoBehaviour
             isJumping = false;
             jumpTime = 0.0f;
         }
-    }
+    }*/
 }
