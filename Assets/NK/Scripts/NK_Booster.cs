@@ -16,8 +16,6 @@ public class NK_Booster : MonoBehaviour
     void Start()
     {
         normalSpeed = NK_PlayerMove.Instance.speed;
-        booster = Instantiate(boosterFactory);
-        booster.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,6 +41,8 @@ public class NK_Booster : MonoBehaviour
 
     void Initialization()
     {
+        booster = Instantiate(boosterFactory);
+        booster.SetActive(false);
         isBooster = false;
         NK_PlayerMove.Instance.speed = normalSpeed;
     }
