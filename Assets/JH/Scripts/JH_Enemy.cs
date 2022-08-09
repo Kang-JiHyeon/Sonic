@@ -48,6 +48,7 @@ public class JH_Enemy : MonoBehaviour
             if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
                 Destroy(gameObject);
+                NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
             }
         }
@@ -75,7 +76,6 @@ public class JH_Enemy : MonoBehaviour
             dir.Normalize();
             // dir방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
-
         }
     }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.

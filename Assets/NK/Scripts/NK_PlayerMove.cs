@@ -7,6 +7,7 @@ public class NK_PlayerMove : MonoBehaviour
 
     public float speed = 10f;   // ĳ���� ������ ���ǵ�.
     public float jumpSpeed;     // ĳ���� ���� ��.
+    public float jumpPower;   //������
     public float gravity;       // ĳ���Ϳ��� �ۿ��ϴ� �߷�.
     public bool isJumping;
     public CharacterController controller;  // ���� ĳ���Ͱ� �������ִ� ĳ���� ��Ʈ�ѷ� �ݶ��̴�.
@@ -14,7 +15,6 @@ public class NK_PlayerMove : MonoBehaviour
 
     Vector3 look = Vector3.forward;
     Vector3 dir;                // ĳ������ �����̴� ����.
-    float jumpPower;   //������
     float jumpTime;    //���� ���� �����ð�
 
     public static NK_PlayerMove Instance;
@@ -27,7 +27,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         jumpSpeed = 10.0f;
-        jumpPower = 30.0f;
+        jumpPower = 40.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
@@ -40,6 +40,8 @@ public class NK_PlayerMove : MonoBehaviour
         // ���� ĳ���Ͱ� ���� �ִ°�?
         if (controller.isGrounded)
         {
+            dir = Vector3.zero;
+
             isJumping = false;
             // ��, �Ʒ� ������ ����.
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

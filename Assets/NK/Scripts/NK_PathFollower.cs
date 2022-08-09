@@ -13,12 +13,13 @@ public class NK_PathFollower : MonoBehaviour
     RoadMeshCreator roadMeshCreator;
     NK_PlayerMove playerMove;
     NK_PlayerJump playerJump;
+    GameObject player;
 
     void Start()
     {
         playerMove = GetComponent<NK_PlayerMove>();
-        GameObject player = transform.GetChild(1).gameObject;
-        playerJump = player.GetComponent<NK_PlayerJump>();
+        player = transform.GetChild(0).gameObject;
+        //playerJump = player.GetComponent<NK_PlayerJump>();
     }
 
     void Update()
@@ -26,21 +27,23 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            playerJump.enabled = false;
+            //playerJump.enabled = false;
+            player.transform.localEulerAngles = new Vector3(0, 0, 90);
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
+            //transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction),
+            //    pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
             transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
-            transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
-            transform.up = Vector3.Cross(pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction),
-                pathCreator.path.GetNormalAtDistance(distanceTravelled, endOfPathInstruction));
+            //transform.forward = pathCreator.path.GetDirectionAtDistance(distanceTravelled, endOfPathInstruction);
 
             if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
             {
                 pathCreator = null;
                 distanceTravelled = 0;
                 playerMove.enabled = true;
-                playerJump.enabled = true;
+                //playerJump.enabled = true;
+                player.transform.localEulerAngles = new Vector3(0, 0, 0);
             }
         }
     }

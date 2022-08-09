@@ -16,13 +16,21 @@ public class NK_Attack : MonoBehaviour
     bool isAiming = false;
     bool isAttack = false;
     GameObject aim;
+
+    public static NK_Attack Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
 
         enemys = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-        shortDistance = Vector3.Distance(gameObject.transform.position, enemys[0].transform.position);
+        shortDistance = float.MaxValue;
 
         enemy = enemys[0];
 
@@ -38,7 +46,6 @@ public class NK_Attack : MonoBehaviour
             Initialization();
             if (enemys.Count > 0)
             {
-                //enemy = enemys[0];
                 SortEnemy();
             }
             return;
@@ -91,6 +98,13 @@ public class NK_Attack : MonoBehaviour
 
     private void SortEnemy()
     {
+        shortDistance = float.MaxValue;
+
+        if (enemy == null)
+        {
+            enemy = enemys[0];
+        }
+
         for (int i = 0; i < enemys.Count; i++)
         {
             float distance = Vector3.Distance(transform.position, enemys[i].transform.position);
