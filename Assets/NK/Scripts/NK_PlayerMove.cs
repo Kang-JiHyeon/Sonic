@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-    public float speed = 10f;   // Ä³¸¯ÅÍ ¿òÁ÷ÀÓ ½ºÇÇµå.
-    public float jumpSpeed;     // Ä³¸¯ÅÍ Á¡ÇÁ Èû.
-    public float gravity;       // Ä³¸¯ÅÍ¿¡°Ô ÀÛ¿ëÇÏ´Â Áß·Â.
+    public float speed = 10f;   // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½.
+    public float jumpSpeed;     // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+    public float gravity;       // Ä³ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Û¿ï¿½ï¿½Ï´ï¿½ ï¿½ß·ï¿½.
     public bool isJumping;
-    public CharacterController controller;  // ÇöÀç Ä³¸¯ÅÍ°¡ °¡Áö°íÀÖ´Â Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ ÄÝ¶óÀÌ´õ.
-    public bool isJumpBlock;        // Á¡ÇÁ ºí·Ï Æ®¸®°Å
+    public CharacterController controller;  // ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ý¶ï¿½ï¿½Ì´ï¿½.
+    public bool isJumpBlock;        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½
 
-    public Vector3 dir;        // Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÌ´Â ¹æÇâ.
-    float jumpPower;    //Á¡ÇÁ·Â
-    float jumpTime;     //Á¡ÇÁ ÀÌÈÄ °æ°ú½Ã°£
+    Vector3 look = Vector3.forward;
+    Vector3 dir;                // Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    float jumpPower;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    float jumpTime;    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 
     public static NK_PlayerMove Instance;
 
@@ -34,21 +35,19 @@ public class NK_PlayerMove : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // ÇöÀç Ä³¸¯ÅÍ°¡ ¶¥¿¡ ÀÖ´Â°¡?
+        // ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
         if (controller.isGrounded)
         {
             isJumping = false;
-            // À§, ¾Æ·¡ ¿òÁ÷ÀÓ ¼ÂÆÃ. 
+            // ï¿½ï¿½, ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            dir.Normalize();
-            transform.rotation = Quaternion.LookRotation(dir);
 
-            // ½ºÇÇµå Áõ°¡.
+            // ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½.
             dir *= speed;
 
-            // Ä³¸¯ÅÍ Á¡ÇÁ
+            // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
                 isJumping = true;
@@ -60,24 +59,31 @@ public class NK_PlayerMove : MonoBehaviour
             }
         }
 
-        // Ä³¸¯ÅÍ¿¡ Áß·Â Àû¿ë.
+        if (dir != Vector3.zero)
+        {
+            look = dir;
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
+
+        // Ä³ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½.
         dir.y -= gravity * Time.deltaTime;
 
-        // Ä³¸¯ÅÍ ¿òÁ÷ÀÓ.
+        // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         controller.Move(dir * Time.deltaTime);
     }
 
     public void Jump()
     {
-        //y=-a*x+b¿¡¼­ (a: Áß·Â°¡¼Óµµ, b: ÃÊ±â Á¡ÇÁ¼Óµµ)
-        //ÀûºÐÇÏ¿© y = (-a/2)*x*x + (b*x) °ø½ÄÀ» ¾ò´Â´Ù.(x: Á¡ÇÁ½Ã°£, y: ¿ÀºêÁ§Æ®ÀÇ ³ôÀÌ)
-        //º¯È­µÈ ³ôÀÌ height¸¦ ±âÁ¸ ³ôÀÌ _posY¿¡ ´õÇÑ´Ù.
+        //y=-a*x+bï¿½ï¿½ï¿½ï¿½ (a: ï¿½ß·Â°ï¿½ï¿½Óµï¿½, b: ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½)
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ y = (-a/2)*x*x + (b*x) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.(x: ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½, y: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        //ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ heightï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ _posYï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
         dir.y = jumpSpeed + height;
-        //Á¡ÇÁ½Ã°£À» Áõ°¡½ÃÅ²´Ù.
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
         jumpTime += Time.deltaTime;
 
-        //Ã³À½ÀÇ ³ôÀÌ º¸´Ù ´õ ³»·Á °¬À»¶§ => Á¡ÇÁÀü »óÅÂ·Î º¹±ÍÇÑ´Ù.
+        //Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ => ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
         if (height < 0.0f)
         {
             isJumping = false;

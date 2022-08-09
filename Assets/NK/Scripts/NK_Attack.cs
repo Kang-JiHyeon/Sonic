@@ -38,7 +38,8 @@ public class NK_Attack : MonoBehaviour
             Initialization();
             if (enemys.Count > 0)
             {
-                enemy = enemys[0];
+                //enemy = enemys[0];
+                SortEnemy();
             }
             return;
         }
@@ -50,9 +51,10 @@ public class NK_Attack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            SortEnemy();
+
             if (!isAiming)
             {
-                SortEnemy();
                 aim.transform.position = enemy.transform.position;
                 aim.SetActive(true);
                 isAiming = true;
@@ -99,5 +101,6 @@ public class NK_Attack : MonoBehaviour
                 shortDistance = distance;
             }
         }
+        print(enemy);
     }
 }
