@@ -38,6 +38,9 @@ public class NK_PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
         camDir = Camera.main.transform.TransformDirection(camDir);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
@@ -46,9 +49,8 @@ public class NK_PlayerMove : MonoBehaviour
             dir = Vector3.zero;
             isJumping = false;
 
-            dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            dir = new Vector3(h, 0, v);
 
-            dir *= speed;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
@@ -67,9 +69,11 @@ public class NK_PlayerMove : MonoBehaviour
             look = dir;
         }
 
+        speed += Time.deltaTime;
+
         dir.y -= gravity * Time.deltaTime;
 
-        controller.Move(dir * Time.deltaTime);
+        controller.Move(dir * speed * Time.deltaTime);
     }
 
 /*    public void Jump()
