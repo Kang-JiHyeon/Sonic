@@ -49,12 +49,17 @@ public class NK_PathFollower : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
-        if (rigid.CompareTag("Rollercoaster"))
+
+        if (rigid)
         {
-            pathCreator = rigid.GetComponent<PathCreator>();
-            roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
-            // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
-            pathCreator.pathUpdated += OnPathChanged;
+            if (rigid.CompareTag("Rollercoaster"))
+            {
+                pathCreator = rigid.GetComponent<PathCreator>();
+                roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
+                // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
+                pathCreator.pathUpdated += OnPathChanged;
+            }
+
         }
     }
 }

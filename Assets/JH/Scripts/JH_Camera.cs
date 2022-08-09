@@ -38,6 +38,7 @@ public class JH_Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // 1을 누르면
         if (!isHorizontal)
         {

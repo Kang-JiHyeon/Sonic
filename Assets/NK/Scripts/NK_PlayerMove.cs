@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-    public float speed = 10f;      // 캐릭터 움직임 스피드.
-    public float jumpSpeed; // 캐릭터 점프 힘.
-    public float gravity;    // 캐릭터에게 작용하는 중력.
+    public float speed = 10f;   // 캐릭터 움직임 스피드.
+    public float jumpSpeed;     // 캐릭터 점프 힘.
+    public float gravity;       // 캐릭터에게 작용하는 중력.
     public bool isJumping;
-    public CharacterController controller; // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
+    public CharacterController controller;  // 현재 캐릭터가 가지고있는 캐릭터 컨트롤러 콜라이더.
+    public bool isJumpBlock;        // 점프 블록 트리거
 
-    Vector3 dir;                // 캐릭터의 움직이는 방향.
-    float jumpPower;   //점프력
-    float jumpTime;    //점프 이후 경과시간
+    public Vector3 dir;        // 캐릭터의 움직이는 방향.
+    float jumpPower;    //점프력
+    float jumpTime;     //점프 이후 경과시간
 
     public static NK_PlayerMove Instance;
 
@@ -23,11 +24,12 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Start()
     {
-        jumpSpeed = 10.0f;
-        jumpPower = 30.0f;
+        jumpSpeed = 15.0f;
+        jumpPower = 10.0f;
         jumpTime = 0.0f;
         gravity = 20.0f;
         isJumping = false;
+        isJumpBlock = false;
         dir = Vector3.zero;
         controller = GetComponent<CharacterController>();
     }
@@ -40,14 +42,14 @@ public class NK_PlayerMove : MonoBehaviour
             isJumping = false;
             // 위, 아래 움직임 셋팅. 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
+            dir.Normalize();
             transform.rotation = Quaternion.LookRotation(dir);
 
             // 스피드 증가.
             dir *= speed;
 
             // 캐릭터 점프
-            if (Input.GetButton("Jump") && !isJumping)
+            if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
                 isJumping = true;
             }
@@ -62,7 +64,7 @@ public class NK_PlayerMove : MonoBehaviour
         dir.y -= gravity * Time.deltaTime;
 
         // 캐릭터 움직임.
-        controller.SimpleMove(dir);
+        controller.Move(dir * Time.deltaTime);
     }
 
     public void Jump()

@@ -11,20 +11,20 @@ public class JH_JumpBlock : MonoBehaviour
 
     private void Start()
     {
-        originJumpSpeed = JH_PlayerMove.Instance.jumpSpeed;
+        originJumpSpeed = NK_PlayerMove.Instance.jumpSpeed;
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.name.Contains("Player"))
         {
-            JH_PlayerMove.Instance.isJumpBlock = true;
-            JH_PlayerMove.Instance.jumpSpeed = jumpBlockPower;
+            NK_PlayerMove.Instance.isJumpBlock = true;
+            NK_PlayerMove.Instance.jumpSpeed = jumpBlockPower;
             //print(JH_PlayerMove.Instance.jumpSpeed); 
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        JH_PlayerMove.Instance.isJumpBlock = false;
-        JH_PlayerMove.Instance.jumpSpeed = originJumpSpeed;
+        NK_PlayerMove.Instance.isJumpBlock = false;
+        NK_PlayerMove.Instance.jumpSpeed = originJumpSpeed;
     }
 }

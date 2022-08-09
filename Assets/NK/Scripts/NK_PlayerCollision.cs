@@ -28,18 +28,23 @@ public class NK_PlayerCollision : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
-        if (rigid.CompareTag("Wall"))
+
+        if (rigid)
         {
-            Vector3 dir = transform.position - rigid.gameObject.transform.position;
-            //AddImpact(dir, 5f);
-            cc.SimpleMove(dir);
-            
-            foreach (GameObject coin in coins)
+            if (rigid.CompareTag("Wall"))
             {
-                coin.transform.position = transform.position + new Vector3(0, 2, 0);
-                coin.SetActive(true);
-                coin.transform.position += Vector3.up * 1f * Time.deltaTime;
+                Vector3 dir = transform.position - rigid.gameObject.transform.position;
+                //AddImpact(dir, 5f);
+                cc.SimpleMove(dir);
+            
+                foreach (GameObject coin in coins)
+                {
+                    coin.transform.position = transform.position + new Vector3(0, 2, 0);
+                    coin.SetActive(true);
+                    coin.transform.position += Vector3.up * 1f * Time.deltaTime;
+                }
             }
+
         }
     }
 
