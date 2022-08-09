@@ -63,6 +63,7 @@ public class NK_Attack : MonoBehaviour
             if (!isAiming)
             {
                 aim.transform.position = enemy.transform.position + new Vector3(0,1.5f,0);
+                aim.transform.forward = enemy.transform.forward;
                 aim.SetActive(true);
                 isAiming = true;
             }

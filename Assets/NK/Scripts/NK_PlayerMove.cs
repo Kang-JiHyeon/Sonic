@@ -42,6 +42,7 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (controller.isGrounded)
         {
+            dir = Vector3.zero;
             isJumping = false;
 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
