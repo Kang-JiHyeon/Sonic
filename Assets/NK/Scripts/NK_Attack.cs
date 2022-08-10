@@ -58,6 +58,11 @@ public class NK_Attack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (isAttack)
+            {
+                return;
+            }
+
             SortEnemy();
 
             if (!isAiming)
@@ -77,12 +82,16 @@ public class NK_Attack : MonoBehaviour
                 {
                     Initialization();
                 }
-                currentTime += Time.deltaTime;
             }
+        }
+
+        if (isAiming)
+        {
+            currentTime += Time.deltaTime;
         }
     }
 
-    private void Initialization()
+    public void Initialization()
     {
         currentTime = 0;
         isAiming = false;
