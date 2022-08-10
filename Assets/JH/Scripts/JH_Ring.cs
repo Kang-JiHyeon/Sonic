@@ -13,7 +13,6 @@ using UnityEngine;
 public class JH_Ring : MonoBehaviour
 {
     GameObject target;
-    Rigidbody rigid;
     NK_Booster player;
     public float speed = 30f;
     public float boosterDis = 10f;
@@ -22,7 +21,6 @@ public class JH_Ring : MonoBehaviour
     void Start()
     {
         target = GameObject.Find("Player");
-        rigid = GetComponent<Rigidbody>();
         // Player의 스크립트를 가져온다.
         player = target.GetComponent<NK_Booster>();
     }
