@@ -31,4 +31,8 @@ public class JH_Score : MonoBehaviour
             Instance = this;
         } 
     }
+    private void Start()
+    {
+        textScore = GameObject.Find("Text_ScoreValue").GetComponent<Text>();
+    }
 }
