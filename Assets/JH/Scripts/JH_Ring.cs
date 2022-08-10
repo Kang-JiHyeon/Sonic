@@ -14,8 +14,8 @@ public class JH_Ring : MonoBehaviour
 {
     GameObject target;
     NK_Booster player;
-    public float speed = 30f;
-    public float boosterDis = 10f;
+    public float speed = 10f;
+    public float boosterDis = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,16 +32,23 @@ public class JH_Ring : MonoBehaviour
         if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
         {
             // ** 소닉 부스터 속도 맞춰 움직임 속도 수정하기!! **
-            transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * 5);
+            transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * speed);
+
+            if(Vector3.Distance(transform.position, target.transform.position) < 1f)
+            {
+                // 점수 증가
+                JH_Score.Instance.SCORE++;
+                // 제거
+                Destroy(gameObject);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // 플레이어와 닿으면 점수를 +1 하고 사라지고 싶다.
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.name.Contains("Player") && !player.isBooster)
         {
-
             // 점수 증가
             JH_Score.Instance.SCORE++;
             // 제거

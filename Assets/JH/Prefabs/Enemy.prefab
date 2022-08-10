@@ -62,9 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bb29c873ba78b4dba9b9ceb72414bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDis: 15
+  moveDis: 30
   angleY: 0.2
-  boosterDis: 15
+  boosterRange: 5
   speed: 50
 --- !u!1 &8745326088106728762
 GameObject:
