@@ -7,7 +7,7 @@ public class NK_PlayerMove : MonoBehaviour
 
     public float speed = 10f;
     public float jumpSpeed = 10.0f;
-    public float jumpPower = 15;
+    public float jumpPower = 3;
     public float gravity = 20.0f;
     public bool isJumping;
     public CharacterController controller;

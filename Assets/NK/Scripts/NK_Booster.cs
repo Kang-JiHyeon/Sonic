@@ -15,6 +15,8 @@ public class NK_Booster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        booster = Instantiate(boosterFactory);
+        booster.SetActive(false);
         normalSpeed = NK_PlayerMove.Instance.speed;
     }
 
