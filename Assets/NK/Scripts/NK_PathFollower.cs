@@ -61,6 +61,7 @@ public class NK_PathFollower : MonoBehaviour
         {
             if (rigid.CompareTag("Rollercoaster"))
             {
+                transform.eulerAngles = Vector3.zero;
                 pathCreator = rigid.GetComponent<PathCreator>();
                 roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
                 // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
