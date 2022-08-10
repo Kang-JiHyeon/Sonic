@@ -43,8 +43,7 @@ public class NK_Booster : MonoBehaviour
 
     void Initialization()
     {
-        // 부스터 겹치지마~
-        booster = Instantiate(boosterFactory);
+        //booster = Instantiate(boosterFactory);
         booster.SetActive(false);
         isBooster = false;
         NK_PlayerMove.Instance.speed = normalSpeed;
