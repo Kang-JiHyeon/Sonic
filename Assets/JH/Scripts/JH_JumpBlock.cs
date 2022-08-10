@@ -7,19 +7,19 @@ using UnityEngine;
 public class JH_JumpBlock : MonoBehaviour
 {
 
-    float originJumpPower = 15f;
-    public float jumpBlockPower = 20f;
+    public float originJumpPower;
+    public float jumpBlockPower = 2f;
 
     private void Start()
     {
-        //originJumpPower = NK_PlayerMove.Instance.jumpPower;
+        originJumpPower = NK_PlayerMove.Instance.jumpPower;
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
-            NK_PlayerMove.Instance.jumpPower = jumpBlockPower;
+            NK_PlayerMove.Instance.jumpPower = originJumpPower * jumpBlockPower;
         }
     }
     private void OnTriggerExit(Collider other)

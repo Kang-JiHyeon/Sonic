@@ -7,10 +7,10 @@ using UnityEngine;
 public class JH_FlyingBlock : MonoBehaviour
 {
     public float originJumpPower;
-    public float jumpBlockPower = 30f;
+    public float jumpBlockPower = 3f;
 
     public float originMoveSpeed;
-    public float flyingBlockSpeed = 20f;
+    public float flyingBlockSpeed = 2f;
 
     private void Start()
     {
@@ -22,8 +22,8 @@ public class JH_FlyingBlock : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
-            NK_PlayerMove.Instance.jumpPower = jumpBlockPower;
-            NK_PlayerMove.Instance.speed = flyingBlockSpeed;
+            NK_PlayerMove.Instance.jumpPower = originJumpPower * jumpBlockPower;
+            NK_PlayerMove.Instance.speed = originMoveSpeed * flyingBlockSpeed;
         }
     }
     private void OnTriggerExit(Collider other)

@@ -23,7 +23,7 @@ public class JH_Enemy : MonoBehaviour
     
     public float moveDis = 15f;
     public float angleY = 0.2f;
-    public float boosterDis = 5f;
+    public float boosterRange = 5f;
     public float speed = 50f;
     bool isHit = false;
 
@@ -56,7 +56,7 @@ public class JH_Enemy : MonoBehaviour
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
         // NK_Booster의 isBooster 대체
-        if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
+        if (Vector3.Distance(transform.position, target.transform.position) < boosterRange && player.isBooster)
         {
             Hit();
         }
