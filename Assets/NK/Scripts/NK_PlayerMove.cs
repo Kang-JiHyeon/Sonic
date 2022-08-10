@@ -6,17 +6,17 @@ public class NK_PlayerMove : MonoBehaviour
 {
 
     public float speed = 10f;
-    public float jumpSpeed;
-    public float jumpPower;
-    public float gravity;
+    public float jumpSpeed = 10.0f;
+    public float jumpPower = 15;
+    public float gravity = 20.0f;
     public bool isJumping;
     public CharacterController controller;
     public bool isJumpBlock;
+    public Vector3 dir = Vector3.zero;
 
     Vector3 look = Vector3.forward;
-    public Vector3 dir = Vector3.zero;
     Vector3 camDir;
-/*    float jumpTime;    //���� ���� �����ð�*/
+    NK_PlayerJump playerJump;
 
     public static NK_PlayerMove Instance;
 
@@ -27,13 +27,11 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Start()
     {
-        jumpSpeed = 10.0f;
-        jumpPower = 15;
-        //jumpTime = 0.0f;
-        gravity = 20.0f;
         isJumping = false;
-        controller = GetComponent<CharacterController>();
         transform.localEulerAngles = Vector3.zero;
+        controller = GetComponent<CharacterController>();
+        GameObject player = transform.GetChild(0).gameObject;
+        playerJump = player.GetComponent<NK_PlayerJump>();
     }
 
     void FixedUpdate()
@@ -47,6 +45,7 @@ public class NK_PlayerMove : MonoBehaviour
         if (controller.isGrounded)
         {
             dir = Vector3.zero;
+
             isJumping = false;
 
             dir = new Vector3(h, 0, v);
@@ -60,6 +59,7 @@ public class NK_PlayerMove : MonoBehaviour
 
             if (isJumping)
             {
+                playerJump.enabled = true;
                 dir.y = jumpPower;
             }
         }
@@ -75,22 +75,4 @@ public class NK_PlayerMove : MonoBehaviour
 
         controller.Move(dir * speed * Time.deltaTime);
     }
-
-/*    public void Jump()
-    {
-        //y=-a*x+b���� (a: �߷°��ӵ�, b: �ʱ� �����ӵ�)
-        //�����Ͽ� y = (-a/2)*x*x + (b*x) ������ ���´�.(x: �����ð�, y: ������Ʈ�� ����)
-        //��ȭ�� ���� height�� ���� ���� _posY�� ���Ѵ�.
-        float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
-        dir.y = jumpSpeed + height;
-        //�����ð��� ������Ų��.
-        jumpTime += Time.deltaTime;
-
-        //ó���� ���� ���� �� ���� ������ => ������ ���·� �����Ѵ�.
-        if (height < 0.0f)
-        {
-            isJumping = false;
-            jumpTime = 0.0f;
-        }
-    }*/
 }
