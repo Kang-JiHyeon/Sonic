@@ -80,8 +80,5 @@ public class JH_Camera : MonoBehaviour
                 isHorizontal = false;
             }
         }
-        
-
-
     }
 }

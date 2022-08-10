@@ -6,7 +6,7 @@ using UnityEngine;
 // 필요속성: 플레이어, 플레이어의 yVelocity
 public class JH_FlyingBlock : MonoBehaviour
 {
-    public float originJumpSpeed;
+    public float originJumpPower;
     public float jumpBlockPower = 30f;
 
     public float originMoveSpeed;
@@ -14,7 +14,7 @@ public class JH_FlyingBlock : MonoBehaviour
 
     private void Start()
     {
-        originJumpSpeed = NK_PlayerMove.Instance.jumpSpeed;
+        originJumpPower = NK_PlayerMove.Instance.jumpPower;
         originMoveSpeed = NK_PlayerMove.Instance.speed;
     }
     private void OnTriggerEnter(Collider other)
@@ -22,16 +22,14 @@ public class JH_FlyingBlock : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
-            NK_PlayerMove.Instance.jumpSpeed = jumpBlockPower;
+            NK_PlayerMove.Instance.jumpPower = jumpBlockPower;
             NK_PlayerMove.Instance.speed = flyingBlockSpeed;
-
-            //print(JH_PlayerMove.Instance.jumpSpeed); 
         }
     }
     private void OnTriggerExit(Collider other)
     {
         NK_PlayerMove.Instance.isJumpBlock = false;
-        NK_PlayerMove.Instance.jumpSpeed = originJumpSpeed;
-        NK_PlayerMove.Instance.jumpSpeed = flyingBlockSpeed;
+        NK_PlayerMove.Instance.jumpPower = originJumpPower;
+        NK_PlayerMove.Instance.speed = originMoveSpeed;
     }
 }

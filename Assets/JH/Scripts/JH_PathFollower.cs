@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class JH_PathFollower : MonoBehaviour
 {
-
 	public float[] speed;
 	public List<Transform> pathList;
 	//public Transform pathParent;
-	public Transform player;
+	public Vector3 offset;
+	Transform player;
 	Transform targetPoint;
 	int childIndex;
 	int listIndex;
@@ -32,18 +32,22 @@ public class JH_PathFollower : MonoBehaviour
 	}
 	void Start()
 	{
+		player = GameObject.Find("Player").transform;
+		//offset = new Vector3(0, 3, -10);
+
 		childIndex = 0;
 		listIndex = 0;
 		targetPoint = pathList[listIndex].GetChild(childIndex);
-		speed = new float[pathList.Count];
-		speed[0] = 30f;
-		speed[1] = 27f;
+        speed = new float[pathList.Count];
+        speed[0] = 50f;
+        speed[1] = 45f;
+
 
 
 	}
 
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
 	{
 		if(childIndex >= pathList[listIndex].childCount - 1)
         {
@@ -69,7 +73,7 @@ public class JH_PathFollower : MonoBehaviour
 		// Á÷¼±
         else
         {
-			transform.position = Vector3.Lerp(transform.position, player.position, speed[listIndex] * Time.deltaTime);
+			transform.position = Vector3.Lerp(transform.position, player.position, NK_PlayerMove.Instance.speed * Time.deltaTime);
 			childIndex = 0;
 		}
 	}
