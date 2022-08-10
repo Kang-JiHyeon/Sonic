@@ -29,7 +29,7 @@ public class JH_FlyingBlock : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
-            NK_PlayerMove.Instance.jumpPower = originJumpPower * flyingJumpPower;
+            //NK_PlayerMove.Instance.jumpPower = originJumpPower * flyingJumpPower;
             NK_PlayerMove.Instance.speed = originMoveSpeed * flyingBlockSpeed;
             NK_PlayerMove.Instance.gravity = originGravity * flyingGravity;
         }

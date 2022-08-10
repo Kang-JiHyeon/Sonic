@@ -24,7 +24,7 @@ public class JH_CamManager : MonoBehaviour
     void Start()
     {
         //rayPos = transform.position + new Vector3(0, 1, 0);
-        offset = new Vector3(0, 3, -10);
+        offset = new Vector3(0, 5, -9);
     }
 
     // Update is called once per frame

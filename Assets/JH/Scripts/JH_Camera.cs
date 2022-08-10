@@ -18,6 +18,7 @@ using UnityEngine;
 // 카메라의 일정 지점에 플레이어가 오도록 하되 자유롭게... foward = -x축
 public class JH_Camera : MonoBehaviour
 {
+    public Vector3 offset;
     GameObject player;
     JH_PlayerMove playerScript;
     // 일반
@@ -31,6 +32,7 @@ public class JH_Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        offset = new Vector3(0, 5, -9);
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<JH_PlayerMove>();
     }
