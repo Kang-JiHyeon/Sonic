@@ -34,7 +34,7 @@ public class NK_PlayerMove : MonoBehaviour
         playerJump = player.GetComponent<NK_PlayerJump>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
@@ -66,7 +66,7 @@ public class NK_PlayerMove : MonoBehaviour
             look = dir;
         }
 
-        speed += Time.deltaTime;
+        //speed += Time.deltaTime;
 
         dir.y -= gravity * Time.deltaTime;
 
