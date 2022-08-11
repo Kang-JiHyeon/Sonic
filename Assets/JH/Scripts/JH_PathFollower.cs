@@ -33,9 +33,9 @@ public class JH_PathFollower : MonoBehaviour
 	void Start()
 	{
 		player = GameObject.Find("Player").transform;
-		//offset = new Vector3(0, 3, -10);
+        offset = new Vector3(0, 5, -10);
 
-		childIndex = 0;
+        childIndex = 0;
 		listIndex = 0;
 		targetPoint = pathList[listIndex].GetChild(childIndex);
         speed = new float[pathList.Count];

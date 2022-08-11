@@ -66,7 +66,7 @@ public class NK_PlayerMove : MonoBehaviour
             look = dir;
         }
 
-        speed += Time.deltaTime;
+        //speed += Time.deltaTime;
 
         dir.y -= gravity * Time.deltaTime;
 
