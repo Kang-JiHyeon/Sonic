@@ -35,6 +35,7 @@ public class JH_Camera : MonoBehaviour
         offset = new Vector3(0, 5, -9);
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<JH_PlayerMove>();
+
     }
 
     // Update is called once per frame
