@@ -10,6 +10,7 @@ public class NK_Booster : MonoBehaviour
     public bool isBooster = false;
 
     GameObject booster;
+    Animator anim;
     float normalSpeed;
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class NK_Booster : MonoBehaviour
         booster = Instantiate(boosterFactory);
         booster.SetActive(false);
         normalSpeed = NK_PlayerMove.Instance.speed;
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class NK_Booster : MonoBehaviour
 
         if (isBooster)
         {
+            anim.SetBool("IsBooster", true);
             NK_PlayerMove.Instance.speed = boostSpeed;
             booster.SetActive(true);
             Invoke("Initialization", boostTime);
@@ -45,6 +48,7 @@ public class NK_Booster : MonoBehaviour
     {
         //booster = Instantiate(boosterFactory);
         booster.SetActive(false);
+        anim.SetBool("IsBooster", false);
         isBooster = false;
         NK_PlayerMove.Instance.speed = normalSpeed;
     }
