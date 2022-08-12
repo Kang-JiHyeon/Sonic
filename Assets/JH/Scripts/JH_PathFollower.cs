@@ -47,7 +47,7 @@ public class JH_PathFollower : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
 	{
 		if(childIndex >= pathList[listIndex].childCount - 1)
         {

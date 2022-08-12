@@ -11,6 +11,7 @@ public class NK_Attack : MonoBehaviour
     public float attackSpeed = 20;
 
     CharacterController cc;
+    Animator anim;
     float currentTime = 0;
     float shortDistance;
     bool isAiming = false;
@@ -28,6 +29,7 @@ public class NK_Attack : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
 
         enemys = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         shortDistance = float.MaxValue;
@@ -67,13 +69,14 @@ public class NK_Attack : MonoBehaviour
 
             if (!isAiming)
             {
-                aim.transform.position = enemy.transform.position + new Vector3(0,1.5f,0);
+                aim.transform.position = enemy.transform.position + new Vector3(0, 1.5f, 0);
                 aim.transform.forward = enemy.transform.forward;
                 aim.SetActive(true);
                 isAiming = true;
             }
             else
             {
+                anim.SetBool("IsAttack", true);
                 if (currentTime < attackTime)
                 {
                     isAttack = true;
@@ -97,6 +100,7 @@ public class NK_Attack : MonoBehaviour
         isAiming = false;
         isAttack = false;
         aim.SetActive(false);
+        anim.SetBool("IsAttack", false);
     }
 
     private void Attack()

@@ -17,6 +17,7 @@ public class NK_PlayerMove : MonoBehaviour
     Vector3 look = Vector3.forward;
     Vector3 camDir;
     NK_PlayerJump playerJump;
+    Animator anim;
 
     public static NK_PlayerMove Instance;
 
@@ -32,9 +33,10 @@ public class NK_PlayerMove : MonoBehaviour
         controller = GetComponent<CharacterController>();
         GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();
+        anim = GetComponentInChildren<Animator>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
@@ -42,6 +44,8 @@ public class NK_PlayerMove : MonoBehaviour
         {
             dir = Vector3.zero;
 
+            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
             dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -51,6 +55,15 @@ public class NK_PlayerMove : MonoBehaviour
 
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
+                if (isJumpBlock)
+                {
+                    anim.SetBool("IsSpringJumping", true);
+                }
+                else
+                {
+                    anim.SetBool("IsJumping", true);
+                }
+
                 isJumping = true;
             }
 
