@@ -31,15 +31,18 @@ public class NK_PlayerMove : MonoBehaviour
         isJumping = false;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        GameObject player = transform.GetChild(0).gameObject;
-        playerJump = player.GetComponent<NK_PlayerJump>();
+        /*GameObject player = transform.GetChild(0).gameObject;
+        playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
-        
-        float h = Input.GetAxis("Horizontal");
+        float h = 0;
+        if (!Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
+        {
+            h = Input.GetAxis("Horizontal");
+        }
         float v = Input.GetAxis("Vertical");
 
         anim.SetFloat("Speed", v);
