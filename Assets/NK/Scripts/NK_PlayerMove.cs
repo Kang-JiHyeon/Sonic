@@ -38,6 +38,12 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Update()
     {
+        
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        anim.SetFloat("Speed", v);
+
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
         if (controller.isGrounded)
@@ -48,7 +54,7 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            dir = new Vector3(h, 0, v);
             dir = Camera.main.transform.TransformDirection(dir);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
