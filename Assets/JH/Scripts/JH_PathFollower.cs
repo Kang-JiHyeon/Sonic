@@ -42,8 +42,6 @@ public class JH_PathFollower : MonoBehaviour
         speed[0] = 50f;
         speed[1] = 45f;
 
-
-
 	}
 
     // Update is called once per frame
