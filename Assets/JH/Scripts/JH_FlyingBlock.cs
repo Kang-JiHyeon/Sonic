@@ -29,16 +29,25 @@ public class JH_FlyingBlock : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
-            //NK_PlayerMove.Instance.jumpPower = originJumpPower * flyingJumpPower;
             NK_PlayerMove.Instance.speed = originMoveSpeed * flyingBlockSpeed;
             NK_PlayerMove.Instance.gravity = originGravity * flyingGravity;
+            
+            Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
+            Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
         }
+
+
     }
     private void OnTriggerExit(Collider other)
     {
-        NK_PlayerMove.Instance.isJumpBlock = false;
-        //NK_PlayerMove.Instance.jumpPower = originJumpPower;
-        //NK_PlayerMove.Instance.speed = originMoveSpeed;
-        //NK_PlayerMove.Instance.gravity = originGravity;
+        if (other.gameObject.name.Contains("Player"))
+        {
+            NK_PlayerMove.Instance.isJumpBlock = false;
+            //NK_PlayerMove.Instance.jumpPower = originJumpPower;
+            //NK_PlayerMove.Instance.speed = originMoveSpeed;
+            //NK_PlayerMove.Instance.gravity = originGravity;
+
+        }
+
     }
 }

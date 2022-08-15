@@ -20,21 +20,19 @@ public class JH_Camera : MonoBehaviour
 {
     public Vector3 offset;
     GameObject player;
-    JH_PlayerMove playerScript;
     // 일반
     public Transform camPos1;
     // 옆
     public Transform camPos2;
 
-    bool isVertical = false;    // Vertical
-    bool isHorizontal = false;  // Horizontal
+    public bool isVertical = false;    // Vertical
+    public bool isHorizontal = false;  // Horizontal
 
     // Start is called before the first frame update
     void Start()
     {
         offset = new Vector3(0, 5, -9);
         player = GameObject.Find("Player");
-        playerScript = player.GetComponent<JH_PlayerMove>();
 
     }
 
@@ -59,8 +57,8 @@ public class JH_Camera : MonoBehaviour
             }
         }
 
-        // camPos1의 위치로 이동하고 싶다.
-        if (isVertical && !isHorizontal)
+            // camPos1의 위치로 이동하고 싶다.
+            if (isVertical && !isHorizontal)
         {
             transform.position = Vector3.Lerp(transform.position, camPos1.position, Time.deltaTime * 2);
             transform.forward = player.transform.position - transform.position;
