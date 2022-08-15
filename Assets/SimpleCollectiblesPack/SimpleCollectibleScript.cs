@@ -43,46 +43,5 @@ public class SimpleCollectibleScript : MonoBehaviour {
 			AudioSource.PlayClipAtPoint(collectSound, transform.position);
 		if(collectEffect)
 			Instantiate(collectEffect, transform.position, Quaternion.identity);
-
-		//Below is space to add in your code for what happens based on the collectible type
-
-		if (CollectibleType == CollectibleTypes.NoType) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-		if (CollectibleType == CollectibleTypes.Type1) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-		if (CollectibleType == CollectibleTypes.Type2) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-		if (CollectibleType == CollectibleTypes.Type3) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-		if (CollectibleType == CollectibleTypes.Type4) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-		if (CollectibleType == CollectibleTypes.Type5) {
-
-			//Add in code here;
-
-			Debug.Log ("Do NoType Command");
-		}
-
-		Destroy (gameObject);
 	}
 }

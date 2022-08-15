@@ -31,8 +31,8 @@ public class JH_Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset = new Vector3(0, 5, -9);
         player = GameObject.Find("Player");
+        transform.position = camPos1.transform.position;
 
     }
 
@@ -57,14 +57,15 @@ public class JH_Camera : MonoBehaviour
             }
         }
 
-            // camPos1의 위치로 이동하고 싶다.
-            if (isVertical && !isHorizontal)
+        // camPos1의 위치로 이동하고 싶다.
+        if (isVertical && !isHorizontal)
         {
             transform.position = Vector3.Lerp(transform.position, camPos1.position, Time.deltaTime * 2);
-            transform.forward = player.transform.position - transform.position;
+            transform.rotation = Quaternion.Lerp(transform.rotation, camPos1.rotation, Time.deltaTime * 2);
             if (Vector3.Distance(transform.position, camPos1.position) < 0.1f)
             {
                 transform.position = camPos1.position;
+                transform.rotation = camPos1.rotation;
                 isVertical = false;
             }
         }
@@ -73,13 +74,23 @@ public class JH_Camera : MonoBehaviour
         if (isHorizontal && !isVertical)
         {
             transform.position = Vector3.Lerp(transform.position, camPos2.position, Time.deltaTime * 2);
-            transform.forward = player.transform.position - transform.position;
+            transform.rotation = Quaternion.Lerp(transform.rotation, camPos2.rotation, Time.deltaTime * 2);
 
             if (Vector3.Distance(transform.position, camPos2.position) < 0.1f)
             {
                 transform.position = camPos2.position;
+                transform.rotation = camPos2.rotation;
                 isHorizontal = false;
             }
         }
     }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.name.Contains("CurveOut"))
+    //    {
+    //        print("trigger CurveOut");
+    //        transform.position = camPos1.position;
+    //        transform.forward = camPos1.forward;
+    //    }
+    //}
 }

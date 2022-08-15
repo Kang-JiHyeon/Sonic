@@ -9,12 +9,16 @@ using UnityEngine;
 // 플레이어가 부스터 상태일 때 Post-process volume을 켜고 싶다.
 public class JH_CameraFieldOfView : MonoBehaviour
 {
+    NK_Booster player;
+    Camera cam;
+    JH_PathFollower camManager;
+    GameObject postProcess;
+
     public float originFOV;
     public float boosterFOV = 80f;
     public float speed = 3f;
-    NK_Booster player;
-    Camera cam;
-    GameObject postProcess;
+    bool isPP = false;
+    float fov;
     
 
     // Start is called before the first frame update
@@ -22,42 +26,46 @@ public class JH_CameraFieldOfView : MonoBehaviour
     {
         player = GameObject.Find("Player").GetComponent<NK_Booster>();
         cam = GetComponent<Camera>();
+        camManager = GetComponentInParent<JH_PathFollower>();
         postProcess = transform.GetChild(0).gameObject;
         postProcess.SetActive(false);
         originFOV = cam.fieldOfView;
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        // 부스터 상태라면 fov 값을 크게 설정한다.
+
+        // 2. 부스터 상태
         if (player.isBooster)
         {
-            //cam.fieldOfView = boosterFOV;
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, boosterFOV, speed * Time.deltaTime);
-
-            // boosterFOV와 근사한 값이면 boosterFOV로 초기화
-            if(boosterFOV - cam.fieldOfView < 0.1f)
-            {
-                cam.fieldOfView = boosterFOV;
-            }
-
-            // 포스터 프로세스 부스터 효과 켜기
-            postProcess.SetActive(true);
+            fov = boosterFOV;
+            isPP = true;
         }
-        // 부스터 상태가 아니라면 원래 fov로 설정한다.
+        // 3. 일반
         else
         {
-            //cam.fieldOfView = originFOV;
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, originFOV, speed * Time.deltaTime);
-            // originFOV와 근사한 값이면 originFOV로 초기화
-            if (cam.fieldOfView - originFOV < 0.1f)
-            {
-                cam.fieldOfView = originFOV;
-            }
-
-            // 포스터 프로세스 부스터 효과 끄기
-            postProcess.SetActive(false);
+            fov = originFOV;
+            isPP = false;
         }
+
+        // 1. 레일 위
+        if (camManager.isCameraMove)
+        {
+            fov = originFOV;
+        }
+
+        // camera FOV 변경
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, speed * Time.deltaTime);
+
+        // fov와 근사한 값이면 fov로 초기화
+        if (fov - cam.fieldOfView < 0.1f)
+        {
+            cam.fieldOfView = fov;
+        }
+
+        // 포스터 프로세스 부스터 효과 true/false
+        postProcess.SetActive(isPP);
     }
 }
