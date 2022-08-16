@@ -5,20 +5,20 @@ using UnityEngine;
 // 베지어 곡선 그리기
 public class JH_Bezier : MonoBehaviour
 {
-    public Transform p1;
-    public Transform p2;
-    public Transform p3;
+    public Transform start;
+    public Transform handle;
+    public Transform end;
     public Transform player;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        player = NK_PlayerMove.Instance.gameObject.transform;
     }
 
     // Update is called once per frame
     float currentTime;
-    float flyingSpeed = 10f;
+    float flyingSpeed = 3f;
     void Update()
     {
         Draw();
@@ -28,12 +28,12 @@ public class JH_Bezier : MonoBehaviour
             currentTime += Time.deltaTime;
             player.position = Go(currentTime / flyingSpeed);
 
-            if(Vector3.Distance(player.position, p3.position) < 0.1f)
+            if(Vector3.Distance(player.position, end.position) < 0.5f)
             {
                 isFlying = false;
-                player.position = p3.position;
+                player.position = end.position;
                 currentTime = 0;
-                player.gameObject.GetComponent<NK_PlayerMove>().enabled = true;
+                NK_PlayerMove.Instance.enabled = true;
             }
         }
     }
@@ -55,8 +55,8 @@ public class JH_Bezier : MonoBehaviour
 
     Vector3 Go(float ratio)
     {
-        Vector3 pp1 = Vector3.Lerp(p1.position, p2.position, ratio);
-        Vector3 pp2 = Vector3.Lerp(p2.position, p3.position, ratio);
+        Vector3 pp1 = Vector3.Lerp(start.position, handle.position, ratio);
+        Vector3 pp2 = Vector3.Lerp(handle.position, end.position, ratio);
         Vector3 ppp1 = Vector3.Lerp(pp1, pp2, ratio);
 
         return ppp1;
@@ -68,7 +68,7 @@ public class JH_Bezier : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             isFlying = true;
-            player.gameObject.GetComponent<NK_PlayerMove>().enabled = false;
+            NK_PlayerMove.Instance.enabled = false;
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;

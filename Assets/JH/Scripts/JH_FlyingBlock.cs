@@ -19,7 +19,8 @@ public class JH_FlyingBlock : MonoBehaviour
     public float flyingGravity = 0.1f;
 
     Transform player;
-    public Transform randPos;
+    public Transform[] landPos;
+    int index = 0;
     // ÇÃ¶óÀ×?
     bool isFlying = false;
     private void Start()
@@ -37,14 +38,15 @@ public class JH_FlyingBlock : MonoBehaviour
     {
         if (isFlying)
         {
-            NK_PlayerMove.Instance.gravity = 0f;
-            player.transform.position = Vector3.Lerp(player.position, randPos.position, Time.deltaTime * 20f);
+            player.transform.position = Vector3.Lerp(player.position, landPos[index].position, Time.deltaTime);
 
-            if(Vector3.Distance(player.position, randPos.position) < 0.1f)
+            if(Vector3.Distance(player.position, landPos[index].position) < 0.1f)
             {
-                NK_PlayerMove.Instance.gravity = originGravity;
-                player.position = randPos.position;
+                //NK_PlayerMove.Instance.gravity = originGravity;
+                player.position = landPos[index].position;
+                NK_PlayerMove.Instance.enabled = false;
                 isFlying = false;
+                index = (index + 1) % landPos.Length;
             }
         }
     }
@@ -67,6 +69,7 @@ public class JH_FlyingBlock : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = false;
+            NK_PlayerMove.Instance.enabled = false;
         }
 
     }
