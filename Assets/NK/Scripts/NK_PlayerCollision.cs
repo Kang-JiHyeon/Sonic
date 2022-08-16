@@ -22,6 +22,8 @@ public class NK_PlayerCollision : MonoBehaviour
         {
             GameObject coin = Instantiate(coinFactory);
             coin.SetActive(false);
+            coin.GetComponent<SphereCollider>().enabled = false;
+            coin.GetComponent<JH_Ring>().enabled = false;
             coins.Add(coin);
         }
     }
@@ -35,6 +37,12 @@ public class NK_PlayerCollision : MonoBehaviour
             {
                 anim.SetBool("IsDamage", false);
                 currentTime = 0;
+
+                foreach (GameObject coin in coins)
+                {
+                    coin.GetComponent<SphereCollider>().enabled = true;
+                    coin.GetComponent<JH_Ring>().enabled = true;
+                }
             }
         }
     }
@@ -49,22 +57,26 @@ public class NK_PlayerCollision : MonoBehaviour
             {
                 anim.SetBool("IsDamage", true);
                 Vector3 dir = transform.position - rigid.gameObject.transform.position;
-                //AddImpact(dir, 5f);
+                AddImpact(dir, 5f);
                 cc.SimpleMove(dir);
-            
-                foreach (GameObject coin in coins)
-                {
-                    coin.transform.position = transform.position + new Vector3(0, 2, 0);
-                    coin.SetActive(true);
-                    coin.transform.position += Vector3.up * 1f * Time.deltaTime;
-                }
+
+                GameObject coin = Instantiate(coinFactory);
+                coin.SetActive(false);
+                coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
+                coin.SetActive(true);
+
+                /*                foreach (GameObject coin in coins)
+                                {
+                                    coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3,3));
+                                    coin.SetActive(true);
+                                    coin.transform.position += Vector3.up * 1f * Time.deltaTime;
+                                }*/
             }
 
             if (rigid.CompareTag("Enemy"))
             {
                 rigid.gameObject.SetActive(false);
             }
-
         }
     }
 
@@ -75,6 +87,6 @@ public class NK_PlayerCollision : MonoBehaviour
         {
             dir.y = -dir.y;
         }
-        //impact += dir.normalized * force / mass;
+        impact += dir.normalized * force / 2;
     }
 }

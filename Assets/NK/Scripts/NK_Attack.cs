@@ -55,6 +55,7 @@ public class NK_Attack : MonoBehaviour
 
         if (isAttack)
         {
+            gameObject.GetComponent<NK_PlayerMove>().enabled = false;
             Attack();
         }
 

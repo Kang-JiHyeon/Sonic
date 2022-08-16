@@ -2706,7 +2706,7 @@ GameObject:
   - component: {fileID: 282962976}
   m_Layer: 0
   m_Name: Wall (17)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3285,7 +3285,7 @@ GameObject:
   - component: {fileID: 382483009}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3843,7 +3843,7 @@ GameObject:
   - component: {fileID: 431564254}
   m_Layer: 0
   m_Name: Wall (15)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5454,6 +5454,10 @@ PrefabInstance:
       propertyPath: m_MinMoveDistance
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911942, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: coinFactory
+      value: 
+      objectReference: {fileID: 1015780934767744, guid: 8995ed7a506909f41b736304c6d4a2a8, type: 3}
     - target: {fileID: 4872763056093911943, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
       propertyPath: speed
       value: 30
@@ -5867,7 +5871,7 @@ GameObject:
   - component: {fileID: 701758298}
   m_Layer: 0
   m_Name: Wall (16)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7108,7 +7112,7 @@ GameObject:
   - component: {fileID: 788927073}
   m_Layer: 0
   m_Name: Wall (16)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9117,6 +9121,8 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   camPos1: {fileID: 23704611}
   camPos2: {fileID: 1989776136}
+  isVertical: 0
+  isHorizontal: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9713,7 +9719,7 @@ GameObject:
   - component: {fileID: 1033918612}
   m_Layer: 0
   m_Name: Wall (17)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18018,7 +18024,7 @@ GameObject:
   - component: {fileID: 1724099881}
   m_Layer: 0
   m_Name: Wall (18)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19090,7 +19096,7 @@ GameObject:
   - component: {fileID: 1804377822}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

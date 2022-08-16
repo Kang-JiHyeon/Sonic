@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NK_PlayerMove : MonoBehaviour
 {
-
     public float speed = 10f;
     public float jumpSpeed = 10.0f;
     public float jumpPower = 3;
@@ -18,6 +17,7 @@ public class NK_PlayerMove : MonoBehaviour
     Vector3 camDir;
     NK_PlayerJump playerJump;
     Animator anim;
+    float jumpTime;
 
     public static NK_PlayerMove Instance;
 
@@ -29,6 +29,7 @@ public class NK_PlayerMove : MonoBehaviour
     void Start()
     {
         isJumping = false;
+        jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
         /*GameObject player = transform.GetChild(0).gameObject;
@@ -78,8 +79,9 @@ public class NK_PlayerMove : MonoBehaviour
 
             if (isJumping)
             {
-                playerJump.enabled = true;
-                dir.y = jumpPower;
+                //playerJump.enabled = true;
+                //dir.y = jumpPower;
+                Jump();
             }
         }
 
@@ -92,6 +94,26 @@ public class NK_PlayerMove : MonoBehaviour
 
         dir.y -= gravity * Time.deltaTime;
 
-        controller.Move(dir * speed * Time.deltaTime);
+        if (!isJumping)
+        {
+            controller.Move(dir * speed * Time.deltaTime);
+        }
+        else
+        {
+            controller.Move(dir * jumpPower * Time.deltaTime);
+        }
+    }
+
+    public void Jump()
+    {
+        float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
+        dir.y = jumpSpeed + height;
+        jumpTime += Time.deltaTime;
+
+        if (height < 0.0f)
+        {
+            isJumping = false;
+            jumpTime = 0.0f;
+        }
     }
 }
