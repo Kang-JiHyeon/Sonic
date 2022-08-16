@@ -132,6 +132,7 @@ MonoBehaviour:
   flyingBlockSpeed: 2
   originGravity: 0
   flyingGravity: 0.1
+  landPos: []
 --- !u!54 &4647116682802041642
 Rigidbody:
   m_ObjectHideFlags: 0

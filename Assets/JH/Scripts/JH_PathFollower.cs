@@ -5,7 +5,6 @@ public class JH_PathFollower : MonoBehaviour
 {
 	public float[] speed;
 	public List<Transform> pathList;
-	//public Transform pathParent;
 	public Vector3 offset;
 	Transform player;
 	Transform targetPoint;
@@ -33,8 +32,7 @@ public class JH_PathFollower : MonoBehaviour
 	void Start()
 	{
 		player = GameObject.Find("Player").transform;
-        offset = new Vector3(0, 5, -10);
-
+		transform.position = player.position;
         childIndex = 0;
 		listIndex = 0;
 		targetPoint = pathList[listIndex].GetChild(childIndex);
@@ -45,7 +43,7 @@ public class JH_PathFollower : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
 	{
 		if(childIndex >= pathList[listIndex].childCount - 1)
         {
@@ -59,7 +57,7 @@ public class JH_PathFollower : MonoBehaviour
 		// 커브
         if (isCameraMove)
         {
-			transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed[listIndex] * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, 40 * Time.deltaTime);
 			transform.LookAt(player);
 
 			if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
@@ -71,13 +69,13 @@ public class JH_PathFollower : MonoBehaviour
 		// 직선
         else
         {
-			transform.position = Vector3.Lerp(transform.position, player.position, NK_PlayerMove.Instance.speed * Time.deltaTime);
-			childIndex = 0;
+            transform.position = Vector3.Lerp(transform.position, player.position, NK_PlayerMove.Instance.speed * Time.deltaTime);
+            childIndex = 0;
 		}
 	}
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("CurveTrigger"))
+        if (other.gameObject.name.Contains("CurveIn"))
         {
 			isCameraMove = true;
 		}
