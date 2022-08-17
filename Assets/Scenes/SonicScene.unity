@@ -7861,6 +7861,7 @@ MonoBehaviour:
   flyingBlockSpeed: 2
   originGravity: 0
   flyingGravity: 0.1
+  landPos: []
 --- !u!54 &829684093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9120,6 +9121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   camPos1: {fileID: 23704611}
+  camMoveSpeed: 0.7
   camPos2: {fileID: 1989776136}
   isVertical: 0
   isHorizontal: 0

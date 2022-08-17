@@ -17,6 +17,7 @@ public class NK_PlayerMove : MonoBehaviour
     Vector3 camDir;
     NK_PlayerJump playerJump;
     Animator anim;
+    TrailRenderer trailRenderer;
     float jumpTime;
 
     public static NK_PlayerMove Instance;
@@ -32,6 +33,7 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
+        trailRenderer = GetComponent<TrailRenderer>();
         /*GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
@@ -52,6 +54,9 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (controller.isGrounded)
         {
+            // 점프블럭 전 트레일렌더러 비활성화
+            trailRenderer.enabled = false;
+
             dir = Vector3.zero;
 
             anim.SetBool("IsJumping", false);
@@ -68,6 +73,7 @@ public class NK_PlayerMove : MonoBehaviour
                 if (isJumpBlock)
                 {
                     anim.SetBool("IsSpringJumping", true);
+                    trailRenderer.enabled = true;
                 }
                 else
                 {
@@ -79,8 +85,6 @@ public class NK_PlayerMove : MonoBehaviour
 
             if (isJumping)
             {
-                //playerJump.enabled = true;
-                //dir.y = jumpPower;
                 Jump();
             }
         }
@@ -107,6 +111,7 @@ public class NK_PlayerMove : MonoBehaviour
     public void Jump()
     {
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
+
         dir.y = jumpSpeed + height;
         jumpTime += Time.deltaTime;
 
