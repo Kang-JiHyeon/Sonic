@@ -9,15 +9,15 @@ public class NK_PlayerMove : MonoBehaviour
     public float jumpPower = 3;
     public float gravity = 20.0f;
     public bool isJumping;
-    public CharacterController controller;
     public bool isJumpBlock;
+    public TrailRenderer trailRenderer;
     public Vector3 dir = Vector3.zero;
 
     Vector3 look = Vector3.forward;
     Vector3 camDir;
+    CharacterController controller;
     NK_PlayerJump playerJump;
     Animator anim;
-    TrailRenderer trailRenderer;
     float jumpTime;
 
     public static NK_PlayerMove Instance;
@@ -33,7 +33,7 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
         /*GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
