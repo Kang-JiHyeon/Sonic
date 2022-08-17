@@ -13,6 +13,13 @@ public class NK_Booster : MonoBehaviour
     Animator anim;
     float normalSpeed;
 
+    public static NK_Booster Instance;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

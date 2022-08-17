@@ -9,13 +9,13 @@ public class NK_Attack : MonoBehaviour
     public GameObject aimFactory;
     public float attackTime = 2;
     public float attackSpeed = 20;
+    public bool isAttack = false;
 
     CharacterController cc;
     Animator anim;
     float currentTime = 0;
     float shortDistance;
     bool isAiming = false;
-    bool isAttack = false;
     GameObject aim;
 
     public static NK_Attack Instance;
@@ -55,7 +55,7 @@ public class NK_Attack : MonoBehaviour
 
         if (isAttack)
         {
-            gameObject.GetComponent<NK_PlayerMove>().enabled = false;
+            //gameObject.GetComponent<NK_PlayerMove>().enabled = false;
             Attack();
         }
 
@@ -110,6 +110,7 @@ public class NK_Attack : MonoBehaviour
         Vector3 dir = aim.transform.position - transform.position;
         cc.Move(dir * attackSpeed * Time.deltaTime);
         enemys.Remove(enemy);
+       // gameObject.GetComponent<NK_PlayerMove>().enabled = true;
     }
 
     private void SortEnemy()

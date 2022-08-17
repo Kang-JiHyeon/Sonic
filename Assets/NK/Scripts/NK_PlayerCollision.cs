@@ -51,9 +51,9 @@ public class NK_PlayerCollision : MonoBehaviour
     {
         Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
 
-        if (rigid)
+        if (rigid && (!NK_Attack.Instance.isAttack && !NK_Booster.Instance.isBooster))
         {
-            if (rigid.CompareTag("Wall"))
+            if (rigid.CompareTag("Wall") || rigid.CompareTag("Enemy"))
             {
                 anim.SetBool("IsDamage", true);
                 Vector3 dir = transform.position - rigid.gameObject.transform.position;
@@ -71,11 +71,6 @@ public class NK_PlayerCollision : MonoBehaviour
                                     coin.SetActive(true);
                                     coin.transform.position += Vector3.up * 1f * Time.deltaTime;
                                 }*/
-            }
-
-            if (rigid.CompareTag("Enemy"))
-            {
-                rigid.gameObject.SetActive(false);
             }
         }
     }
