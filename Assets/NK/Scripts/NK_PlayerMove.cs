@@ -33,7 +33,6 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        trailRenderer = GetComponentInChildren<TrailRenderer>();
         /*GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
