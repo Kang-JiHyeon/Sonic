@@ -16,7 +16,6 @@ public class NK_Attack : MonoBehaviour
     float currentTime = 0;
     float shortDistance;
     bool isAiming = false;
-    public bool isAttack = false;
     GameObject aim;
 
     public static NK_Attack Instance;
