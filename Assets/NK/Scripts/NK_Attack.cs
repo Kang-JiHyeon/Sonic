@@ -60,6 +60,8 @@ public class NK_Attack : MonoBehaviour
             //gameObject.GetComponent<NK_PlayerMove>().enabled = false;
             if(currentTime < attackTime)
                 Attack();
+            else
+                Initialization();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))

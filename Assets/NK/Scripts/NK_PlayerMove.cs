@@ -65,7 +65,7 @@ public class NK_PlayerMove : MonoBehaviour
 
             dir = Camera.main.transform.TransformDirection(dir);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
