@@ -7,6 +7,7 @@ public class NK_Attack : MonoBehaviour
     public List<GameObject> enemys;
     public GameObject enemy;
     public GameObject aimFactory;
+    public TrailRenderer trailRenderer;
     public float attackTime = 2;
     public float attackSpeed = 20;
     public bool isAttack = false;
@@ -102,12 +103,14 @@ public class NK_Attack : MonoBehaviour
         isAttack = false;
         aim.SetActive(false);
         anim.SetBool("IsAttack", false);
+        trailRenderer.enabled = false;
     }
 
     private void Attack()
     {
         aim.SetActive(false);
         Vector3 dir = aim.transform.position - transform.position;
+        trailRenderer.enabled = true;
         cc.Move(dir * attackSpeed * Time.deltaTime);
         enemys.Remove(enemy);
        // gameObject.GetComponent<NK_PlayerMove>().enabled = true;
