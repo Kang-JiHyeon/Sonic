@@ -10,7 +10,7 @@ public class JH_PathFollower : MonoBehaviour
 	Transform targetPoint;
 	int childIndex;
 	int listIndex;
-	public bool isCameraMove = false;
+	public bool isCameraRail = false;
 
 	void OnDrawGizmos()
 	{
@@ -38,7 +38,7 @@ public class JH_PathFollower : MonoBehaviour
 		targetPoint = pathList[listIndex].GetChild(childIndex);
         speed = new float[pathList.Count];
         speed[0] = 50f;
-        speed[1] = 45f;
+        speed[1] = 50f;
 
 	}
 
@@ -47,7 +47,7 @@ public class JH_PathFollower : MonoBehaviour
 	{
 		if(childIndex >= pathList[listIndex].childCount - 1)
         {
-			isCameraMove = false;
+			isCameraRail = false;
 			childIndex = 0;
 			listIndex++;
 			listIndex %= pathList.Count;
@@ -55,9 +55,9 @@ public class JH_PathFollower : MonoBehaviour
 		}
 
 		// Ä¿ºê
-        if (isCameraMove)
+        if (isCameraRail)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, 40 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed[listIndex] * Time.deltaTime);
 			transform.LookAt(player);
 
 			if (Vector3.Distance(transform.position, targetPoint.position) < 0.1f)
@@ -77,7 +77,7 @@ public class JH_PathFollower : MonoBehaviour
     {
         if (other.gameObject.name.Contains("CurveIn"))
         {
-			isCameraMove = true;
+			isCameraRail = true;
 		}
     }
 }

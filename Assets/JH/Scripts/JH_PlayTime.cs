@@ -8,8 +8,8 @@ public class JH_PlayTime : MonoBehaviour
 {
     // 필요속성: 텍스트, 경과시간
     Text playTime;
-    float min, sec;
-    string msec;
+    float min;
+    string sec, msec;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class JH_PlayTime : MonoBehaviour
         // minute
         min = (int)Time.time /60 % 60;
         // second
-        sec = (int)Time.time % 60;
+        sec = string.Format("{0:00}", (int)Time.time % 60);
         // ms
         msec = string.Format("{0:.00}", Time.time % 1).Replace(".", "");
 

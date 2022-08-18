@@ -13,12 +13,12 @@ using UnityEngine;
 public class JH_Ring : MonoBehaviour
 {
     GameObject target;
-    NK_Booster player;
+    public NK_Booster player;
     public float speed = 10f;
     public float boosterDis = 20f;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         target = GameObject.Find("Player");
         // Player의 스크립트를 가져온다.
@@ -26,7 +26,7 @@ public class JH_Ring : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         // 플레이어와 일정 거리 안에 있고, 플레이어가 부스터 상태이면 플레이어 쪽으로 이동하고 싶다.
         if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
@@ -43,16 +43,18 @@ public class JH_Ring : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        // 플레이어와 닿으면 점수를 +1 하고 사라지고 싶다.
-        if (other.gameObject.name.Contains("Player") && !player.isBooster)
+        if (player)
         {
-            // 점수 증가
-            JH_Score.Instance.SCORE++;
-            // 제거
-            Destroy(gameObject);
+            // 플레이어와 닿으면 점수를 +1 하고 사라지고 싶다.
+            if (other.gameObject.name.Contains("Player") && !player.isBooster)
+            {
+                // 점수 증가
+                JH_Score.Instance.SCORE++;
+                // 제거
+                Destroy(gameObject);
+            }
         }
     }
 }

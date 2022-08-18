@@ -33,7 +33,6 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        trailRenderer = GetComponentInChildren<TrailRenderer>();
         /*GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
@@ -41,11 +40,7 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Update()
     {
-        float h = 0;
-        if (!Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
-        {
-            h = Input.GetAxis("Horizontal");
-        }
+        float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         anim.SetFloat("Speed", v);
@@ -63,10 +58,14 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            dir = new Vector3(h, 0, v);
+            if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
+                dir = new Vector3(v, 0, 0);
+            else
+                dir = new Vector3(h, 0, v);
+
             dir = Camera.main.transform.TransformDirection(dir);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
             if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
             {
@@ -113,6 +112,7 @@ public class NK_PlayerMove : MonoBehaviour
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
 
         dir.y = jumpSpeed + height;
+        dir += transform.forward * 5;
         jumpTime += Time.deltaTime;
 
         if (height < 0.0f)

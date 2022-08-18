@@ -17,6 +17,7 @@ public class JH_Balloon : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Player"))
         {
+            NK_Attack.Instance.enemys.Remove(gameObject);
             GameObject hitEffect = Instantiate(balloonEffectFactory);
             hitEffect.transform.position = gameObject.transform.position;
             Destroy(gameObject);

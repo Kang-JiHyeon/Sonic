@@ -72,6 +72,8 @@ public class JH_Bezier : MonoBehaviour
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
+            Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
+
         }
     }
 }
