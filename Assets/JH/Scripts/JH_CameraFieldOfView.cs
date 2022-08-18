@@ -51,7 +51,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
         }
 
         // 1. ∑π¿œ ¿ß
-        if (camManager.isCameraMove)
+        if (camManager.isCameraRail)
         {
             fov = originFOV;
         }

@@ -28,7 +28,7 @@ public class JH_Camera : MonoBehaviour
 
     public bool isVertical = false;    // Vertical
     public bool isHorizontal = false;  // Horizontal
-
+    public bool isCamMove = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,9 +70,9 @@ public class JH_Camera : MonoBehaviour
                 isVertical = false;
             }
         }
-
+        
         // camPos2의 위치로 이동하고 싶다.
-        if (isHorizontal && !isVertical)
+        if (isHorizontal && isCamMove)
         {
             transform.position = Vector3.Lerp(transform.position, camPos2.position, Time.deltaTime * camMoveSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, camPos2.rotation, Time.deltaTime * camMoveSpeed);
@@ -81,7 +81,7 @@ public class JH_Camera : MonoBehaviour
             {
                 transform.position = camPos2.position;
                 transform.rotation = camPos2.rotation;
-                isHorizontal = false;
+                isCamMove = false;
             }
         }
     }
