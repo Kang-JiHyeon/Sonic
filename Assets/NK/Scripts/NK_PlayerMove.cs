@@ -14,7 +14,9 @@ public class NK_PlayerMove : MonoBehaviour
     public Vector3 dir = Vector3.zero;
 
     Vector3 look = Vector3.forward;
+    Vector3 camDir;
     CharacterController controller;
+    NK_PlayerJump playerJump;
     Animator anim;
     float jumpTime;
 
@@ -31,6 +33,7 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
         /*GameObject player = transform.GetChild(0).gameObject;
         playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
@@ -110,7 +113,6 @@ public class NK_PlayerMove : MonoBehaviour
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
 
         dir.y = jumpSpeed + height;
-        dir += transform.forward * 5;
         jumpTime += Time.deltaTime;
 
         if (height < 0.0f)
