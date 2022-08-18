@@ -41,24 +41,29 @@ public class JH_Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 부딪히면
+        // 플레이어가 일반 상태이면 플레이어가 부딪혀도 가만히 있고 싶다.
+
+        // 플레이어가 공격 상태일 때 부딪히면
         if (isHit)
         {
             // 일정 거리 날라간 후 없어지고 싶다.
             if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
-                Destroy(gameObject);
                 NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
+                Destroy(gameObject);
             }
         }
 
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
         // NK_Booster의 isBooster 대체
-        if (Vector3.Distance(transform.position, target.transform.position) < boosterRange && player.isBooster)
+        if (player.isBooster)
         {
-            Hit();
+            if (Vector3.Distance(transform.position, target.transform.position) < boosterRange)
+            {
+                Hit();
+            }
         }
     }
     private void Hit()
@@ -74,7 +79,7 @@ public class JH_Enemy : MonoBehaviour
             // y의 값만 변경한다.
             dir.y = angleY;
             dir.Normalize();
-            // dir방향으로 힘을 가한다.
+            // dir 방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
         }
     }
@@ -83,9 +88,18 @@ public class JH_Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 부딪힌 대상이 Player이면
-        if (other.gameObject.name.Contains("Player") && !isHit)
+        if (other.gameObject.name.Contains("Player"))
         {
-            Hit();
+            if (!isHit)
+            {
+                if (NK_Attack.Instance.isAttack)
+                {
+                    {
+                        Hit();
+                    }
+                }
+            }
+
         }
 
         // 맵이랑 닿이면 없애고 싶다.
