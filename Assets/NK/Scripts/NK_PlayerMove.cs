@@ -140,7 +140,7 @@ public class NK_PlayerMove : MonoBehaviour
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
 
         dir.y = jumpSpeed + height;
-        dir += transform.forward * 5;
+        dir += transform.forward * 3;
         jumpTime += Time.deltaTime;
 
         if (height < 0.0f)
