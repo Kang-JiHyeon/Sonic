@@ -66,6 +66,7 @@ public class NK_PlayerMove : MonoBehaviour
             // �������� �� Ʈ���Ϸ����� ��Ȱ��ȭ
             //trailRenderer.enabled = false;
 
+
             dir = Vector3.zero;
 
             anim.SetBool("IsJumping", false);
