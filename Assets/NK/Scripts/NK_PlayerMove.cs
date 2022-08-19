@@ -50,7 +50,7 @@ public class NK_PlayerMove : MonoBehaviour
         if (controller.isGrounded)
         {
             // 점프블럭 전 트레일렌더러 비활성화
-            trailRenderer.enabled = false;
+            //trailRenderer.enabled = false;
 
             dir = Vector3.zero;
 
@@ -72,7 +72,7 @@ public class NK_PlayerMove : MonoBehaviour
                 if (isJumpBlock)
                 {
                     anim.SetBool("IsSpringJumping", true);
-                    trailRenderer.enabled = true;
+                    //trailRenderer.enabled = true;
                 }
                 else
                 {
