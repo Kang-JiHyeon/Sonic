@@ -46,14 +46,11 @@ public class NK_PlayerMove : MonoBehaviour
 
     public void Move()
     {
-        if (NK_Attack.Instance.isAiming)
-        {
-            look = NK_Attack.Instance.dir;
-        }
-        if (NK_Attack.Instance.isAttack)
+        if (NK_Attack.Instance.isAttack || JH_Bezier.Instance.isFlying)
         {
             return;
         }
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -63,9 +60,7 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            // �������� �� Ʈ���Ϸ����� ��Ȱ��ȭ
-            //trailRenderer.enabled = false;
-
+            trailRenderer.enabled = false;
 
             dir = Vector3.zero;
 
@@ -83,6 +78,11 @@ public class NK_PlayerMove : MonoBehaviour
             if (isJumping)
             {
                 Jump();
+            }
+
+            if (NK_Attack.Instance.isAiming)
+            {
+                look = NK_Attack.Instance.dir;
             }
 
             if (dir != Vector3.zero)

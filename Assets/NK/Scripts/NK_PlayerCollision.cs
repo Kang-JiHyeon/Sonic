@@ -5,7 +5,7 @@ using UnityEngine;
 public class NK_PlayerCollision : MonoBehaviour
 {
     public GameObject coinFactory;
-    public float damageTime = 2;
+    public float damageTime = 0.5f;
     public bool isDamage;
 
     CharacterController cc;
@@ -35,7 +35,7 @@ public class NK_PlayerCollision : MonoBehaviour
         {
             gameObject.GetComponent<NK_PlayerMove>().enabled = false;
             Vector3 dir = -transform.forward;
-            cc.SimpleMove(dir);
+            cc.SimpleMove(dir * 5);
 
             currentTime += Time.deltaTime;
             if (currentTime > damageTime)
