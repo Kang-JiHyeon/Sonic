@@ -98,6 +98,13 @@ public class NK_Attack : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             dir = aim.transform.position - transform.position;
+
+            if (currentTime > attackTime)
+            {
+                isAiming = false;
+                Initialization();
+                currentTime = 0;
+            }
         }
     }
 
