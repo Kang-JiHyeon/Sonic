@@ -36,7 +36,10 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Update()
     {
-        Move();
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Move(h, v);
 
         if (transform.position.y < -100)
         {
@@ -44,15 +47,12 @@ public class NK_PlayerMove : MonoBehaviour
         }
     }
 
-    public void Move()
+    public void Move(float h, float v)
     {
         if (NK_Attack.Instance.isAttack || JH_Bezier.Instance.isFlying)
         {
             return;
         }
-
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
 
         anim.SetFloat("Speed", v);
 
@@ -68,7 +68,7 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            CheckHorizontalMap(h, v);
+            dir = new Vector3(h, 0, v);
 
             dir = Camera.main.transform.TransformDirection(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
@@ -104,17 +104,6 @@ public class NK_PlayerMove : MonoBehaviour
         {
             controller.Move(dir * jumpPower * Time.deltaTime);
         }
-    }
-
-    private void CheckHorizontalMap(float h, float v)
-    {
-        if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
-        {
-            dir = new Vector3(v, 0, h);
-            //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, Mathf.Clamp(transform.localPosition.z, transform.localPosition.z - 0.1f, transform.localPosition.z + 0.1f));
-        }
-        else
-            dir = new Vector3(h, 0, v);
     }
 
     private void CheckJumping()
