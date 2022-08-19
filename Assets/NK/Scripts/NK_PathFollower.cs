@@ -15,6 +15,13 @@ public class NK_PathFollower : MonoBehaviour
     NK_PlayerJump playerJump;
     GameObject player;
 
+    public static NK_PathFollower Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         playerMove = GetComponent<NK_PlayerMove>();

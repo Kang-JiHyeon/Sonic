@@ -15,10 +15,11 @@ public class NK_ScriptManager : MonoBehaviour
     {
         if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
         {
-            gameObject.GetComponent<PlayerHorizontalMove>().ena
+
         }
         else
         {
             GetComponent<NK_PlayerMove>().enabled = true;
         }
+    }
 }
