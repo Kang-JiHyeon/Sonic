@@ -11,7 +11,6 @@ public class NK_PlayerCollision : MonoBehaviour
     CharacterController cc;
     Animator anim;
     float currentTime = 0;
-    Vector3 impact = Vector3.zero;
     int coinCount;
 
     public static NK_PlayerCollision Instance;
