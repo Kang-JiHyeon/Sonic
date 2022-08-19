@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime > startDelayTime)
         {
-            SceneManager.LoadScene("JHScene");
+            SceneManager.LoadScene("JH_MapScene");
             m_state = GameState.Playing;
             currentTime = 0;
         }
