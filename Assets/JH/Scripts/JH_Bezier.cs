@@ -78,6 +78,7 @@ public class JH_Bezier : MonoBehaviour
         {
             isFlying = true;
             NK_PlayerMove.Instance.enabled = false;
+            //NK_PathFollower.Instance.enabled = false;
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
