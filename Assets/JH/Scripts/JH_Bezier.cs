@@ -19,6 +19,15 @@ public class JH_Bezier : MonoBehaviour
     // Update is called once per frame
     float currentTime;
     float flyingSpeed = 3f;
+    public bool isFlying = false;
+
+    public static JH_Bezier Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Update()
     {
         Draw();
@@ -31,9 +40,9 @@ public class JH_Bezier : MonoBehaviour
             if(Vector3.Distance(player.position, end.position) < 0.5f)
             {
                 isFlying = false;
+                NK_PlayerMove.Instance.enabled = true;
                 player.position = end.position;
                 currentTime = 0;
-                NK_PlayerMove.Instance.enabled = true;
             }
         }
     }
@@ -62,7 +71,7 @@ public class JH_Bezier : MonoBehaviour
         return ppp1;
     }
 
-    bool isFlying = false;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.Contains("Player"))
