@@ -41,6 +41,7 @@ public class JH_Bezier : MonoBehaviour
             {
                 isFlying = false;
                 NK_PlayerMove.Instance.enabled = true;
+                NK_PathFollower.Instance.enabled = true;
                 player.position = end.position;
                 currentTime = 0;
             }
@@ -78,7 +79,7 @@ public class JH_Bezier : MonoBehaviour
         {
             isFlying = true;
             NK_PlayerMove.Instance.enabled = false;
-            //NK_PathFollower.Instance.enabled = false;
+            NK_PathFollower.Instance.enabled = false;
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
