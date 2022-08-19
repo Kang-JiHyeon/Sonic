@@ -8,15 +8,15 @@ public class NK_Attack : MonoBehaviour
     public GameObject enemy;
     public GameObject aimFactory;
     public TrailRenderer trailRenderer;
-    public float attackTime = 2;
+    public float attackTime = 3;
     public float attackSpeed = 20;
     public bool isAttack = false;
+    public bool isAiming = false;
 
     CharacterController cc;
     Animator anim;
     float currentTime = 0;
     float shortDistance;
-    bool isAiming = false;
     GameObject aim;
 
     public static NK_Attack Instance;
@@ -97,6 +97,7 @@ public class NK_Attack : MonoBehaviour
         if (isAiming)
         {
             currentTime += Time.deltaTime;
+            dir = aim.transform.position - transform.position;
         }
     }
 
@@ -110,10 +111,11 @@ public class NK_Attack : MonoBehaviour
         trailRenderer.enabled = false;
     }
 
+    public Vector3 dir;
     private void Attack()
     {
         aim.SetActive(false);
-        Vector3 dir = aim.transform.position - transform.position;
+        dir = aim.transform.position - transform.position;
         trailRenderer.enabled = true;
         cc.Move(dir * attackSpeed * Time.deltaTime);
         enemys.Remove(enemy);

@@ -5,44 +5,55 @@ using UnityEngine;
 public class NK_PlayerCollision : MonoBehaviour
 {
     public GameObject coinFactory;
-    public int coinCount = 10;
     public float damageTime = 2;
+    public bool isDamage;
 
-    List<GameObject> coins = new List<GameObject>();
     CharacterController cc;
     Animator anim;
     float currentTime = 0;
     Vector3 impact = Vector3.zero;
+    int coinCount;
+
+    public static NK_PlayerCollision Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
-        for (int i = 0; i < coinCount; i++)
-        {
-            GameObject coin = Instantiate(coinFactory);
-            coin.SetActive(false);
-            coin.GetComponent<SphereCollider>().enabled = false;
-            coin.GetComponent<JH_Ring>().enabled = false;
-            coins.Add(coin);
-        }
     }
 
     private void Update()
     {
-        if (anim.GetBool("IsDamage"))
+        anim.SetBool("IsDamage", isDamage);
+
+        if (isDamage)
         {
+            gameObject.GetComponent<NK_PlayerMove>().enabled = false;
+            Vector3 dir = -transform.forward;
+            cc.SimpleMove(dir);
+
             currentTime += Time.deltaTime;
             if (currentTime > damageTime)
             {
-                anim.SetBool("IsDamage", false);
+                gameObject.GetComponent<NK_PlayerMove>().enabled = true;
+                isDamage = false;
+                coinCount = 0;
                 currentTime = 0;
+            }
 
-                foreach (GameObject coin in coins)
-                {
-                    coin.GetComponent<SphereCollider>().enabled = true;
-                    coin.GetComponent<JH_Ring>().enabled = true;
-                }
+            if (coinCount < 10)
+            {
+                GameObject coin = Instantiate(coinFactory);
+                coin.SetActive(false);
+                coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
+                coin.SetActive(true);
+                coinCount++;
+
             }
         }
     }
@@ -53,11 +64,10 @@ public class NK_PlayerCollision : MonoBehaviour
 
         if (rigid && (!NK_Attack.Instance.isAttack && !NK_Booster.Instance.isBooster))
         {
-            if (rigid.CompareTag("Wall") || rigid.CompareTag("Enemy"))
+            if (rigid.CompareTag("Wall") || isDamage)
             {
                 anim.SetBool("IsDamage", true);
                 Vector3 dir = transform.position - rigid.gameObject.transform.position;
-                AddImpact(dir, 5f);
                 cc.SimpleMove(dir);
 
                 GameObject coin = Instantiate(coinFactory);
@@ -73,15 +83,5 @@ public class NK_PlayerCollision : MonoBehaviour
                                 }*/
             }
         }
-    }
-
-    void AddImpact(Vector3 dir, float force)
-    {
-        dir.Normalize();
-        if (dir.y < 0)
-        {
-            dir.y = -dir.y;
-        }
-        impact += dir.normalized * force / 2;
     }
 }
