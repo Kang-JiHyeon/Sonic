@@ -66,6 +66,7 @@ public class NK_PlayerMove : MonoBehaviour
             // 점프블럭 전 트레일렌더러 비활성화
             trailRenderer.enabled = false;
 
+
             dir = Vector3.zero;
 
             anim.SetBool("IsJumping", false);
