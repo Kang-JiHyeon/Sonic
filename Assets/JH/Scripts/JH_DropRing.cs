@@ -26,6 +26,7 @@ public class JH_DropRing : JH_Ring
     float currentTime = 0f;
 
     MeshRenderer mesh;
+    Vector3 pos;
 
     // Start is called before the first frame update
     public override void Start()
@@ -33,6 +34,7 @@ public class JH_DropRing : JH_Ring
         base.Start();
         mesh = GetComponent<MeshRenderer>();
         StartCoroutine(IeBlink());
+        pos = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -47,6 +49,11 @@ public class JH_DropRing : JH_Ring
             StopCoroutine(IeBlink());
             Destroy(gameObject);
         }
+        if (GetComponent<Collider>().isTrigger)
+        {
+            transform.position = pos;
+
+        }
     }
 
     IEnumerator IeBlink()
@@ -59,6 +66,26 @@ public class JH_DropRing : JH_Ring
             mesh.enabled = false;
             yield return new WaitForSeconds(0.1f);
             mesh.enabled = true;
+        }
+    }
+
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag.Contains("Road"))
+    //    {
+    //        pos.y = other.gameObject.transform.position.y;
+    //    }
+    //}
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Contains("Road"))
+        {
+            ContactPoint contact = collision.contacts[0];
+
+            pos.y = contact.point.y + 0.5f;
+            GetComponent<Collider>().isTrigger = true;
         }
     }
 }

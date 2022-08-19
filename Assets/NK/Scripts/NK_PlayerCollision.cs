@@ -53,35 +53,34 @@ public class NK_PlayerCollision : MonoBehaviour
                 coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
                 coin.SetActive(true);
                 coinCount++;
-
             }
         }
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+    //private void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //    Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
 
-        if (rigid && (!NK_Attack.Instance.isAttack && !NK_Booster.Instance.isBooster))
-        {
-            if (rigid.CompareTag("Wall") || isDamage)
-            {
-                anim.SetBool("IsDamage", true);
-                Vector3 dir = transform.position - rigid.gameObject.transform.position;
-                cc.SimpleMove(dir);
+    //    if (rigid && (!NK_Attack.Instance.isAttack && !NK_Booster.Instance.isBooster))
+    //    {
+    //        if (rigid.CompareTag("Wall") || isDamage)
+    //        {
+    //            anim.SetBool("IsDamage", true);
+    //            Vector3 dir = transform.position - rigid.gameObject.transform.position;
+    //            cc.SimpleMove(dir);
 
-                GameObject coin = Instantiate(coinFactory);
-                coin.SetActive(false);
-                coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
-                coin.SetActive(true);
+    //            GameObject coin = Instantiate(coinFactory);
+    //            coin.SetActive(false);
+    //            coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
+    //            coin.SetActive(true);
 
-                /*                foreach (GameObject coin in coins)
-                                {
-                                    coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3,3));
-                                    coin.SetActive(true);
-                                    coin.transform.position += Vector3.up * 1f * Time.deltaTime;
-                                }*/
-            }
-        }
-    }
+    //            /*                foreach (GameObject coin in coins)
+    //                            {
+    //                                coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3,3));
+    //                                coin.SetActive(true);
+    //                                coin.transform.position += Vector3.up * 1f * Time.deltaTime;
+    //                            }*/
+    //        }
+    //    }
+    //}
 }

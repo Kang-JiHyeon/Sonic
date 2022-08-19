@@ -57,8 +57,6 @@ public class JH_FlyingBlock : MonoBehaviour
             NK_PlayerMove.Instance.isJumpBlock = true;
             //NK_PlayerMove.Instance.speed = originMoveSpeed * flyingBlockSpeed;
             
-
-            Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
 
             isFlying = true;

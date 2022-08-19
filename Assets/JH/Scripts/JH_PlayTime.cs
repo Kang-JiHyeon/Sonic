@@ -21,7 +21,7 @@ public class JH_PlayTime : MonoBehaviour
     void Update()
     {
         // minute
-        min = (int)Time.time /60 % 60;
+        min = (int)Time.time / 60 % 60;
         // second
         sec = string.Format("{0:00}", (int)Time.time % 60);
         // ms

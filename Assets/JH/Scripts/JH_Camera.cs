@@ -26,7 +26,6 @@ public class JH_Camera : MonoBehaviour
     // 옆
     public Transform camPos2;
 
-    public bool isVertical = false;    // Vertical
     public bool isHorizontal = false;  // Horizontal
     public bool isCamMove = false;
     // Start is called before the first frame update
@@ -40,26 +39,8 @@ public class JH_Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // 1을 누르면
-        if (!isHorizontal)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                isVertical = true;
-            }
-
-        }
-        if (!isVertical)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                isHorizontal = true;
-            }
-        }
-
         // camPos1의 위치로 이동하고 싶다.
-        if (isVertical && !isHorizontal)
+        if (!isHorizontal)
         {
             transform.position = Vector3.Lerp(transform.position, camPos1.position, Time.deltaTime * camMoveSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, camPos1.rotation, Time.deltaTime * camMoveSpeed);
@@ -67,7 +48,6 @@ public class JH_Camera : MonoBehaviour
             {
                 transform.position = camPos1.position;
                 transform.rotation = camPos1.rotation;
-                isVertical = false;
             }
         }
         
@@ -85,13 +65,4 @@ public class JH_Camera : MonoBehaviour
             }
         }
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.name.Contains("CurveOut"))
-    //    {
-    //        print("trigger CurveOut");
-    //        transform.position = camPos1.position;
-    //        transform.forward = camPos1.forward;
-    //    }
-    //}
 }

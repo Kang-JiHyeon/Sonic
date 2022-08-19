@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Wall
   - Curve
+  - Road
   layers:
   - Default
   - TransparentFX

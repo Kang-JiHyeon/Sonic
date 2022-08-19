@@ -75,15 +75,26 @@ public class JH_Bezier : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        bool isHor;
+
         if (other.gameObject.name.Contains("Player"))
         {
             isFlying = true;
             NK_PlayerMove.Instance.enabled = false;
             NK_PathFollower.Instance.enabled = false;
+            
+            if (gameObject.name.Contains("BoosterRing"))
+            {
+                isHor = false;
+            }
+            else
+            {
+                isHor = true;
+            }
 
-            Camera.main.gameObject.GetComponent<JH_Camera>().isVertical = false;
-            Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = true;
+            Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
             Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
+
 
         }
     }
