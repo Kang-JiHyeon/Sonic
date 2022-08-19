@@ -20,7 +20,7 @@ public class JH_Enemy : MonoBehaviour
     NK_Booster player;
     Vector3 dir;
     Vector3 originPos;
-    
+
     public float moveDis = 15f;
     public float angleY = 0.2f;
     public float boosterRange = 5f;
@@ -70,7 +70,7 @@ public class JH_Enemy : MonoBehaviour
     {
         // 적의 공격 당함 상태를 true로 만든다.
         isHit = true;
-        
+
         if (target)
         {
             // 적이 튕겨나갈 방향을 구하고 싶다.
@@ -88,22 +88,20 @@ public class JH_Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 부딪힌 대상이 Player이면
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.name.Contains("Player") && !isHit)
         {
-            if (!isHit)
+            if (NK_Attack.Instance.isAttack)
             {
-                if (NK_Attack.Instance.isAttack)
-                {
-                    {
-                        Hit();
-                    }
-                }
+                Hit();
             }
-
+            else
+            {
+                NK_PlayerCollision.Instance.isDamage = true;
+            }
         }
 
         // 맵이랑 닿이면 없애고 싶다.
-        if(other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16)
         {
             Destroy(gameObject);
         }

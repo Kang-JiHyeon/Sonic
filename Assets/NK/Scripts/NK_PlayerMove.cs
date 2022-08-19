@@ -14,9 +14,7 @@ public class NK_PlayerMove : MonoBehaviour
     public Vector3 dir = Vector3.zero;
 
     Vector3 look = Vector3.forward;
-    Vector3 camDir;
     CharacterController controller;
-    NK_PlayerJump playerJump;
     Animator anim;
     float jumpTime;
 
@@ -33,13 +31,29 @@ public class NK_PlayerMove : MonoBehaviour
         jumpTime = 0;
         transform.localEulerAngles = Vector3.zero;
         controller = GetComponent<CharacterController>();
-        /*GameObject player = transform.GetChild(0).gameObject;
-        playerJump = player.GetComponent<NK_PlayerJump>();*/
         anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
+        Move();
+
+        if (transform.position.y < -100)
+        {
+            GameManager.gameManager.m_state = GameManager.GameState.GameOver;
+        }
+    }
+
+    public void Move()
+    {
+        if (NK_Attack.Instance.isAiming)
+        {
+            look = NK_Attack.Instance.dir;
+        }
+        if (NK_Attack.Instance.isAttack)
+        {
+            return;
+        }
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -58,40 +72,24 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
-                dir = new Vector3(v, 0, 0);
-            else
-                dir = new Vector3(h, 0, v);
+            CheckHorizontalMap(h, v);
 
             dir = Camera.main.transform.TransformDirection(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
 
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
-
-            if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
-            {
-                if (isJumpBlock)
-                {
-                    anim.SetBool("IsSpringJumping", true);
-                    trailRenderer.enabled = true;
-                }
-                else
-                {
-                    anim.SetBool("IsJumping", true);
-                }
-
-                isJumping = true;
-            }
+            CheckJumping();
 
             if (isJumping)
             {
                 Jump();
             }
+
+            if (dir != Vector3.zero)
+            {
+                look = dir;
+            }
         }
 
-        if (dir != Vector3.zero)
-        {
-            look = dir;
-        }
 
         //speed += Time.deltaTime;
 
@@ -104,6 +102,35 @@ public class NK_PlayerMove : MonoBehaviour
         else
         {
             controller.Move(dir * jumpPower * Time.deltaTime);
+        }
+    }
+
+    private void CheckHorizontalMap(float h, float v)
+    {
+        if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
+        {
+            dir = new Vector3(v, 0, h);
+            //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, Mathf.Clamp(transform.localPosition.z, transform.localPosition.z - 0.1f, transform.localPosition.z + 0.1f));
+        }
+        else
+            dir = new Vector3(h, 0, v);
+    }
+
+    private void CheckJumping()
+    {
+        if ((Input.GetButton("Jump") || isJumpBlock) && !isJumping)
+        {
+            if (isJumpBlock)
+            {
+                anim.SetBool("IsSpringJumping", true);
+                trailRenderer.enabled = true;
+            }
+            else
+            {
+                anim.SetBool("IsJumping", true);
+            }
+
+            isJumping = true;
         }
     }
 
