@@ -42,7 +42,10 @@ public class NK_PathFollower : MonoBehaviour
                 pathCreator = null;
                 distanceTravelled = 0;
                 NK_PlayerMove.Instance.dir = Vector3.zero;
-                playerMove.enabled = true;
+                if (!JH_Bezier.Instance.isFlying)
+                {
+                    playerMove.enabled = true;
+                }
             }
         }
     }
