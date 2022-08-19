@@ -63,8 +63,8 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            // Á¡ÇÁºí·° Àü Æ®·¹ÀÏ·»´õ·¯ ºñÈ°¼ºÈ­
-            trailRenderer.enabled = false;
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+            //trailRenderer.enabled = false;
 
             dir = Vector3.zero;
 

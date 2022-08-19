@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4647116682802041632}
   - component: {fileID: 4647116682802041645}
   - component: {fileID: 4647116682802041644}
-  - component: {fileID: 4647116682802041643}
   - component: {fileID: 4647116682802041642}
+  - component: {fileID: 2993167640654959162}
   m_Layer: 0
   m_Name: FlyingBlock
   m_TagString: Untagged
@@ -114,25 +114,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4647116682802041643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4647116682802041636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0aa2554a0cf55c468024dc92c650767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originJumpPower: 0
-  flyingJumpPower: 3
-  originMoveSpeed: 0
-  flyingBlockSpeed: 2
-  originGravity: 0
-  flyingGravity: 0.1
-  landPos: []
 --- !u!54 &4647116682802041642
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,3 +130,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2993167640654959162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4647116682802041636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fb991d05338664587635f34e83fe30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 0}
+  handle: {fileID: 0}
+  end: {fileID: 0}
+  player: {fileID: 0}
+  list: []
