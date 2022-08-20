@@ -7,6 +7,7 @@ public class NK_RayManager : MonoBehaviour
     public float gravity = 50;
 
     CharacterController controller;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,16 +31,18 @@ public class NK_RayManager : MonoBehaviour
                 controller.SimpleMove(dir);
             }
 
-
-            //raycastHit.transform.gameObject
-            // 충돌한 지점과 캐릭터의 라인을 만든다
-            Vector3 incomingVec = raycastHit.point - this.transform.position;
+/*            // 충돌한 지점과 캐릭터의 라인을 만든다
+            Vector3 incomingVec = raycastHit.normal + transform.forward;
             if (raycastHit.collider.CompareTag("Incline"))
             {
                 Debug.Log($"충돌 {raycastHit.transform.position}");
                 dir = new Vector3(transform.position.x, transform.position.y, raycastHit.transform.position.z) - transform.position;
                 controller.SimpleMove(dir);
-
+                Vector3 CrossVec = Vector3.Cross(incomingVec, raycastHit.normal);
+                //Vector3 DotVec = Vector3.Dot(incomingVec, raycastHit.normal);
+                Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
+                Debug.DrawLine(transform.position, incomingVec, Color.red, 0.3f);
+*/
                 // 만들어진 라인과 충돌된 곳의 Normal을 가지고 반사값을 만들자.
                 // 중력이 고정되었다면  raycastHit.normal 만 가지고도 경사를 측정할수도 있을꺼 같다..
                 /*Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
@@ -49,7 +52,7 @@ public class NK_RayManager : MonoBehaviour
 
                 Debug.DrawLine(this.transform.position, raycastHit.point, Color.red, 0.3f);
                 Debug.DrawRay(raycastHit.point, raycastHit.normal, Color.green, 0.3f);*/
-            }
+/*            }*/
         }
     }
 }
