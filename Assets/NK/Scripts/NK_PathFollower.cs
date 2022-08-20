@@ -13,7 +13,9 @@ public class NK_PathFollower : MonoBehaviour
     RoadMeshCreator roadMeshCreator;
     NK_PlayerMove playerMove;
     GameObject player;
+    Rigidbody rigid;
     GameObject railEffect;
+    bool isIncline;
 
     public static NK_PathFollower Instance;
 
@@ -35,7 +37,8 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            railEffect.SetActive(true);
+            if(!isIncline)
+                railEffect.SetActive(true);
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
@@ -47,10 +50,13 @@ public class NK_PathFollower : MonoBehaviour
 
             if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
             {
+                if (isIncline && rigid != null)
+                    rigid.gameObject.GetComponent<MeshCollider>().enabled = false;
                 pathCreator = null;
                 distanceTravelled = 0;
                 NK_PlayerMove.Instance.dir = Vector3.zero;
                 railEffect.SetActive(false);
+                isIncline = false;
                 if (!JH_Bezier.Instance.isFlying)
                 {
                     playerMove.enabled = true;
@@ -68,16 +74,17 @@ public class NK_PathFollower : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Rigidbody rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
+        rigid = hit.collider.gameObject.GetComponent<Rigidbody>();
         if (rigid)
         {
-            if (rigid.CompareTag("Rollercoaster"))
+            if (rigid.CompareTag("Rollercoaster") || rigid.CompareTag("Incline"))
             {
                 player.transform.eulerAngles = Vector3.zero;
                 pathCreator = rigid.GetComponent<PathCreator>();
                 roadMeshCreator = rigid.GetComponent<RoadMeshCreator>();
-                // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
                 pathCreator.pathUpdated += OnPathChanged;
+                if (rigid.CompareTag("Incline"))
+                    isIncline = true;
             }
         }
     }

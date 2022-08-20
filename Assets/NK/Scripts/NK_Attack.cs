@@ -85,6 +85,8 @@ public class NK_Attack : MonoBehaviour
                 {
                     aim.transform.position = enemy.transform.position + new Vector3(0, 1.5f, 0);
                     aim.transform.forward = enemy.transform.forward;
+                    if (enemy.name.Contains("Bee"))
+                        aim.transform.Rotate(0, 90, 0);
                     aim.SetActive(true);
                     isAiming = true;
                 }
