@@ -12,6 +12,7 @@ public class NK_Booster : MonoBehaviour
     GameObject booster;
     Animator anim;
     float normalSpeed;
+    float currentTime;
 
     public static NK_Booster Instance;
 
@@ -39,10 +40,21 @@ public class NK_Booster : MonoBehaviour
 
         if (isBooster)
         {
-            anim.SetBool("IsBooster", true);
-            NK_PlayerMove.Instance.speed = boostSpeed;
-            booster.SetActive(true);
-            Invoke("Initialization", boostTime);
+            currentTime += Time.deltaTime;
+            if (currentTime < boostTime)
+            {
+                anim.SetBool("IsBooster", true);
+                NK_PlayerMove.Instance.speed = boostSpeed;
+                booster.SetActive(true);
+            }
+            else
+            {
+                isBooster = false;
+            }
+        }
+        else
+        {
+            Initialization();
         }
 
         if (booster != null)
@@ -53,10 +65,9 @@ public class NK_Booster : MonoBehaviour
 
     void Initialization()
     {
-        //booster = Instantiate(boosterFactory);
         booster.SetActive(false);
         anim.SetBool("IsBooster", false);
-        isBooster = false;
         NK_PlayerMove.Instance.speed = normalSpeed;
+        currentTime = 0;
     }
 }

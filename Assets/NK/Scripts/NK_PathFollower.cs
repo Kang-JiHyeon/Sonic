@@ -12,8 +12,8 @@ public class NK_PathFollower : MonoBehaviour
 
     RoadMeshCreator roadMeshCreator;
     NK_PlayerMove playerMove;
-    NK_PlayerJump playerJump;
     GameObject player;
+    GameObject railEffect;
 
     public static NK_PathFollower Instance;
 
@@ -26,7 +26,8 @@ public class NK_PathFollower : MonoBehaviour
     {
         playerMove = GetComponent<NK_PlayerMove>();
         player = transform.GetChild(0).gameObject;
-        playerJump = player.GetComponent<NK_PlayerJump>();
+        railEffect = transform.Find("RailEffect").gameObject;
+        railEffect.SetActive(false);
     }
 
     void Update()
@@ -34,7 +35,7 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            playerJump.enabled = false;
+            railEffect.SetActive(true);
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
@@ -49,6 +50,7 @@ public class NK_PathFollower : MonoBehaviour
                 pathCreator = null;
                 distanceTravelled = 0;
                 NK_PlayerMove.Instance.dir = Vector3.zero;
+                railEffect.SetActive(false);
                 if (!JH_Bezier.Instance.isFlying)
                 {
                     playerMove.enabled = true;
