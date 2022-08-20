@@ -39,7 +39,7 @@ public class JH_PathFollower : MonoBehaviour
         speed = new float[pathList.Count];
 
         speed[0] = 50f;
-        speed[1] = 45f;
+        speed[1] = 47f;
         speed[2] = 30f;
 
         //speed[0] = 30f;
