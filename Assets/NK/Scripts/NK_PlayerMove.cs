@@ -7,7 +7,7 @@ public class NK_PlayerMove : MonoBehaviour
     public float speed = 10f;
     public float jumpSpeed = 10.0f;
     public float jumpPower = 3;
-    public float gravity = 20.0f;
+    public float gravity = 10f;
     public bool isJumping;
     public bool isJumpBlock;
     public TrailRenderer trailRenderer;
@@ -36,23 +36,23 @@ public class NK_PlayerMove : MonoBehaviour
 
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        Move(h, v);
+        Move();
 
         if (transform.position.y < -100)
         {
-            GameManager.gameManager.m_state = GameManager.GameState.GameOver;
+            //GameManager.gameManager.m_state = GameManager.GameState.GameOver;
         }
     }
 
-    public void Move(float h, float v)
+    private void Move()
     {
         if (NK_Attack.Instance.isAttack || JH_Bezier.Instance.isFlying)
         {
             return;
         }
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
         anim.SetFloat("Speed", v);
 
@@ -60,15 +60,14 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            trailRenderer.enabled = false;
-
             dir = Vector3.zero;
+            trailRenderer.enabled = false;
 
             anim.SetBool("IsJumping", false);
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            dir = new Vector3(h, 0, v);
+            CheckHorizontalMap(h, v);
 
             dir = Camera.main.transform.TransformDirection(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
@@ -104,6 +103,16 @@ public class NK_PlayerMove : MonoBehaviour
         {
             controller.Move(dir * jumpPower * Time.deltaTime);
         }
+    }
+
+    private void CheckHorizontalMap(float h, float v)
+    {
+        if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
+        {
+            dir = new Vector3(v, 0, 0);
+        }
+        else
+            dir = new Vector3(h, 0, v);
     }
 
     private void CheckJumping()

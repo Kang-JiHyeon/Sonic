@@ -7,6 +7,7 @@ public class NK_Attack : MonoBehaviour
     public List<GameObject> enemys;
     public GameObject enemy;
     public GameObject aimFactory;
+    public GameObject attackFactory;
     public TrailRenderer trailRenderer;
     public float attackTime = 3;
     public float attackSpeed = 20;
@@ -18,6 +19,7 @@ public class NK_Attack : MonoBehaviour
     float currentTime = 0;
     float shortDistance;
     GameObject aim;
+    GameObject attack;
 
     public static NK_Attack Instance;
 
@@ -39,11 +41,15 @@ public class NK_Attack : MonoBehaviour
 
         aim = Instantiate(aimFactory);
         aim.SetActive(false);
+        attack = Instantiate(attackFactory);
+        attack.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        attack.transform.position = transform.position + new Vector3(0, 1, 0);
+
         if (enemy == null)
         {
             Initialization();
@@ -58,7 +64,7 @@ public class NK_Attack : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             //gameObject.GetComponent<NK_PlayerMove>().enabled = false;
-            if(currentTime < attackTime)
+            if (currentTime < attackTime)
                 Attack();
             else
                 Initialization();
@@ -73,23 +79,26 @@ public class NK_Attack : MonoBehaviour
 
             SortEnemy();
 
-            if (!isAiming)
+            if (IsTargetVisible(Camera.main, enemy.transform))
             {
-                aim.transform.position = enemy.transform.position + new Vector3(0, 1.5f, 0);
-                aim.transform.forward = enemy.transform.forward;
-                aim.SetActive(true);
-                isAiming = true;
-            }
-            else
-            {
-                anim.SetBool("IsAttack", true);
-                if (currentTime < attackTime)
+                if (!isAiming)
                 {
-                    isAttack = true;
+                    aim.transform.position = enemy.transform.position + new Vector3(0, 1.5f, 0);
+                    aim.transform.forward = enemy.transform.forward;
+                    aim.SetActive(true);
+                    isAiming = true;
                 }
                 else
                 {
-                    Initialization();
+                    anim.SetBool("IsAttack", true);
+                    if (currentTime < attackTime)
+                    {
+                        isAttack = true;
+                    }
+                    else
+                    {
+                        Initialization();
+                    }
                 }
             }
         }
@@ -114,6 +123,7 @@ public class NK_Attack : MonoBehaviour
         isAiming = false;
         isAttack = false;
         aim.SetActive(false);
+        attack.SetActive(false);
         anim.SetBool("IsAttack", false);
         trailRenderer.enabled = false;
     }
@@ -122,13 +132,15 @@ public class NK_Attack : MonoBehaviour
     private void Attack()
     {
         aim.SetActive(false);
+        attack.SetActive(true);
         dir = aim.transform.position - transform.position;
         trailRenderer.enabled = true;
         cc.Move(dir * attackSpeed * Time.deltaTime);
         enemys.Remove(enemy);
-       // gameObject.GetComponent<NK_PlayerMove>().enabled = true;
+        // gameObject.GetComponent<NK_PlayerMove>().enabled = true;
     }
 
+    #region // 플레이어에 거리 가까운 순으로 적 저장
     private void SortEnemy()
     {
         shortDistance = float.MaxValue;
@@ -149,4 +161,20 @@ public class NK_Attack : MonoBehaviour
             }
         }
     }
+    #endregion
+
+
+    #region // 카메라 화면 안에 적이 있는지 여부 판단
+    bool IsTargetVisible(Camera cam, Transform tran)
+    {
+        var planes = GeometryUtility.CalculateFrustumPlanes(cam);
+        var point = tran.position;
+        foreach (var plane in planes)
+        {
+            if (plane.GetDistanceToPoint(point) < 0)
+                return false;
+        }
+        return true;
+    }
+    #endregion
 }
