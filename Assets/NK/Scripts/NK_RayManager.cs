@@ -7,7 +7,7 @@ public class NK_RayManager : MonoBehaviour
     public float gravity = 50;
 
     CharacterController controller;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class NK_RayManager : MonoBehaviour
         Vector3 dir = -transform.up;//new Vector3(0, -1, 0);
         float maxDis = 1;
 
-        // ÇöÀç ÁÂÇ¥¸¦ ±âÁØÀ¸·Î ¾Æ·¡·Î Ray¸¦ ½ð´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ Rayï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         if (Physics.Raycast(pos1, dir, out RaycastHit raycastHit, maxDis))
         {
             if (raycastHit.collider.CompareTag("Road") && Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
@@ -31,11 +31,11 @@ public class NK_RayManager : MonoBehaviour
                 controller.SimpleMove(dir);
             }
 
-/*            // Ãæµ¹ÇÑ ÁöÁ¡°ú Ä³¸¯ÅÍÀÇ ¶óÀÎÀ» ¸¸µç´Ù
+/*            // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Vector3 incomingVec = raycastHit.normal + transform.forward;
             if (raycastHit.collider.CompareTag("Incline"))
             {
-                Debug.Log($"Ãæµ¹ {raycastHit.transform.position}");
+                Debug.Log($"ï¿½æµ¹ {raycastHit.transform.position}");
                 dir = new Vector3(transform.position.x, transform.position.y, raycastHit.transform.position.z) - transform.position;
                 controller.SimpleMove(dir);
                 Vector3 CrossVec = Vector3.Cross(incomingVec, raycastHit.normal);
@@ -43,8 +43,8 @@ public class NK_RayManager : MonoBehaviour
                 Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
                 Debug.DrawLine(transform.position, incomingVec, Color.red, 0.3f);
 */
-                // ¸¸µé¾îÁø ¶óÀÎ°ú Ãæµ¹µÈ °÷ÀÇ NormalÀ» °¡Áö°í ¹Ý»ç°ªÀ» ¸¸µéÀÚ.
-                // Áß·ÂÀÌ °íÁ¤µÇ¾ú´Ù¸é  raycastHit.normal ¸¸ °¡Áö°íµµ °æ»ç¸¦ ÃøÁ¤ÇÒ¼öµµ ÀÖÀ»²¨ °°´Ù..
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý»ç°ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+                // ï¿½ß·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½  raycastHit.normal ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..
                 /*Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
                 transform.up = raycastHit.normal;
 

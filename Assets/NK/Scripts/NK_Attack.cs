@@ -142,7 +142,7 @@ public class NK_Attack : MonoBehaviour
         // gameObject.GetComponent<NK_PlayerMove>().enabled = true;
     }
 
-    #region // ÇÃ·¹ÀÌ¾î¿¡ °Å¸® °¡±î¿î ¼øÀ¸·Î Àû ÀúÀå
+    #region // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void SortEnemy()
     {
         shortDistance = float.MaxValue;
@@ -166,7 +166,7 @@ public class NK_Attack : MonoBehaviour
     #endregion
 
 
-    #region // Ä«¸Þ¶ó È­¸é ¾È¿¡ ÀûÀÌ ÀÖ´ÂÁö ¿©ºÎ ÆÇ´Ü
+    #region // Ä«ï¿½Þ¶ï¿½ È­ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
     bool IsTargetVisible(Camera cam, Transform tran)
     {
         var planes = GeometryUtility.CalculateFrustumPlanes(cam);
