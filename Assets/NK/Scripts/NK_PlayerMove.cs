@@ -8,6 +8,7 @@ public class NK_PlayerMove : MonoBehaviour
     public float jumpSpeed = 10.0f;
     public float jumpPower = 3;
     public float gravity = 10f;
+    public bool isShuckShuck;
     public bool isJumping;
     public bool isJumpBlock;
     public TrailRenderer trailRenderer;
@@ -67,7 +68,7 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
-            CheckHorizontalMap(h, v);
+            CheckDirection(h, v);
 
             dir = Camera.main.transform.TransformDirection(dir);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), Time.deltaTime * 5);
@@ -75,9 +76,10 @@ public class NK_PlayerMove : MonoBehaviour
             CheckJumping();
 
             if (isJumping)
-            {
                 Jump();
-            }
+
+            if (isShuckShuck)
+                ShuckShuck();
 
             if (NK_Attack.Instance.isAiming)
             {
@@ -105,12 +107,12 @@ public class NK_PlayerMove : MonoBehaviour
         }
     }
 
-    private void CheckHorizontalMap(float h, float v)
+    private void CheckDirection(float h, float v)
     {
         if (Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
-        {
             dir = new Vector3(v, 0, 0);
-        }
+        else if (isShuckShuck)
+            dir = new Vector3(0, 0, v);
         else
             dir = new Vector3(h, 0, v);
     }
@@ -146,5 +148,10 @@ public class NK_PlayerMove : MonoBehaviour
             isJumping = false;
             jumpTime = 0.0f;
         }
+    }
+
+    private void ShuckShuck()
+    {
+
     }
 }

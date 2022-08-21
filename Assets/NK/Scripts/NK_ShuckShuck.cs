@@ -6,11 +6,18 @@ public class NK_ShuckShuck : MonoBehaviour
 {
     public float speed = 3f;
     public TrailRenderer trailRenderer;
+    public Vector3[] movements = new Vector3[3] {Vector3.zero, Vector3.zero, Vector3.zero};
 
     CharacterController cc;
     Vector3 movement;
-    float rightMax = 3.0f;
-    float leftMax = -3.0f;
+    int index;
+
+    public static NK_ShuckShuck Instance;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +32,12 @@ public class NK_ShuckShuck : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            movement = new Vector3(transform.position.x + leftMax, transform.position.y, transform.position.z);
+            movement = movements[Mathf.Clamp(index - 1, 0, 2)];
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            movement = new Vector3(transform.position.x + rightMax, transform.position.y, transform.position.z);
+            movement = movements[Mathf.Clamp(index + 1, 0, 2)];
         }
 
         transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * speed);

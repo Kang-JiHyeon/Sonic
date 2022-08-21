@@ -8,7 +8,6 @@ public class NK_RayManager : MonoBehaviour
 
     CharacterController controller;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +24,24 @@ public class NK_RayManager : MonoBehaviour
         // ���� ��ǥ�� �������� �Ʒ��� Ray�� ����.
         if (Physics.Raycast(pos1, dir, out RaycastHit raycastHit, maxDis))
         {
-            if (raycastHit.collider.CompareTag("Road") && Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal)
+            if ((raycastHit.collider.CompareTag("Road") && Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal) || raycastHit.collider.CompareTag("ShuckShuck"))
             {
                 dir = new Vector3(transform.position.x, transform.position.y, raycastHit.transform.position.z) - transform.position;
                 controller.SimpleMove(dir);
+            }
+
+            if (raycastHit.collider.CompareTag("ShuckShuck"))
+            {
+                NK_PlayerMove.Instance.isShuckShuck = true;
+            }
+
+            if (raycastHit.collider.CompareTag("Road") /*&& NK_PlayerMove.Instance.isShuckShuck*/)
+            {
+                Vector3 incomingVec = raycastHit.point - this.transform.position;
+                NK_ShuckShuck.Instance.movements[0] = raycastHit.transform.position - incomingVec * 3;
+                NK_ShuckShuck.Instance.movements[1] = raycastHit.transform.position;
+                NK_ShuckShuck.Instance.movements[2] = raycastHit.transform.position + incomingVec * 3;
+                Debug.DrawLine(this.transform.position, incomingVec, Color.red, 0.3f);
             }
 
 /*            // �浹�� ������ ĳ������ ������ ������

@@ -96,7 +96,7 @@ public class JH_Enemy : MonoBehaviour
             }
             else
             {
-                NK_PlayerCollision.Instance.isDamage = true;
+                NK_PlayerDamage.Instance.isDamage = true;
             }
         }
 
