@@ -84,6 +84,11 @@ public class JH_PathFollower : MonoBehaviour
         if (other.gameObject.name.Contains("CurveIn"))
         {
 			isCameraRail = true;
+
+            if (other.gameObject.name.Contains("3"))
+            {
+				Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = false;
+			}
 		}
     }
 }
