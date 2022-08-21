@@ -52,7 +52,6 @@ public class JH_DropRing : JH_Ring
         if (GetComponent<Collider>().isTrigger)
         {
             transform.position = pos;
-
         }
     }
 
