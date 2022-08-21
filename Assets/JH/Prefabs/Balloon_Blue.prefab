@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca9fc450af465b498055adafb744edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balloonEffectFactory: {fileID: 167058, guid: 0388622c4eebdf94294c9d534f27ae19, type: 3}
+  balloonEffectFactory: {fileID: 5188872984447376182, guid: b868134a84a58f24aa2fa1af616117c6, type: 3}
 --- !u!54 &2495816555240742360
 Rigidbody:
   m_ObjectHideFlags: 0

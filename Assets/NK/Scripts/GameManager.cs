@@ -46,9 +46,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    float currentTime = 0;
-    public float readyDelayTime = 2;
-    public float startDelayTime = 2;
+    float currentTime = 0f;
+    public float readyDelayTime = 2f;
+    public float startDelayTime = 2f;
+    public float endDeleyTime = 3f;
     private void ReadyState()
     {
         currentTime += Time.deltaTime;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime > startDelayTime)
         {
-            SceneManager.LoadScene("JH_MapScene");
+            SceneManager.LoadScene("JH_MapScene1");
             m_state = GameState.Playing;
             currentTime = 0;
         }
@@ -77,7 +78,15 @@ public class GameManager : MonoBehaviour
 
     private void GameOverState()
     {
-        gameoverUI.SetActive(true);
+        //gameoverUI.SetActive(true);
+
+        currentTime += Time.deltaTime;
+        if (currentTime > endDeleyTime)
+        {
+            SceneManager.LoadScene("EndScene");
+            m_state = GameState.GameOver;
+            currentTime = 0;
+        }
     }
 
     public void OnClickStart()

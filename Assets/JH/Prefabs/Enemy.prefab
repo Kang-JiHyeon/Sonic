@@ -63,7 +63,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bb29c873ba78b4dba9b9ceb72414bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDis: 30
+  explosionFactory: {fileID: 6192724089161036641, guid: 8a975fb98b7e8d148963bb0076b58942, type: 3}
+  hitFactory: {fileID: 7226583673155636401, guid: f0494c35f0ac99b47948873bee201c72, type: 3}
+  moveDis: 15
   angleY: 0.2
   boosterRange: 5
   speed: 50
