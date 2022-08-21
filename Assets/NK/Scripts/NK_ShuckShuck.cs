@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NK_ShuckShuck : MonoBehaviour
 {
-    public float speed = 3f;
+    public float speed = 10f;
     public TrailRenderer trailRenderer;
     public Vector3[] movements = new Vector3[3] {Vector3.zero, Vector3.zero, Vector3.zero};
 
-    CharacterController cc;
+    CharacterController controller;
     Vector3 movement;
     int index;
 
@@ -22,24 +22,34 @@ public class NK_ShuckShuck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cc = GetComponent<CharacterController>();
-        trailRenderer.enabled = true;
-        movement = cc.transform.position;
+        controller = GetComponent<CharacterController>();
+        index = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        //print((movements[0] + movements[2]) / 2);
+        //movements[1] = (movements[0] + movements[2]) / 2;
+
+    }
+
+    public void ShuckShuck()
+    {
+        trailRenderer.enabled = true;
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            movement = movements[Mathf.Clamp(index - 1, 0, 2)];
+            index--;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            movement = movements[Mathf.Clamp(index + 1, 0, 2)];
+            index++;
         }
 
-        transform.position = Vector3.Lerp(transform.position, movement, Time.deltaTime * speed);
+        index = Mathf.Clamp(index, 0, 2);
+
+        transform.position = Vector3.Lerp(transform.position, movements[index], Time.deltaTime * speed);
     }
 }

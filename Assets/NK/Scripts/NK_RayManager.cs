@@ -7,6 +7,7 @@ public class NK_RayManager : MonoBehaviour
     public float gravity = 50;
 
     CharacterController controller;
+    Vector3 dir;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +18,10 @@ public class NK_RayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos1 = transform.position;
-        Vector3 dir = -transform.up;//new Vector3(0, -1, 0);
         float maxDis = 1;
 
         // ���� ��ǥ�� �������� �Ʒ��� Ray�� ����.
-        if (Physics.Raycast(pos1, dir, out RaycastHit raycastHit, maxDis))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit raycastHit, maxDis))
         {
             if ((raycastHit.collider.CompareTag("Road") && Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal) || raycastHit.collider.CompareTag("ShuckShuck"))
             {
@@ -33,39 +32,39 @@ public class NK_RayManager : MonoBehaviour
             if (raycastHit.collider.CompareTag("ShuckShuck"))
             {
                 NK_PlayerMove.Instance.isShuckShuck = true;
+                GetComponent<NK_ShuckShuck>().enabled = true;
             }
+        }
 
-            if (raycastHit.collider.CompareTag("Road") /*&& NK_PlayerMove.Instance.isShuckShuck*/)
+        maxDis = 20;
+
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), -transform.right, out RaycastHit raycastHit2, maxDis))
+        {
+            if (raycastHit2.collider.CompareTag("Guard") && NK_PlayerMove.Instance.isShuckShuck)
             {
-                Vector3 incomingVec = raycastHit.point - this.transform.position;
-                NK_ShuckShuck.Instance.movements[0] = raycastHit.transform.position - incomingVec * 3;
-                NK_ShuckShuck.Instance.movements[1] = raycastHit.transform.position;
-                NK_ShuckShuck.Instance.movements[2] = raycastHit.transform.position + incomingVec * 3;
-                Debug.DrawLine(this.transform.position, incomingVec, Color.red, 0.3f);
+                print(raycastHit2.transform.name);
+                NK_ShuckShuck.Instance.movements[0] = raycastHit2.point - new Vector3(0, 1, 0);
+                Debug.DrawLine(this.transform.position, raycastHit2.point, Color.red, maxDis);
             }
+        }
 
-/*            // �浹�� ������ ĳ������ ������ ������
-            Vector3 incomingVec = raycastHit.normal + transform.forward;
-            if (raycastHit.collider.CompareTag("Incline"))
+        if (Physics.Raycast(transform.position + new Vector3(0,1,0), transform.right, out RaycastHit raycastHit3, maxDis))
+        {
+            if (raycastHit3.collider.CompareTag("Guard") && NK_PlayerMove.Instance.isShuckShuck)
             {
-                Debug.Log($"�浹 {raycastHit.transform.position}");
-                dir = new Vector3(transform.position.x, transform.position.y, raycastHit.transform.position.z) - transform.position;
-                controller.SimpleMove(dir);
-                Vector3 CrossVec = Vector3.Cross(incomingVec, raycastHit.normal);
-                //Vector3 DotVec = Vector3.Dot(incomingVec, raycastHit.normal);
-                Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
-                Debug.DrawLine(transform.position, incomingVec, Color.red, 0.3f);
-*/
-                // �������� ���ΰ� �浹�� ���� Normal�� ������ �ݻ簪�� ������.
-                // �߷��� �����Ǿ��ٸ�  raycastHit.normal �� �������� ���縦 �����Ҽ��� ������ ����..
-                /*Vector3 reflectVec = Vector3.Reflect(incomingVec, raycastHit.normal);
-                transform.up = raycastHit.normal;
+                print(raycastHit3.transform.name);
+                NK_ShuckShuck.Instance.movements[2] = raycastHit3.point - new Vector3(0, 1, 0);
+                NK_ShuckShuck.Instance.movements[1] = (NK_ShuckShuck.Instance.movements[0] + NK_ShuckShuck.Instance.movements[2]) / 2;
+                Debug.DrawLine(this.transform.position, raycastHit3.point, Color.red, maxDis);
+            }
+        }
 
-                NK_PlayerMove.Instance.dir -= raycastHit.normal * gravity * Time.deltaTime;
-
-                Debug.DrawLine(this.transform.position, raycastHit.point, Color.red, 0.3f);
-                Debug.DrawRay(raycastHit.point, raycastHit.normal, Color.green, 0.3f);*/
-/*            }*/
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward, out RaycastHit raycastHit4, maxDis))
+        {
+            if (raycastHit4.collider.CompareTag("CurveOut"))
+            {
+                NK_PlayerMove.Instance.isShuckShuck = false;
+            }
         }
     }
 }

@@ -62,6 +62,7 @@ public class NK_PlayerMove : MonoBehaviour
         if (controller.isGrounded)
         {
             dir = Vector3.zero;
+
             trailRenderer.enabled = false;
 
             anim.SetBool("IsJumping", false);
@@ -77,9 +78,6 @@ public class NK_PlayerMove : MonoBehaviour
 
             if (isJumping)
                 Jump();
-
-            if (isShuckShuck)
-                ShuckShuck();
 
             if (NK_Attack.Instance.isAiming)
             {
@@ -105,6 +103,9 @@ public class NK_PlayerMove : MonoBehaviour
         {
             controller.Move(dir * jumpPower * Time.deltaTime);
         }
+
+        if (isShuckShuck)
+            NK_ShuckShuck.Instance.ShuckShuck();
     }
 
     private void CheckDirection(float h, float v)
@@ -148,10 +149,5 @@ public class NK_PlayerMove : MonoBehaviour
             isJumping = false;
             jumpTime = 0.0f;
         }
-    }
-
-    private void ShuckShuck()
-    {
-
     }
 }

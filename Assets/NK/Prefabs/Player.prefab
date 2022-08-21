@@ -418,6 +418,7 @@ MonoBehaviour:
   jumpSpeed: 10
   jumpPower: 3
   gravity: 10
+  isShuckShuck: 0
   isJumping: 0
   isJumpBlock: 0
   trailRenderer: {fileID: 1487518964}
@@ -434,8 +435,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528839b6959b1834ba7ab8eb28df9412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 10
   trailRenderer: {fileID: 1487518964}
+  movements:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!114 &7092800105497604911
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -45,12 +45,13 @@ public class NK_PlayerDamage : MonoBehaviour
                 currentTime = 0;
             }
 
-            if (coinCount < 10)
+            if (coinCount < 10 && 0 < JH_Score.Instance.SCORE)
             {
                 GameObject coin = Instantiate(coinFactory);
                 coin.SetActive(false);
                 coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
                 coin.SetActive(true);
+                JH_Score.Instance.SCORE--;
                 coinCount++;
             }
         }
