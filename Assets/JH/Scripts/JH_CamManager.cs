@@ -8,7 +8,7 @@ public class JH_CamManager : MonoBehaviour
     public Transform[] curveOutPos;
     int index = 0;
     bool isCurveOut = false;
-    float rotationSpeed = 1f;
+    float rotationSpeed = 2f;
 
     void Start()
     {
