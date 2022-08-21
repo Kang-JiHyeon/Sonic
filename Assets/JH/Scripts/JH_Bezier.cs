@@ -44,6 +44,7 @@ public class JH_Bezier : MonoBehaviour
                 NK_PathFollower.Instance.enabled = true;
                 player.position = end.position;
                 currentTime = 0;
+                Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = false;
             }
         }
     }
@@ -83,19 +84,17 @@ public class JH_Bezier : MonoBehaviour
             NK_PlayerMove.Instance.enabled = false;
             NK_PathFollower.Instance.enabled = false;
             
-            if (gameObject.name.Contains("BoosterRing"))
+            if (gameObject.name.Contains("FlyingBlock_H") || gameObject.name.Contains("Sphere"))
             {
-                isHor = false;
+                isHor = true;
             }
             else
             {
-                isHor = true;
+                isHor = false;
             }
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
             Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
-
-
         }
     }
 }

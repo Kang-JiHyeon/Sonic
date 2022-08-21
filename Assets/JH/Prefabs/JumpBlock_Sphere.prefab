@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5641895182680967815}
   - component: {fileID: 8578341115085878773}
   - component: {fileID: 3124885230924383101}
-  - component: {fileID: 7629458898776024746}
+  - component: {fileID: 5924623412752929850}
   m_Layer: 0
   m_Name: JumpBlock_Sphere
   m_TagString: Untagged
@@ -100,19 +100,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originJumpPower: 0
   jumpBlockPower: 2
---- !u!135 &7629458898776024746
-SphereCollider:
+--- !u!65 &5924623412752929850
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8340241652734474416}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: -0.0000076293945, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9140644, z: 3.062378}
+  m_Center: {x: 0, y: -0.042967796, z: -0.009902954}
 --- !u!1001 &3569932785513470019
 PrefabInstance:
   m_ObjectHideFlags: 0

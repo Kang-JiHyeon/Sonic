@@ -8,6 +8,7 @@ public class JH_CamManager : MonoBehaviour
     public Transform[] curveOutPos;
     int index = 0;
     bool isCurveOut = false;
+    float rotationSpeed = 1f;
 
     void Start()
     {
@@ -19,7 +20,7 @@ public class JH_CamManager : MonoBehaviour
     {
         if (isCurveOut)
         {
-            transform.forward = Vector3.Lerp(transform.forward, curveOutPos[index].forward, Time.deltaTime);
+            transform.forward = Vector3.Lerp(transform.forward, curveOutPos[index].forward, rotationSpeed * Time.deltaTime);
 
             if (Vector3.Angle(transform.forward, curveOutPos[index].forward) < 0.5f)
             {
@@ -37,6 +38,10 @@ public class JH_CamManager : MonoBehaviour
         if (other.gameObject.name.Contains("CurveOut"))
         {
             isCurveOut = true;
+            if (other.gameObject.name.Contains("4"))
+            {
+                rotationSpeed = 5f;
+            }
         }
     }
 }

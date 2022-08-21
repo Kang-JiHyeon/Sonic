@@ -40,7 +40,7 @@ public class JH_PathFollower : MonoBehaviour
 
         speed[0] = 50f;
         speed[1] = 47f;
-        speed[2] = 30f;
+        speed[2] = 40f;
 
         //speed[0] = 30f;
         //speed[1] = 45f;
@@ -49,7 +49,7 @@ public class JH_PathFollower : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
 	{
 		if(childIndex >= pathList[listIndex].childCount - 1)
         {
