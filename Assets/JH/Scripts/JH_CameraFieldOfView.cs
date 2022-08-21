@@ -15,7 +15,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
     GameObject postProcess;
 
     public float originFOV;
-    public float boosterFOV = 80f;
+    public float boosterFOV = 70f;
     public float speed = 3f;
     bool isPP = false;
     float fov;

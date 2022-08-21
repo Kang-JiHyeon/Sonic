@@ -21,6 +21,8 @@ public class JH_Enemy : MonoBehaviour
     Vector3 dir;
     Vector3 originPos;
 
+    public GameObject explosionFactory;
+    public GameObject hitFactory;
     public float moveDis = 15f;
     public float angleY = 0.2f;
     public float boosterRange = 5f;
@@ -51,10 +53,14 @@ public class JH_Enemy : MonoBehaviour
             {
                 NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
+
+                // 폭발 이펙트
+                GameObject explosion = Instantiate(explosionFactory);
+                explosion.transform.position = transform.position;
                 Destroy(gameObject);
             }
         }
-
+;
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
         // NK_Booster의 isBooster 대체
@@ -92,7 +98,11 @@ public class JH_Enemy : MonoBehaviour
         {
             if (NK_Attack.Instance.isAttack)
             {
+                // hit 이펙트
+                GameObject hit = Instantiate(hitFactory);
+                hit.transform.position = transform.position + new Vector3(0, 1.5f, 0);
                 Hit();
+
             }
             else
             {
@@ -103,6 +113,9 @@ public class JH_Enemy : MonoBehaviour
         // 맵이랑 닿이면 없애고 싶다.
         if (other.gameObject.layer == 16)
         {
+            // 폭발 이펙트
+            GameObject explosion = Instantiate(explosionFactory);
+            explosion.transform.position = transform.position;
             Destroy(gameObject);
         }
     }

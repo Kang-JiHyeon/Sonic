@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             case GameState.Ending:
                 EndingState();
                 break;
-                
+
         }
     }
 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     private void PlayingState()
     {
-        
+
     }
 
     private void GameOverState()
