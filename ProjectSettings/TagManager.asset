@@ -11,6 +11,8 @@ TagManager:
   - Road
   - Incline
   - ShuckShuck
+  - Guard
+  - CurveOut
   layers:
   - Default
   - TransparentFX

@@ -35,4 +35,12 @@ public class JH_Score : MonoBehaviour
     {
         textScore = GameObject.Find("Text_ScoreValue").GetComponent<Text>();
     }
+
+    private void Update()
+    {
+        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
+        {
+            PlayerPrefs.SetString("Score", textScore.text);
+        }
+    }
 }

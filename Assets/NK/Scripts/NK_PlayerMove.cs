@@ -41,7 +41,7 @@ public class NK_PlayerMove : MonoBehaviour
 
         if (transform.position.y < -100)
         {
-            //GameManager.gameManager.m_state = GameManager.GameState.GameOver;
+            GameManager.gameManager.m_state = GameManager.GameState.GameOver;
         }
     }
 
