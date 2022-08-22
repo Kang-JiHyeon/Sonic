@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class GameManager : MonoBehaviour
         Ready,
         Start,
         Playing,
-        GameOver
+        GameOver,
+        Ending
     }
 
     public GameState m_state = GameState.Ready;
@@ -21,6 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject playUI;
     public GameObject endUI;
     public GameObject gameoverUI;
+
+    public Text playTime;
+    public Text textScore;
 
     public void Awake()
     {
@@ -43,21 +48,19 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 GameOverState();
                 break;
+            case GameState.Ending:
+                EndingState();
+                break;
+
         }
     }
 
-    float currentTime = 0f;
-    public float readyDelayTime = 2f;
-    public float startDelayTime = 2f;
-    public float endDeleyTime = 3f;
+    float currentTime = 0;
+    public float readyDelayTime = 2;
+    float startDelayTime = 1;
     private void ReadyState()
     {
-        currentTime += Time.deltaTime;
-        if (currentTime > readyDelayTime)
-        {
-            m_state = GameState.Start;
-            currentTime = 0;
-        }
+
     }
 
     private void StartState()
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime > startDelayTime)
         {
-            SceneManager.LoadScene("JH_MapScene1");
+            SceneManager.LoadScene(1);
             m_state = GameState.Playing;
             currentTime = 0;
         }
@@ -73,20 +76,18 @@ public class GameManager : MonoBehaviour
 
     private void PlayingState()
     {
-        
+
     }
 
     private void GameOverState()
     {
-        //gameoverUI.SetActive(true);
+        SceneManager.LoadScene("EndScene");
+    }
 
-        currentTime += Time.deltaTime;
-        if (currentTime > endDeleyTime)
-        {
-            SceneManager.LoadScene("EndScene");
-            m_state = GameState.GameOver;
-            currentTime = 0;
-        }
+    private void EndingState()
+    {
+        textScore.text = PlayerPrefs.GetString("Score");
+        playTime.text = PlayerPrefs.GetString("PlayTime");
     }
 
     public void OnClickStart()

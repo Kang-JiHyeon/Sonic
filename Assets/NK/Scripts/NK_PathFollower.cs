@@ -50,8 +50,6 @@ public class NK_PathFollower : MonoBehaviour
 
             if (transform.position == pathCreator.path.GetPoint(pathCreator.path.NumPoints - 1))
             {
-                if (isIncline && rigid != null)
-                    rigid.gameObject.GetComponent<MeshCollider>().enabled = false;
                 pathCreator = null;
                 distanceTravelled = 0;
                 NK_PlayerMove.Instance.dir = Vector3.zero;

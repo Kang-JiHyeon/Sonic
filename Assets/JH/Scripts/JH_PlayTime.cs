@@ -28,5 +28,10 @@ public class JH_PlayTime : MonoBehaviour
         msec = string.Format("{0:.00}", Time.time % 1).Replace(".", "");
 
         playTime.text = $"{min}:{sec}:{msec}";
+
+        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
+        {
+            PlayerPrefs.SetString("PlayTime", playTime.text);
+        }
     }
 }

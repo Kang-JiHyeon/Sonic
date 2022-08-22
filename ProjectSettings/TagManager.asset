@@ -10,6 +10,9 @@ TagManager:
   - Curve
   - Road
   - Incline
+  - ShuckShuck
+  - Guard
+  - CurveOut
   layers:
   - Default
   - TransparentFX
