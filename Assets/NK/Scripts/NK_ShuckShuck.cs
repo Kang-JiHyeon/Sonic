@@ -36,15 +36,17 @@ public class NK_ShuckShuck : MonoBehaviour
 
     public void ShuckShuck()
     {
-        trailRenderer.enabled = true;
+        trailRenderer.enabled = false;
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            trailRenderer.enabled = true;
             index--;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            trailRenderer.enabled = true;
             index++;
         }
 
