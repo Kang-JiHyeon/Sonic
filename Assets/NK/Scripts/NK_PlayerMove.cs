@@ -39,10 +39,10 @@ public class NK_PlayerMove : MonoBehaviour
     {
         Move();
 
-        if (transform.position.y < -100)
-        {
-            GameManager.gameManager.m_state = GameManager.GameState.GameOver;
-        }
+        //if (transform.position.y < -100)
+        //{
+        //    GameManager.gameManager.m_state = GameManager.GameState.GameOver;
+        //}
     }
 
     private void Move()
