@@ -37,5 +37,14 @@ public class JH_PlayTime : MonoBehaviour
         {
             PlayerPrefs.SetString("PlayTime", playTime.text);
         }
+
+        if (GameManager.gameManager.m_state == GameManager.GameState.Start)
+        {
+            min = "0";
+            sec = "00";
+            msec = "00";
+
+            playTime.text = $"{min}:{sec}:{msec}";
+        }
     }
 }
