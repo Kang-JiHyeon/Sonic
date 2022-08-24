@@ -87,6 +87,10 @@ public class JH_Enemy : MonoBehaviour
             dir.Normalize();
             // dir 방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
+
+            JH_CameraShack.Instance.PlayCameraShake();
+
+
         }
     }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
@@ -102,6 +106,8 @@ public class JH_Enemy : MonoBehaviour
                 GameObject hit = Instantiate(hitFactory);
                 hit.transform.position = transform.position + new Vector3(0, 1.5f, 0);
                 Hit();
+
+                //JH_CameraShack.Instance.PlayCameraShake();
 
             }
             else
