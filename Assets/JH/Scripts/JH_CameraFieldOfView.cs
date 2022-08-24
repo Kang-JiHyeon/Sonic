@@ -28,7 +28,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
         cam = GetComponent<Camera>();
         camManager = GetComponentInParent<JH_PathFollower>();
         postProcess = transform.GetChild(0).gameObject;
-        postProcess.SetActive(false);
+        //postProcess.SetActive(false);
         originFOV = cam.fieldOfView;
     }
 
@@ -65,7 +65,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
             cam.fieldOfView = fov;
         }
 
-        // 포스터 프로세스 부스터 효과 true/false
-        postProcess.SetActive(isPP);
+        //// 포스터 프로세스 부스터 효과 true/false
+        //postProcess.SetActive(isPP);
     }
 }

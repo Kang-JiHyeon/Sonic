@@ -16,6 +16,8 @@ public class JH_Ring : MonoBehaviour
     public NK_Booster player;
     public float speed = 10f;
     public float boosterDis = 20f;
+    float followTime = 1f;
+    float curTime = 0f;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -24,18 +26,24 @@ public class JH_Ring : MonoBehaviour
         // Player의 스크립트를 가져온다.
         player = target.GetComponent<NK_Booster>();
     }
-
+    bool isFollow = true;
     // Update is called once per frame
     public virtual void Update()
     {
+        // 일정 시간동안만 따라가게 하고 싶다.
 
         // 플레이어와 일정 거리 안에 있고, 플레이어가 부스터 상태이면 플레이어 쪽으로 이동하고 싶다.
-        if (Vector3.Distance(transform.position, target.transform.position) < boosterDis && player.isBooster)
+        if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
         {
-            // ** 소닉 부스터 속도 맞춰 움직임 속도 수정하기!! **
+            curTime += Time.deltaTime;
+
+            if (curTime > followTime)
+            {
+                return;
+            }
             transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * speed);
 
-            if(Vector3.Distance(transform.position, target.transform.position) < 1f)
+            if (Vector3.Distance(transform.position, target.transform.position) < 1f)
             {
                 // 점수 증가
                 JH_Score.Instance.SCORE++;
