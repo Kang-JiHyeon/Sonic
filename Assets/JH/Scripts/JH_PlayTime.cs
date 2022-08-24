@@ -8,20 +8,24 @@ public class JH_PlayTime : MonoBehaviour
 {
     // 필요속성: 텍스트, 경과시간
     Text playTime;
-    float min;
-    string sec, msec;
+    string min, sec, msec;
 
     // Start is called before the first frame update
     void Start()
     {
         playTime = GetComponent<Text>();
+        min = "0";
+        sec = "00";
+        msec = "00";
+
+        playTime.text = $"{min}:{sec}:{msec}";
     }
 
     // Update is called once per frame
     void Update()
     {
         // minute
-        min = (int)Time.time / 60 % 60;
+        min = string.Format("{0:0}", (int)Time.time / 60 % 60);
         // second
         sec = string.Format("{0:00}", (int)Time.time % 60);
         // ms
@@ -32,6 +36,15 @@ public class JH_PlayTime : MonoBehaviour
         if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
         {
             PlayerPrefs.SetString("PlayTime", playTime.text);
+        }
+
+        if (GameManager.gameManager.m_state == GameManager.GameState.Start)
+        {
+            min = "0";
+            sec = "00";
+            msec = "00";
+
+            playTime.text = $"{min}:{sec}:{msec}";
         }
     }
 }

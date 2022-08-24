@@ -60,7 +60,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, speed * Time.deltaTime);
 
         // fov와 근사한 값이면 fov로 초기화
-        if (fov - cam.fieldOfView < 0.1f)
+        if (Mathf.Abs(fov - cam.fieldOfView) < 0.1f)
         {
             cam.fieldOfView = fov;
         }

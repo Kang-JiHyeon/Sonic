@@ -40,7 +40,7 @@ public class JH_PathFollower : MonoBehaviour
 
         speed[0] = 50f;
         speed[1] = 47f;
-        speed[2] = 50f;
+        speed[2] = 47f;
 
         //speed[0] = 30f;
         //speed[1] = 45f;
