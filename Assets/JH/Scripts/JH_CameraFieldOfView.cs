@@ -24,7 +24,7 @@ public class JH_CameraFieldOfView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<NK_Booster>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<NK_Booster>();
         cam = GetComponent<Camera>();
         camManager = GetComponentInParent<JH_PathFollower>();
         postProcess = transform.GetChild(0).gameObject;

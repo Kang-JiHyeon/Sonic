@@ -33,7 +33,7 @@ public class JH_Score : MonoBehaviour
     }
     private void Start()
     {
-        textScore = GameObject.Find("Text_ScoreValue").GetComponent<Text>();
+        textScore = GameObject.FindGameObjectWithTag("Player").GetComponent<Text>();
     }
 
     private void Update()
