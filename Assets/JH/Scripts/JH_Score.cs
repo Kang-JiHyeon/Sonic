@@ -19,7 +19,7 @@ public class JH_Score : MonoBehaviour
         set
         {
             score = value;
-            textScore.text = score.ToString("D4"); ;
+            textScore.text = score.ToString("D4");
         }
     }
 

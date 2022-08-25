@@ -79,20 +79,32 @@ public class GameManager : MonoBehaviour
 
     }
 
+    float gameoverDelayTime = 5;
     private void GameOverState()
     {
-        SceneManager.LoadScene("EndScene");
+        gameoverUI.SetActive(true);
+        currentTime += Time.deltaTime;
+        if (currentTime > gameoverDelayTime)
+        {
+            SceneManager.LoadScene("EndScene");
+            currentTime = 0;
+        }
     }
 
     private void EndingState()
     {
-        textScore.text = PlayerPrefs.GetString("Score");
+        textScore.text = PlayerPrefs.GetString("Score", "0");
         playTime.text = PlayerPrefs.GetString("PlayTime");
     }
 
     public void OnClickStart()
     {
         m_state = GameState.Start;
+    }
+
+    public void OnClickCharacterSelection()
+    {
+        SceneManager.LoadScene("NK_MapScene 2");
     }
 
     public void OnClickReStart()

@@ -55,8 +55,6 @@ public class NK_PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        anim.SetFloat("Speed", v);
-
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
 
         if (controller.isGrounded)
@@ -92,6 +90,9 @@ public class NK_PlayerMove : MonoBehaviour
 
 
         //speed += Time.deltaTime;
+
+        anim.SetFloat("V_Speed", v * speed);
+        anim.SetFloat("H_Speed", h * speed);
 
         dir.y -= gravity * Time.deltaTime;
 
@@ -134,11 +135,14 @@ public class NK_PlayerMove : MonoBehaviour
 
             isJumping = true;
         }
+        print(isJumping);
     }
 
     public void Jump()
     {
         float height = (jumpTime * jumpTime * (-gravity) / 2) + (jumpTime * jumpPower);
+
+        print(height);
 
         dir.y = jumpSpeed + height;
         dir += transform.forward * 3;
