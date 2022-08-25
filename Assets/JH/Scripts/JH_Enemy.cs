@@ -16,11 +16,14 @@ public class JH_Enemy : MonoBehaviour
 {
     // 이동 방향, 이동 거리
     Rigidbody rigid;
-    GameObject target;
     NK_Booster player;
+    GameObject target;
+    GameObject robot;
     Vector3 dir;
     Vector3 originPos;
 
+    public AudioSource hitSound1;
+    public AudioSource hitSound2;
     public GameObject explosionFactory;
     public GameObject hitFactory;
     public float moveDis = 15f;
@@ -33,10 +36,12 @@ public class JH_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        robot = transform.GetChild(1).gameObject;
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
         target = GameObject.Find("Player");
+
         player = target.GetComponent<NK_Booster>();
     }
 
@@ -57,10 +62,19 @@ public class JH_Enemy : MonoBehaviour
                 // 폭발 이펙트
                 GameObject explosion = Instantiate(explosionFactory);
                 explosion.transform.position = transform.position;
-                Destroy(gameObject);
+
+                hitSound2.Play();
+                robot.SetActive(false);
+
+                if (!hitSound2.isPlaying)
+                {
+                    Destroy(gameObject);
+                }
+                // 적 제거
+                //gameObject.SetActive(false);
+                //Destroy(gameObject);
             }
         }
-;
         // 2. 부스터
         // 플레이어가 부스터를 쓰고 있고, 적과 일정 거리 안이면 날라가고 싶다.
         // NK_Booster의 isBooster 대체
@@ -74,6 +88,12 @@ public class JH_Enemy : MonoBehaviour
     }
     private void Hit()
     {
+        // 사운드
+        if (!hitSound1.isPlaying)
+        {
+            hitSound1.Play();
+        }
+
         // 적의 공격 당함 상태를 true로 만든다.
         isHit = true;
 
@@ -88,9 +108,8 @@ public class JH_Enemy : MonoBehaviour
             // dir 방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
 
+
             JH_CameraShack.Instance.PlayCameraShake();
-
-
         }
     }
     //player와 부딪히면 player의 이동방향+윗쪽으로 이동하고 싶다.
@@ -107,8 +126,13 @@ public class JH_Enemy : MonoBehaviour
                 hit.transform.position = transform.position + new Vector3(0, 1.5f, 0);
                 Hit();
 
-                //JH_CameraShack.Instance.PlayCameraShake();
+                // 사운드
+                if (!hitSound2.isPlaying)
+                {
+                    hitSound2.Play();
 
+                    print("hitSound");
+                }
             }
             else
             {
