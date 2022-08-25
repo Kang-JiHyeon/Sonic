@@ -39,18 +39,20 @@ public class NK_Life : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Life = 3;
         for (int i = 0; i < Life; i++)
         {
             AddLife(-926, i);
         }
     }
 
-
     // Update is called once per frame
     void Update()
     {
+        print("life:"+Life);
+        //print(lifes.Count);
         // 플레이어가 죽었을 때
-        if (lifes.Count > 1 && Life < lifes.Count)
+        if (lifes.Count > 0 && Life < lifes.Count)
         {
             RemoveLife();
 

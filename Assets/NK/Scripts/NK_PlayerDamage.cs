@@ -39,10 +39,7 @@ public class NK_PlayerDamage : MonoBehaviour
             currentTime += Time.deltaTime;
             if (currentTime > damageTime)
             {
-                gameObject.GetComponent<NK_PlayerMove>().enabled = true;
-                isDamage = false;
-                coinCount = 0;
-                currentTime = 0;
+                Initialization();
             }
 
             if (coinCount < 10 && 0 < JH_Score.Instance.SCORE)
@@ -52,9 +49,18 @@ public class NK_PlayerDamage : MonoBehaviour
                 coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
                 coin.SetActive(true);
                 JH_Score.Instance.SCORE--;
+                NK_ScoreManager.scoreManager.sumScore -= 2000;
                 coinCount++;
             }
         }
+    }
+
+    private void Initialization()
+    {
+        gameObject.GetComponent<NK_PlayerMove>().enabled = true;
+        isDamage = false;
+        coinCount = 0;
+        currentTime = 0;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

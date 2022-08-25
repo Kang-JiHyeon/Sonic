@@ -20,6 +20,7 @@ public class JH_Balloon : MonoBehaviour
             NK_Attack.Instance.enemys.Remove(gameObject);
             GameObject hitEffect = Instantiate(balloonEffectFactory);
             hitEffect.transform.position = gameObject.transform.position;
+            NK_ScoreManager.scoreManager.sumScore += 1000;
             Destroy(gameObject);
         }
     }

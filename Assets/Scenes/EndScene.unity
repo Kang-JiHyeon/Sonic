@@ -2319,7 +2319,6 @@ GameObject:
   - component: {fileID: 1424984576}
   - component: {fileID: 1424984579}
   - component: {fileID: 1424984578}
-  - component: {fileID: 1424984577}
   m_Layer: 5
   m_Name: Text_Rank
   m_TagString: Untagged
@@ -2347,19 +2346,6 @@ RectTransform:
   m_AnchoredPosition: {x: 542, y: -115}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 0}
---- !u!114 &1424984577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424984575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c652a8876b388d6438dafa68fb09a13e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textSumScore: {fileID: 1424984578}
 --- !u!114 &1424984578
 MonoBehaviour:
   m_ObjectHideFlags: 0
