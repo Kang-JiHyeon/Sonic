@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,32 +27,44 @@ public class JH_Ring : MonoBehaviour
         // Player의 스크립트를 가져온다.
         player = target.GetComponent<NK_Booster>();
     }
-    bool isFollow = true;
+
+    bool isFollow = false;
     // Update is called once per frame
     public virtual void Update()
     {
-        // 일정 시간동안만 따라가게 하고 싶다.
+        Follow();
+    }
 
+    private void Follow()
+    {
         // 플레이어와 일정 거리 안에 있고, 플레이어가 부스터 상태이면 플레이어 쪽으로 이동하고 싶다.
         if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
         {
+            // 일정 시간동안만 따라가게 하고 싶다.
+            isFollow = true;
+
             curTime += Time.deltaTime;
 
             if (curTime > followTime)
             {
-                return;
+                isFollow = false;
             }
-            transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * speed);
 
-            if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+            if (isFollow)
             {
-                // 점수 증가
-                JH_Score.Instance.SCORE++;
-                // 제거
-                Destroy(gameObject);
+                transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * speed);
+
+                if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                {
+                    // 점수 증가
+                    JH_Score.Instance.SCORE++;
+                    // 제거
+                    Destroy(gameObject);
+                }
             }
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (player)

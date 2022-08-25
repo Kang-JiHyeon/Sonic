@@ -25,6 +25,7 @@ public class JH_DropRing : JH_Ring
     public float liveTime = 7f;
     float currentTime = 0f;
 
+    Rigidbody rigid;
     MeshRenderer mesh;
     Vector3 pos;
 
@@ -32,6 +33,7 @@ public class JH_DropRing : JH_Ring
     public override void Start()
     {
         base.Start();
+        rigid = GetComponent<Rigidbody>();
         mesh = GetComponent<MeshRenderer>();
         StartCoroutine(IeBlink());
         pos = gameObject.transform.position;
@@ -49,7 +51,7 @@ public class JH_DropRing : JH_Ring
             StopCoroutine(IeBlink());
             Destroy(gameObject);
         }
-        if (GetComponent<Collider>().isTrigger)
+        if (GetComponent<Collider>().isTrigger && !NK_Booster.Instance.isBooster)
         {
             transform.position = pos;
         }
@@ -67,15 +69,6 @@ public class JH_DropRing : JH_Ring
             mesh.enabled = true;
         }
     }
-
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag.Contains("Road"))
-    //    {
-    //        pos.y = other.gameObject.transform.position.y;
-    //    }
-    //}
     
     private void OnCollisionEnter(Collision collision)
     {
@@ -85,6 +78,7 @@ public class JH_DropRing : JH_Ring
 
             pos.y = contact.point.y + 0.5f;
             GetComponent<Collider>().isTrigger = true;
+            rigid.isKinematic = true;
         }
     }
 }
