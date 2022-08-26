@@ -24,16 +24,14 @@ public class JH_Score : MonoBehaviour
     }
 
     public static JH_Score Instance;
+
     void Awake()
     {
-        if (Instance==null)
-        {
             Instance = this;
-        } 
     }
     private void Start()
-    {
-        textScore = GameObject.FindGameObjectWithTag("Player").GetComponent<Text>();
+    { 
+        textScore = GameObject.Find("Text_ScoreValue").GetComponent<Text>();
     }
 
     private void Update()
