@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4122938131327598}
   - component: {fileID: 33193895915718416}
   - component: {fileID: 23188286496353356}
-  - component: {fileID: 114073182108852144}
   - component: {fileID: 82399120985686150}
   - component: {fileID: 135415070846369410}
   - component: {fileID: 4522670725438533330}
@@ -88,23 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &114073182108852144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015780934767744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1315172d7ad53634e952f7d8f3c02048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollectibleType: 0
-  rotate: 1
-  rotationSpeed: 100
-  collectSound: {fileID: 0}
-  collectEffect: {fileID: 1702657300312902, guid: a45c51da10cf1a84abc6a99c06951e3f, type: 3}
 --- !u!82 &82399120985686150
 AudioSource:
   m_ObjectHideFlags: 0
@@ -112,12 +94,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015780934767744}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 905ae444d8ce6e34ea4d465cdafc69e1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -229,6 +211,9 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 10
   boosterDis: 20
+  rotationSpeed: 100
+  collectSound: {fileID: 0}
+  collectEffect: {fileID: 1702657300312902, guid: 8d2c24f83dd528d488942b84ea9662bc, type: 3}
 --- !u!114 &1040241624387523472
 MonoBehaviour:
   m_ObjectHideFlags: 0

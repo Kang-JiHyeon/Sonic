@@ -19,6 +19,11 @@ public class JH_Ring : MonoBehaviour
     public float boosterDis = 20f;
     float followTime = 1f;
     float curTime = 0f;
+    
+    // 링 회전
+    public float rotationSpeed;
+    public AudioSource collectSound;
+    public GameObject collectEffect;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -26,13 +31,18 @@ public class JH_Ring : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         // Player의 스크립트를 가져온다.
         player = target.GetComponent<NK_Booster>();
+
+        collectSound = GetComponent<AudioSource>();
     }
 
     bool isFollow = false;
     // Update is called once per frame
     public virtual void Update()
     {
+        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
+
         Follow();
+
     }
 
     private void Follow()
@@ -58,11 +68,26 @@ public class JH_Ring : MonoBehaviour
                 {
                     // 점수 증가
                     JH_Score.Instance.SCORE++;
-                    // 제거
-                    Destroy(gameObject);
+
+                    collectSound.Play();
+                    GetComponent<MeshRenderer>().enabled = false;
+                    Invoke("OnDestroy", 0.2f);
                 }
             }
         }
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public void Collect()
+    {
+        if (collectSound)
+            collectSound.Play();
+        if (collectEffect)
+            Instantiate(collectEffect, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -70,12 +95,18 @@ public class JH_Ring : MonoBehaviour
         if (player)
         {
             // 플레이어와 닿으면 점수를 +1 하고 사라지고 싶다.
-            if (other.gameObject.name.Contains("Player") && !player.isBooster)
+            if (other.gameObject.name.Contains("Player"))
             {
-                // 점수 증가
-                JH_Score.Instance.SCORE++;
-                // 제거
-                Destroy(gameObject);
+                Collect();
+
+                if (!player.isBooster)
+                {
+                    // 점수 증가
+                    JH_Score.Instance.SCORE++;
+                    // 제거
+                    gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    Invoke("OnDestroy", 0.2f);
+                }
             }
         }
     }

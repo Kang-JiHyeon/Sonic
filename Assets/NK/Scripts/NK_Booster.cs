@@ -13,6 +13,7 @@ public class NK_Booster : MonoBehaviour
     Animator anim;
     float normalSpeed;
     float currentTime;
+    AudioSource boosterSound;
 
     public static NK_Booster Instance;
 
@@ -28,6 +29,7 @@ public class NK_Booster : MonoBehaviour
         booster.SetActive(false);
         normalSpeed = NK_PlayerMove.Instance.speed;
         anim = GetComponentInChildren<Animator>();
+        boosterSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,16 +38,20 @@ public class NK_Booster : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             isBooster = true;
+            JH_SoundEffectManager.Instance.state = JH_SoundEffectManager.AudioState.Booster;
         }
 
         if (isBooster)
         {
+            
+
             currentTime += Time.deltaTime;
             if (currentTime < boostTime)
             {
                 anim.SetBool("IsBooster", true);
                 NK_PlayerMove.Instance.speed = boostSpeed;
                 booster.SetActive(true);
+                
             }
             else
             {
