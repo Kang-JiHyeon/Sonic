@@ -35,16 +35,20 @@ public class NK_Booster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        
+        if (Input.GetKey(KeyCode.LeftShift) && !isBooster)
         {
             isBooster = true;
-            JH_SoundEffectManager.Instance.state = JH_SoundEffectManager.AudioState.Booster;
+
+            if (!JH_SoundManager.Instance.sound.isPlaying)
+            {
+                JH_SoundManager.Instance.PlaySound("Booster");
+            }
+
         }
 
         if (isBooster)
         {
-            
-
             currentTime += Time.deltaTime;
             if (currentTime < boostTime)
             {
