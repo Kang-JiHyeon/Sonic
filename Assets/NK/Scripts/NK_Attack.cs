@@ -21,6 +21,12 @@ public class NK_Attack : MonoBehaviour
     GameObject aim;
     GameObject attack;
 
+
+    // Aim Sound Effect
+    AudioSource aimSound;
+
+    
+
     public static NK_Attack Instance;
 
     private void Awake()
@@ -43,6 +49,8 @@ public class NK_Attack : MonoBehaviour
         aim.SetActive(false);
         attack = Instantiate(attackFactory);
         attack.SetActive(false);
+
+        aimSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -88,6 +96,7 @@ public class NK_Attack : MonoBehaviour
                     if (enemy.name.Contains("Bee"))
                         aim.transform.Rotate(0, 90, 0);
                     aim.SetActive(true);
+                    aimSound.Play();
                     isAiming = true;
                 }
                 else

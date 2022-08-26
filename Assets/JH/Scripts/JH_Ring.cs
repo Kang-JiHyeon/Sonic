@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 1. ÀÏ¹Ý
-// ÇÃ·¹ÀÌ¾î¿Í ´êÀÌ¸é »ç¶óÁö°Ô ÇÏ°í ½Í´Ù.
+// 1. ï¿½Ï¹ï¿½
+// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
 
-// 2. ºÎ½ºÅÍ
-// ÇÃ·¹ÀÌ¾î¿Í ÀÏÁ¤ °Å¸® ¾È¿¡ ÀÖ°í, ÇÃ·¹ÀÌ¾î°¡ ºÎ½ºÅÍ »óÅÂÀÌ¸é ÇÃ·¹ÀÌ¾î ÂÊÀ¸·Î ÀÌµ¿ÇÏ°í ½Í´Ù.
+// 2. ï¿½Î½ï¿½ï¿½ï¿½
+// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½È¿ï¿½ ï¿½Ö°ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Î½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
 
-// 3. Á¡¼ö
-// ¸µÀÌ ÇÃ·¹ÀÌ¾î¿Í ´êÀ¸¸é +1
+// 3. ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +1
 public class JH_Ring : MonoBehaviour
 {
     GameObject target;
@@ -20,27 +20,37 @@ public class JH_Ring : MonoBehaviour
     float followTime = 1f;
     float curTime = 0f;
 
+    // ï¿½ï¿½ È¸ï¿½ï¿½
+    public float rotationSpeed;
+    public AudioSource collectSound;
+    public GameObject collectEffect;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player");
-        // PlayerÀÇ ½ºÅ©¸³Æ®¸¦ °¡Á®¿Â´Ù.
+        // Playerï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
         player = target.GetComponent<NK_Booster>();
+
+        collectSound = GetComponent<AudioSource>();
     }
 
     bool isFollow = false;
     // Update is called once per frame
     public virtual void Update()
     {
+        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
+
         Follow();
+
     }
 
     private void Follow()
     {
-        // ÇÃ·¹ÀÌ¾î¿Í ÀÏÁ¤ °Å¸® ¾È¿¡ ÀÖ°í, ÇÃ·¹ÀÌ¾î°¡ ºÎ½ºÅÍ »óÅÂÀÌ¸é ÇÃ·¹ÀÌ¾î ÂÊÀ¸·Î ÀÌµ¿ÇÏ°í ½Í´Ù.
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½È¿ï¿½ ï¿½Ö°ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Î½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
         if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
         {
-            // ÀÏÁ¤ ½Ã°£µ¿¾È¸¸ µû¶ó°¡°Ô ÇÏ°í ½Í´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½È¸ï¿½ ï¿½ï¿½ï¿½ó°¡°ï¿½ ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
             isFollow = true;
 
             curTime += Time.deltaTime;
@@ -56,28 +66,49 @@ public class JH_Ring : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, target.transform.position) < 1f)
                 {
-                    // Á¡¼ö Áõ°¡
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     JH_Score.Instance.SCORE++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
-                    // Á¦°Å
-                    Destroy(gameObject);
+
+                    collectSound.Play();
+                    GetComponent<MeshRenderer>().enabled = false;
+                    Invoke("OnDestroy", 0.2f);
                 }
             }
         }
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(gameObject);
+    }
+
+    public void Collect()
+    {
+        if (collectSound)
+            collectSound.Play();
+        if (collectEffect)
+            Instantiate(collectEffect, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (player)
         {
-            // ÇÃ·¹ÀÌ¾î¿Í ´êÀ¸¸é Á¡¼ö¸¦ +1 ÇÏ°í »ç¶óÁö°í ½Í´Ù.
-            if (other.gameObject.name.Contains("Player") && !player.isBooster)
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +1 ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Í´ï¿½.
+            if (other.gameObject.name.Contains("Player"))
             {
-                // Á¡¼ö Áõ°¡
-                JH_Score.Instance.SCORE++;
-                NK_ScoreManager.scoreManager.sumScore += 2000;
-                // Á¦°Å
-                Destroy(gameObject);
+                Collect();
+
+                if (!player.isBooster)
+                {
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    JH_Score.Instance.SCORE++;
+                    NK_ScoreManager.scoreManager.sumScore += 2000;
+                    // ï¿½ï¿½ï¿½ï¿½
+                    gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    Invoke("OnDestroy", 0.2f);
+                }
             }
         }
     }
