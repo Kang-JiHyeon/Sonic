@@ -829,14 +829,19 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8337828697607377208}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: d33264e7f37f77d42a248691672381d8, type: 3}
   m_Controller: {fileID: 9100000, guid: cf86558e6dbd97a499ab3c96cd4259d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'Spine'\n\tTransform 'Thigh_R'\n\tTransform
+    'Calf_R'\n\tTransform 'ForeArm_R'\n\tTransform 'Hips'\n\tTransform 'Calf_L'\n\tTransform
+    'Thigh_L'\n\tTransform 'Needles'\n\tTransform 'UpperArm_L'\n\tand more ...\n\tFrom
+    animation clip 'sn_springlanding'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

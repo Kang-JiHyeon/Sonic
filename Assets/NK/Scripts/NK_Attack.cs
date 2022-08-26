@@ -49,8 +49,7 @@ public class NK_Attack : MonoBehaviour
     void Update()
     {
         attack.transform.position = transform.position + new Vector3(0, 1, 0);
-        anim.SetBool("IsAttack", isAttack);
-
+        print(isAttack);
         if (enemy == null)
         {
             Initialization();
@@ -93,6 +92,7 @@ public class NK_Attack : MonoBehaviour
                 }
                 else
                 {
+                    anim.SetBool("IsAttack", true);
                     if (currentTime < attackTime)
                     {
                         isAttack = true;
@@ -126,6 +126,7 @@ public class NK_Attack : MonoBehaviour
         isAttack = false;
         aim.SetActive(false);
         attack.SetActive(false);
+        anim.SetBool("IsAttack", false);
         trailRenderer.enabled = false;
     }
 

@@ -4,20 +4,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NK_SelectCharacter : MonoBehaviour, IPointerClickHandler
+public class NK_SelectCharacter : MonoBehaviour
 {
     // 캐릭터를 선택하고 싶다.
     public Character character;
     public NK_SelectCharacter[] characters;
-    Image image;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        image = GetComponent<Image>();
+        anim = GetComponent<Animator>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void OnMouseDown()
     {
         NK_CharacterData.instance.currentCharacter = character;
         OnSelect();
@@ -30,11 +30,11 @@ public class NK_SelectCharacter : MonoBehaviour, IPointerClickHandler
 
     void OnDeSelect()
     {
-        image.color = new Color(0.5f, 0.5f, 0.5f);
+        anim.SetBool("IsSelect", false);
     }
 
     void OnSelect()
     {
-        image.color = new Color(1f, 1f, 1f);
+        anim.SetBool("IsSelect", true);
     }
 }

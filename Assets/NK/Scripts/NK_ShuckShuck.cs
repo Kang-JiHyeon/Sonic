@@ -38,13 +38,13 @@ public class NK_ShuckShuck : MonoBehaviour
     {
         trailRenderer.enabled = false;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             trailRenderer.enabled = true;
             index--;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             trailRenderer.enabled = true;
             index++;

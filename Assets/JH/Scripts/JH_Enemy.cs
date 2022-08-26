@@ -110,6 +110,7 @@ public class JH_Enemy : MonoBehaviour
             dir.Normalize();
             // dir 방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
+            NK_ScoreManager.scoreManager.sumScore += 3000;
 
             // 사운드
             if (!hitSound1.isPlaying)
@@ -133,10 +134,14 @@ public class JH_Enemy : MonoBehaviour
                 GameObject hit = Instantiate(hitFactory);
                 hit.transform.position = transform.position + new Vector3(0, 1.5f, 0);
                 Hit();
-
+                other.gameObject.GetComponentInChildren<Animator>().SetTrigger("AttackSuccess");
             }
             else
             {
+                if (0 >= JH_Score.Instance.SCORE)
+                {
+                    NK_Life.LifeManager.Life--;
+                }
                 NK_PlayerDamage.Instance.isDamage = true;
             }
         }

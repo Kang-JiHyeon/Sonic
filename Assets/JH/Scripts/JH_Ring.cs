@@ -58,6 +58,7 @@ public class JH_Ring : MonoBehaviour
                 {
                     // 점수 증가
                     JH_Score.Instance.SCORE++;
+                    NK_ScoreManager.scoreManager.sumScore += 2000;
                     // 제거
                     Destroy(gameObject);
                 }
@@ -74,6 +75,7 @@ public class JH_Ring : MonoBehaviour
             {
                 // 점수 증가
                 JH_Score.Instance.SCORE++;
+                NK_ScoreManager.scoreManager.sumScore += 2000;
                 // 제거
                 Destroy(gameObject);
             }
