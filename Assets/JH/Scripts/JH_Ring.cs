@@ -23,7 +23,7 @@ public class JH_Ring : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        target = GameObject.Find("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
         // Player의 스크립트를 가져온다.
         player = target.GetComponent<NK_Booster>();
     }

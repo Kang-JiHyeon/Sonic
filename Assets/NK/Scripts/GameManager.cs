@@ -104,7 +104,9 @@ public class GameManager : MonoBehaviour
 
     public void OnClickCharacterSelection()
     {
+        //SceneManager.LoadScene("JH_MapScene1");
         SceneManager.LoadScene("NK_MapScene 2");
+
     }
 
     public void OnClickReStart()

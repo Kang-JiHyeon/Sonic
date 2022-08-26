@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,8 @@ public class JH_Enemy : MonoBehaviour
     public float boosterRange = 5f;
     public float speed = 50f;
     bool isHit = false;
-
+    bool isPlaySound = false;
+    float curTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +42,7 @@ public class JH_Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         // 튕기기 전 위치
         originPos = transform.position;
-        target = GameObject.Find("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
 
         player = target.GetComponent<NK_Booster>();
     }
@@ -56,23 +58,24 @@ public class JH_Enemy : MonoBehaviour
             // 일정 거리 날라간 후 없어지고 싶다.
             if (Vector3.Distance(originPos, transform.position) > moveDis)
             {
+
                 NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
+                isPlaySound = true;
 
                 // 폭발 이펙트
                 GameObject explosion = Instantiate(explosionFactory);
                 explosion.transform.position = transform.position;
 
-                hitSound2.Play();
                 robot.SetActive(false);
 
+
+                // 사운드 재생
                 if (!hitSound2.isPlaying)
                 {
-                    Destroy(gameObject);
+                    hitSound2.Play();
+                    Invoke("OnDestroy", 0.5f);
                 }
-                // 적 제거
-                //gameObject.SetActive(false);
-                //Destroy(gameObject);
             }
         }
         // 2. 부스터
@@ -86,14 +89,14 @@ public class JH_Enemy : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        Destroy(gameObject);
+    }
+
     private void Hit()
     {
-        // 사운드
-        if (!hitSound1.isPlaying)
-        {
-            hitSound1.Play();
-        }
-
         // 적의 공격 당함 상태를 true로 만든다.
         isHit = true;
 
@@ -108,6 +111,11 @@ public class JH_Enemy : MonoBehaviour
             // dir 방향으로 힘을 가한다.
             rigid.velocity = dir * speed;
 
+            // 사운드
+            if (!hitSound1.isPlaying)
+            {
+                hitSound1.Play();
+            }
 
             JH_CameraShack.Instance.PlayCameraShake();
         }
@@ -126,13 +134,6 @@ public class JH_Enemy : MonoBehaviour
                 hit.transform.position = transform.position + new Vector3(0, 1.5f, 0);
                 Hit();
 
-                // 사운드
-                if (!hitSound2.isPlaying)
-                {
-                    hitSound2.Play();
-
-                    print("hitSound");
-                }
             }
             else
             {

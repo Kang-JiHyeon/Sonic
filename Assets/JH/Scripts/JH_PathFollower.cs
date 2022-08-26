@@ -31,7 +31,7 @@ public class JH_PathFollower : MonoBehaviour
 	}
 	void Start()
 	{
-		player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 		transform.position = player.position;
         childIndex = 0;
 		listIndex = 0;
