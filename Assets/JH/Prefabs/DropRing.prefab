@@ -99,7 +99,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 905ae444d8ce6e34ea4d465cdafc69e1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -212,7 +212,6 @@ MonoBehaviour:
   speed: 10
   boosterDis: 20
   rotationSpeed: 100
-  collectSound: {fileID: 0}
   collectEffect: {fileID: 1702657300312902, guid: 8d2c24f83dd528d488942b84ea9662bc, type: 3}
   blinkTime: 2
   liveTime: 7

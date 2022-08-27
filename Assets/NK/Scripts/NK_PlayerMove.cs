@@ -67,6 +67,12 @@ public class NK_PlayerMove : MonoBehaviour
             anim.SetBool("IsSpringJumping", false);
             isJumping = false;
 
+            // 회전 사운드 정지
+            if (JH_SoundManager.Instance.audioSourceDic["Spin"].isPlaying)
+            {
+                JH_SoundManager.Instance.audioSourceDic["Spin"].Stop();
+            }
+
             CheckDirection(h, v);
 
             dir = Camera.main.transform.TransformDirection(dir);
@@ -131,6 +137,13 @@ public class NK_PlayerMove : MonoBehaviour
             else
             {
                 anim.SetBool("IsJumping", true);
+
+
+                // 회전 사운드 재생
+                if (!JH_SoundManager.Instance.audioSourceDic["Spin"].isPlaying)
+                {
+                    JH_SoundManager.Instance.PlaySound("Spin");
+                }
             }
 
             isJumping = true;

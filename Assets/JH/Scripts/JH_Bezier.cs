@@ -95,6 +95,11 @@ public class JH_Bezier : MonoBehaviour
 
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
             Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
+
+            if (!JH_SoundManager.Instance.audioSourceDic["Fly"].isPlaying)
+            {
+                JH_SoundManager.Instance.PlaySound("Fly");
+            }
         }
     }
 }

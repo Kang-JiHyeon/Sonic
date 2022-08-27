@@ -20,13 +20,16 @@ public class JH_Balloon : MonoBehaviour
             NK_Attack.Instance.enemys.Remove(gameObject);
             GameObject hitEffect = Instantiate(balloonEffectFactory);
             hitEffect.transform.position = gameObject.transform.position;
-            Destroy(gameObject);
+
             NK_ScoreManager.scoreManager.sumScore += 1000;
 
+
             // 오디오 재생
-            if (!JH_SoundManager.Instance.audioSourceDic["Balloon"].isPlaying)
+            if (!GetComponent<AudioSource>().isPlaying)
             {
-                JH_SoundManager.Instance.PlaySound("Balloon");
+                GetComponentInChildren<MeshRenderer>().enabled = false;
+                GetComponent<AudioSource>().Play();
+                Destroy(gameObject, 0.3f);
             }
         }
     }

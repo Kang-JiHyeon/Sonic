@@ -32,8 +32,6 @@ public class JH_Enemy : MonoBehaviour
     public float boosterRange = 5f;
     public float speed = 50f;
     bool isHit = false;
-    bool isPlaySound = false;
-    float curTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +59,6 @@ public class JH_Enemy : MonoBehaviour
 
                 NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
-                isPlaySound = true;
 
                 // 폭발 이펙트
                 GameObject explosion = Instantiate(explosionFactory);
@@ -69,13 +66,14 @@ public class JH_Enemy : MonoBehaviour
 
                 robot.SetActive(false);
 
+                // 피격 사운드 재생
+                PlayHit(hitSound2);
 
-                // 사운드 재생
-                if (!hitSound2.isPlaying)
-                {
-                    hitSound2.Play();
-                    Invoke("OnDestroy", 0.5f);
-                }
+                //if (!JH_SoundManager.Instance.audioSourceDic["EnemyHit2"].isPlaying)
+                //{
+                //    JH_SoundManager.Instance.PlaySound("EnemyHit2");
+                //    Destroy(gameObject, 0.5f);
+                //}
             }
         }
         // 2. 부스터
@@ -88,11 +86,6 @@ public class JH_Enemy : MonoBehaviour
                 Hit();
             }
         }
-    }
-
-    private void OnDestroy()
-    {
-        Destroy(gameObject);
     }
 
     private void Hit()
@@ -112,11 +105,8 @@ public class JH_Enemy : MonoBehaviour
             rigid.velocity = dir * speed;
             NK_ScoreManager.scoreManager.sumScore += 3000;
 
-            // 사운드
-            if (!hitSound1.isPlaying)
-            {
-                hitSound1.Play();
-            }
+            // 피격 사운드 재생
+            PlayHit(hitSound1);
 
             JH_CameraShack.Instance.PlayCameraShake();
         }
@@ -152,7 +142,22 @@ public class JH_Enemy : MonoBehaviour
             // 폭발 이펙트
             GameObject explosion = Instantiate(explosionFactory);
             explosion.transform.position = transform.position;
-            Destroy(gameObject);
+
+            // 피격 사운드 재생
+            PlayHit(hitSound2);
         }
     }
+
+    void PlayHit(AudioSource audio)
+    {
+        // 피격 사운드 재생
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+            if(audio == hitSound2)
+                Destroy(gameObject, 0.3f);
+        }
+
+    }
+    
 }

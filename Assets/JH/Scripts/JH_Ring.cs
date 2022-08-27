@@ -22,7 +22,7 @@ public class JH_Ring : MonoBehaviour
 
     // �� ȸ��
     public float rotationSpeed;
-    public AudioSource collectSound;
+    AudioSource collectSound;
     public GameObject collectEffect;
 
     // Start is called before the first frame update
@@ -72,15 +72,10 @@ public class JH_Ring : MonoBehaviour
 
                     collectSound.Play();
                     GetComponent<MeshRenderer>().enabled = false;
-                    Invoke("OnDestroy", 0.2f);
+                    Destroy(gameObject, 0.2f);
                 }
             }
         }
-    }
-
-    public void OnDestroy()
-    {
-        Destroy(gameObject);
     }
 
     public void Collect()
@@ -107,7 +102,7 @@ public class JH_Ring : MonoBehaviour
                     NK_ScoreManager.scoreManager.sumScore += 2000;
                     // ����
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
-                    Invoke("OnDestroy", 0.2f);
+                    Destroy(gameObject, 0.2f);
                 }
             }
         }
