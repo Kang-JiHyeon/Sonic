@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class NK_ScoreManager : MonoBehaviour
 {
     public Text textSumScore;
-    public Text coins;
-    public Text playtimes;
 
     public int sumScore;
 
@@ -16,6 +14,7 @@ public class NK_ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+        textSumScore = GetComponent<Text>();
         scoreManager = this;
     }
 
@@ -29,5 +28,13 @@ public class NK_ScoreManager : MonoBehaviour
     void Update()
     {
         textSumScore.text = sumScore.ToString("D8");
+        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
+        {
+            PlayerPrefs.SetString("SumScore", textSumScore.text);
+        }
+        if (GameManager.gameManager.m_state == GameManager.GameState.Ending)
+        {
+            textSumScore.text = PlayerPrefs.GetString("SumScore");
+        }
     }
 }

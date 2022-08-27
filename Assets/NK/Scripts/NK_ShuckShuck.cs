@@ -6,8 +6,9 @@ public class NK_ShuckShuck : MonoBehaviour
 {
     public float speed = 10f;
     public TrailRenderer trailRenderer;
-    public Vector3[] movements = new Vector3[3] {Vector3.zero, Vector3.zero, Vector3.zero};
+    public Vector3[] movements = new Vector3[3] { Vector3.zero, Vector3.zero, Vector3.zero };
 
+    float currentTime;
     CharacterController controller;
     Vector3 movement;
     int index;
@@ -29,9 +30,15 @@ public class NK_ShuckShuck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print((movements[0] + movements[2]) / 2);
-        //movements[1] = (movements[0] + movements[2]) / 2;
-
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > 1f)
+            {
+                trailRenderer.enabled = true;
+                currentTime = 0;
+            }
+        }
     }
 
     public void ShuckShuck()
@@ -40,13 +47,11 @@ public class NK_ShuckShuck : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            trailRenderer.enabled = true;
             index--;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            trailRenderer.enabled = true;
             index++;
         }
 

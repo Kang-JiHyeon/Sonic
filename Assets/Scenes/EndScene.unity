@@ -2490,6 +2490,7 @@ GameObject:
   - component: {fileID: 1424984582}
   - component: {fileID: 1424984581}
   - component: {fileID: 1424984580}
+  - component: {fileID: 1424984583}
   m_Layer: 5
   m_Name: Text_Rank
   m_TagString: Untagged
@@ -2604,6 +2605,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0.11532307, g: 0, b: 1, a: 1}
   m_EffectDistance: {x: 3, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &1424984583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424984575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53fef94129e79e47a19a668850e06be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textRank: {fileID: 1424984578}
 --- !u!1 &1460808311
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,8 +3045,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textSumScore: {fileID: 1834681607}
-  coins: {fileID: 0}
-  playtimes: {fileID: 0}
   sumScore: 0
 --- !u!114 &1834681607
 MonoBehaviour:
