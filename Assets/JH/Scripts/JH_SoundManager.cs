@@ -2,30 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// È¿°úÀ½ Àç»ıÀ» ´ã´ç
+// íš¨ê³¼ìŒ ì¬ìƒì„ ë‹´ë‹¹
 public class JH_SoundManager : MonoBehaviour
 {
-    //// ¿Àµğ¿À Å¬¸³ ÁöÁ¤
-    //public enum AudioState
-    //{
-    //    Idle,
-    //    Aim,
-    //    Booster,
-    //    BalloonHit,
-    //    EnemyHit1,
-    //    EnemyHit2,
-    //    Fly,
-    //    Jump,
-    //    Ring,
-    //    Spin
-    //}
-    public List<AudioClip> AudioClipList = new List<AudioClip>();
-    public AudioSource sound;
-    //public AudioSource BoosterSource;
-    //public AudioState state = AudioState.Idle;
-    public bool isStart = false;
+    [SerializeField]
+    List<AudioClip> audioClipList = new List<AudioClip>();
+    [SerializeField]
+    List<AudioSource> audioSourceList = new List<AudioSource>();
 
-    Dictionary<string, AudioClip> audioClipsDic = new Dictionary<string, AudioClip>();
+    public Dictionary<string, AudioClip> audioClipDic = new Dictionary<string, AudioClip>();
+    public Dictionary<string, AudioSource> audioSourceDic = new Dictionary<string, AudioSource>();
 
     public static JH_SoundManager Instance;
 
@@ -33,10 +19,15 @@ public class JH_SoundManager : MonoBehaviour
     {
         Instance = this;
 
-        // Å°-°ª ÇüÅÂ·Î ÀúÀå
-        foreach(AudioClip clip in AudioClipList)
+        // í‚¤-ê°’ í˜•íƒœë¡œ ì €ì¥
+        foreach(AudioClip clip in audioClipList)
         {
-            audioClipsDic.Add(clip.name, clip);
+            audioClipDic.Add(clip.name, clip);
+        }
+
+        foreach (AudioSource source in audioSourceList)
+        {
+            audioSourceDic.Add(source.name, source);
         }
     }
 
@@ -62,7 +53,7 @@ public class JH_SoundManager : MonoBehaviour
         //        break;
         //}
 
-        //// È¿°úÀ½ Ãâ·Â ÁßÀÌ ¾Æ´Ò ¶§
+        //// íš¨ê³¼ìŒ ì¶œë ¥ ì¤‘ì´ ì•„ë‹ ë•Œ
         //if (!soundEffect.isPlaying)
         //{
         //    soundEffect.Play();
@@ -70,7 +61,7 @@ public class JH_SoundManager : MonoBehaviour
         //    //soundEffect.PlayOneShot(audioList[(int)AudioState.Booster]);
         //    //state = AudioState.Idle;
         //}
-        // È¿°úÀ½ ½ÃÀÛ
+        // íš¨ê³¼ìŒ ì‹œì‘
         //if (isStart)
         //{
         //    isStart = false;
@@ -79,12 +70,12 @@ public class JH_SoundManager : MonoBehaviour
     }
     public void PlaySound(string name)
     {
-        if (!audioClipsDic.ContainsKey(name))
+        if (!audioSourceDic.ContainsKey(name))
         {
-            print($"{name} ¾øÀ½");
+            print($"{name} ì˜¤ë””ì˜¤ ì—†ìŒ");
             return;
         }
-        sound.PlayOneShot(audioClipsDic[name]);
-    }
 
+        audioSourceDic[name].PlayOneShot(audioClipDic[name]);
+    }
 }

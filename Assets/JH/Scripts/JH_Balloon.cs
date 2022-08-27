@@ -22,6 +22,12 @@ public class JH_Balloon : MonoBehaviour
             hitEffect.transform.position = gameObject.transform.position;
             Destroy(gameObject);
             NK_ScoreManager.scoreManager.sumScore += 1000;
+
+            // 오디오 재생
+            if (!JH_SoundManager.Instance.audioSourceDic["Balloon"].isPlaying)
+            {
+                JH_SoundManager.Instance.PlaySound("Balloon");
+            }
         }
     }
 }

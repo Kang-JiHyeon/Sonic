@@ -89,7 +89,7 @@ public class NK_Attack : MonoBehaviour
                         aim.transform.Rotate(0, 90, 0);
                     aim.SetActive(true);
 
-                    if (!JH_SoundManager.Instance.sound.isPlaying)
+                    if (!JH_SoundManager.Instance.audioSourceDic["Aim"].isPlaying)
                     {
                         JH_SoundManager.Instance.PlaySound("Aim");
                     }
