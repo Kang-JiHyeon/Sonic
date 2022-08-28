@@ -887,7 +887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514979653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 801, y: 789, z: 0}
+  m_LocalPosition: {x: 96, y: -50, z: 134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1195,6 +1195,7 @@ GameObject:
   - component: {fileID: 656775995}
   - component: {fileID: 656775994}
   - component: {fileID: 656775993}
+  - component: {fileID: 656775997}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1286,6 +1287,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &656775997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656775992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8645b83ee107aee4ab596a1bbd566424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &665591228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3265,6 +3278,7 @@ MonoBehaviour:
   playUI: {fileID: 0}
   endUI: {fileID: 1217983923}
   gameoverUI: {fileID: 0}
+  loadingUI: {fileID: 0}
   playTime: {fileID: 1280247190}
   textScore: {fileID: 849047155}
   readyDelayTime: 2
