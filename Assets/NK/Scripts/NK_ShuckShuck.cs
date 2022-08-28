@@ -35,6 +35,7 @@ public class NK_ShuckShuck : MonoBehaviour
             currentTime += Time.deltaTime;
             if (currentTime > 1f)
             {
+                JH_SoundManager.Instance.PlaySound("Shuck");
                 trailRenderer.enabled = true;
                 currentTime = 0;
             }

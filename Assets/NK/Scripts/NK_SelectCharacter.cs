@@ -26,6 +26,10 @@ public class NK_SelectCharacter : MonoBehaviour
             if (characters[i] != this)
                 characters[i].OnDeSelect();
         }
+
+
+        // Character Voice
+        JH_SoundManager.Instance.PlaySound(character.ToString());
     }
 
     void OnDeSelect()
