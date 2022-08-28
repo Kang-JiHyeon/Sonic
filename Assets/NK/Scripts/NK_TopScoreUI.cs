@@ -23,5 +23,15 @@ public class NK_TopScoreUI : MonoBehaviour
         {
             topScore.SetActive(true);
         }
+
+        /*if (PlayerPrefs.GetString("PlayTime") <= PlayerPrefs.GetString("TopPlayTime"))
+        {
+
+        }*/
+
+        if (PlayerPrefs.GetInt("TopRing") <= Int32.Parse(PlayerPrefs.GetString("Ring")))
+        {
+            topRing.SetActive(true);
+        }
     }
 }

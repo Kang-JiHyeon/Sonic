@@ -13,7 +13,9 @@ public class NK_ScoreManager : MonoBehaviour
     public int sumScore
     {
         get { return _sumScore; }
-        set { _sumScore = value;
+        set
+        {
+            _sumScore = value;
             textSumScore.text = _sumScore.ToString("D8");
             if (_sumScore > _topScore)
             {
