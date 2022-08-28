@@ -130,7 +130,7 @@ public class JH_Enemy : MonoBehaviour
             // 플레이어가 공격 중이 아니라면
             else
             {
-                if (0 >= JH_Score.Instance.SCORE)
+                if (0 >= JH_Score.Instance.RING)
                 {
                     NK_Life.LifeManager.Life--;
                 }

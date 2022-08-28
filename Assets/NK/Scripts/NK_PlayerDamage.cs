@@ -42,13 +42,13 @@ public class NK_PlayerDamage : MonoBehaviour
                 Initialization();
             }
 
-            if (coinCount < 10 && 0 < JH_Score.Instance.SCORE)
+            if (coinCount < 10 && 0 < JH_Score.Instance.RING)
             {
                 GameObject coin = Instantiate(coinFactory);
                 coin.SetActive(false);
                 coin.transform.position = transform.position + new Vector3(Random.Range(-3, 3), 1, Random.Range(-3, 3));
                 coin.SetActive(true);
-                JH_Score.Instance.SCORE--;
+                JH_Score.Instance.RING--;
                 NK_ScoreManager.scoreManager.sumScore -= 2000;
                 coinCount++;
             }

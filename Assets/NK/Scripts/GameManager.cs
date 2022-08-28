@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         gameManager = this;
     }
 
-    void Update()
+    void LateUpdate()
     {
         switch (SceneManager.GetActiveScene().buildIndex)
         {
@@ -49,25 +49,10 @@ public class GameManager : MonoBehaviour
             case 3:
                 PlayingState();
                 break;
-            //case 4:
-            //    EndingState();
-            //    break;
         }
 
         switch (m_state)
         {
-            //case GameState.Load:
-            //    LoadState();
-            //    break;
-            //case GameState.Ready:
-            //    ReadyState();
-                //break;
-            //case GameState.Start:
-            //    StartState();
-            //    break;
-            //case GameState.Playing:
-            //    PlayingState();
-            //    break;
             case GameState.GameOver:
                 GameOverState();
                 break;
@@ -112,19 +97,23 @@ public class GameManager : MonoBehaviour
     float gameoverDelayTime = 2f;
     private void GameOverState()
     {
-        gameoverUI.SetActive(true);
-        currentTime += Time.deltaTime;
-        if (currentTime > gameoverDelayTime)
-        {
-            m_state = GameState.Ending;
-            currentTime = 0;
-            SceneManager.LoadScene("EndScene");
-        }
+        //gameoverUI.SetActive(true);
+        //currentTime += Time.deltaTime;
+        //if (currentTime > gameoverDelayTime)
+        //{
+        //    m_state = GameState.Ending;
+        //    currentTime = 0;
+        //    SceneManager.LoadScene("EndScene");
+        //}
+        //m_state = GameState.Ending;
+
+        m_state = GameState.Ending;
+        SceneManager.LoadScene("EndScene");
     }
 
     private void EndingState()
-    {
-        textScore.text = PlayerPrefs.GetString("Score", "0");
+    { 
+        textScore.text = PlayerPrefs.GetString("Ring");
         playTime.text = PlayerPrefs.GetString("PlayTime");
     }
 

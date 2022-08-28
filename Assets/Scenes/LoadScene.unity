@@ -272,6 +272,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2413957959220457910, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4872763056093911938, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
       propertyPath: m_Name
       value: Player
@@ -320,6 +324,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911942, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911943, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911944, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911945, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872763056093911947, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408049710112701630, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8644925818761615569, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
       propertyPath: m_Controller
       value: 
@@ -328,7 +356,8 @@ PrefabInstance:
       propertyPath: m_WarningMessage
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2413957959220457910, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
 --- !u!1 &719846464 stripped
 GameObject:
@@ -481,7 +510,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7ec8d230be7f4ed4ea16405a4cc9d23d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -712,13 +741,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b402d97d290f5f4abcdf4f14a47a527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_state: 0
   startUI: {fileID: 0}
   playUI: {fileID: 0}
   endUI: {fileID: 0}
   gameoverUI: {fileID: 0}
   playTime: {fileID: 0}
   textScore: {fileID: 0}
+  m_state: 0
 --- !u!1 &1396643701
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,8 @@ public class JH_PlayTime : MonoBehaviour
     public static JH_PlayTime Instance;
     
     // 필요속성: 텍스트, 경과시간
-    Text playTime;
+   
+    public Text playTime;
     string min, sec, msec;
     float currentTime = 0f;
 
@@ -42,10 +43,5 @@ public class JH_PlayTime : MonoBehaviour
 
         playTime.text = $"{min}:{sec}:{msec}";
 
-        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
-        {
-            PlayerPrefs.SetString("PlayTime", playTime.text);
-            //currentTime = 0f;
-        }
     }
 }

@@ -3221,7 +3221,7 @@ MonoBehaviour:
   gameoverUI: {fileID: 161041410}
   playTime: {fileID: 1280247190}
   textScore: {fileID: 849047155}
-  m_state: 4
+  m_state: 5
 --- !u!82 &1489785923
 AudioSource:
   m_ObjectHideFlags: 0

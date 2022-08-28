@@ -6,7 +6,7 @@ using UnityEngine;
 public class JH_CamManager : MonoBehaviour
 {
     public Transform[] curveOutPos;
-    int index = 0;
+    public int index = 0;
     bool isCurveOut = false;
     float rotationSpeed = 2f;
 

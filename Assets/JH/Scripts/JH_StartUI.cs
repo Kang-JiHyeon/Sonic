@@ -15,7 +15,9 @@ public class JH_StartUI : MonoBehaviour
     RectTransform uiTransform;
     [SerializeField]
     Transform charTransforml;
-
+    [SerializeField]
+    float speed = 3f;
+    
     Color color;
     Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f);
     bool isRevere = false;
@@ -48,8 +50,8 @@ public class JH_StartUI : MonoBehaviour
             // ui와 charactor의 크기를 키우고 싶다.
             if (!isRevere)
             {
-                uiTransform.localScale = Vector3.Lerp(uiTransform.localScale, targetScale, Time.deltaTime * 3f);
-                charTransforml.localScale = Vector3.Lerp(charTransforml.localScale, targetScale, Time.deltaTime * 3f);
+                uiTransform.localScale = Vector3.Lerp(uiTransform.localScale, targetScale, Time.deltaTime * speed);
+                charTransforml.localScale = Vector3.Lerp(charTransforml.localScale, targetScale, Time.deltaTime * speed);
 
                 if (uiTransform.localScale.x > targetScale.x - 0.02f)
                 {
@@ -60,10 +62,10 @@ public class JH_StartUI : MonoBehaviour
             }
             else
             {
-                uiTransform.localScale = Vector3.Lerp(uiTransform.localScale, Vector3.one, Time.deltaTime * 2f);
-                charTransforml.localScale = Vector3.Lerp(charTransforml.localScale, Vector3.one, Time.deltaTime * 2f);
+                uiTransform.localScale = Vector3.Lerp(uiTransform.localScale, Vector3.one, Time.deltaTime * speed);
+                charTransforml.localScale = Vector3.Lerp(charTransforml.localScale, Vector3.one, Time.deltaTime * speed);
 
-                if (uiTransform.localScale.x < Vector3.one.x + 0.01f)
+                if (uiTransform.localScale.x < Vector3.one.x + 0.005f)
                 {
                     uiTransform.localScale = Vector3.one;
                     charTransforml.localScale = Vector3.one;
