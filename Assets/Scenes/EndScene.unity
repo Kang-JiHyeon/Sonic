@@ -3260,14 +3260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b402d97d290f5f4abcdf4f14a47a527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_state: 4
   startUI: {fileID: 0}
   playUI: {fileID: 0}
   endUI: {fileID: 1217983923}
-  gameoverUI: {fileID: 0}
+  gameoverUI: {fileID: 161041410}
   playTime: {fileID: 1280247190}
   textScore: {fileID: 849047155}
-  readyDelayTime: 2
+  m_state: 5
 --- !u!82 &1489785923
 AudioSource:
   m_ObjectHideFlags: 0

@@ -7,19 +7,19 @@ using UnityEngine.UI;
 // 점수를 UI에 표시하고 싶다.
 public class JH_Score : MonoBehaviour
 {
-    public Text textScore;
-    int score = 0;
+    public Text textRing;
+    int ring = 0;
 
-    public int SCORE
+    public int RING
     {
         get
         {
-            return score;
+            return ring;
         }
         set
         {
-            score = value;
-            textScore.text = score.ToString("D4");
+            ring = value;
+            textRing.text = ring.ToString("D4");
         }
     }
 
@@ -30,15 +30,12 @@ public class JH_Score : MonoBehaviour
             Instance = this;
     }
     private void Start()
-    { 
-        textScore = GameObject.Find("Text_ScoreValue").GetComponent<Text>();
+    {
+        textRing = GameObject.Find("Text_Ring").GetComponent<Text>();
     }
 
     private void Update()
     {
-        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
-        {
-            PlayerPrefs.SetString("Score", textScore.text);
-        }
+
     }
 }
