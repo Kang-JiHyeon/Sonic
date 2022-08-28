@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3567055967058717861, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4872763056093911938, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
       propertyPath: m_Name
       value: Player
@@ -345,6 +349,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6408049710112701630, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092800105497604911, guid: 27fd102a3a1b6ed438b47577620fe409, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -745,6 +753,7 @@ MonoBehaviour:
   playUI: {fileID: 0}
   endUI: {fileID: 0}
   gameoverUI: {fileID: 0}
+  loadingUI: {fileID: 0}
   playTime: {fileID: 0}
   textScore: {fileID: 0}
   m_state: 0
