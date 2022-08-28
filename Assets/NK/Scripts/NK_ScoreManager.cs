@@ -28,10 +28,7 @@ public class NK_ScoreManager : MonoBehaviour
     void Update()
     {
         textSumScore.text = sumScore.ToString("D8");
-        if (GameManager.gameManager.m_state == GameManager.GameState.GameOver)
-        {
-            PlayerPrefs.SetString("SumScore", textSumScore.text);
-        }
+
         if (GameManager.gameManager.m_state == GameManager.GameState.Ending)
         {
             textSumScore.text = PlayerPrefs.GetString("SumScore");

@@ -64,12 +64,12 @@ public class JH_Ring : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, target.transform.position) < 1f)
                 {
-                    JH_Score.Instance.SCORE++;
-                    NK_ScoreManager.scoreManager.sumScore += 2000;
+                    //JH_Score.Instance.RING++;
+                    //NK_ScoreManager.scoreManager.sumScore += 2000;
 
                     collectSound.Play();
                     GetComponent<MeshRenderer>().enabled = false;
-                    Destroy(gameObject, 0.2f);
+                    Destroy(gameObject, 0.1f);
                 }
             }
         }
@@ -93,10 +93,10 @@ public class JH_Ring : MonoBehaviour
 
                 if (!player.isBooster)
                 {
-                    JH_Score.Instance.SCORE++;
+                    JH_Score.Instance.RING++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
-                    Destroy(gameObject, 0.2f);
+                    Destroy(gameObject, 0.1f);
                 }
             }
         }
