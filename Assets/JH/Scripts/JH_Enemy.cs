@@ -118,6 +118,7 @@ public class JH_Enemy : MonoBehaviour
         // 부딪힌 대상이 Player이면
         if (other.gameObject.name.Contains("Player") && !isHit)
         {
+            // 플레이어가 공격 중이라면
             if (NK_Attack.Instance.isAttack)
             {
                 // hit 이펙트
@@ -126,6 +127,7 @@ public class JH_Enemy : MonoBehaviour
                 Hit();
                 other.gameObject.GetComponentInChildren<Animator>().SetTrigger("AttackSuccess");
             }
+            // 플레이어가 공격 중이 아니라면
             else
             {
                 if (0 >= JH_Score.Instance.SCORE)
@@ -133,6 +135,14 @@ public class JH_Enemy : MonoBehaviour
                     NK_Life.LifeManager.Life--;
                 }
                 NK_PlayerDamage.Instance.isDamage = true;
+
+                // 플레이어 피격 사운드 출력
+                if (!JH_SoundManager.Instance.audioSourceDic["DropRing"].isPlaying)
+                    JH_SoundManager.Instance.PlaySound("DropRing");
+
+                // 플레이어 피격 사운드 출력
+                if (!JH_SoundManager.Instance.audioSourceDic["PlayerHit"].isPlaying)
+                    JH_SoundManager.Instance.PlaySound("PlayerHit");
             }
         }
 
@@ -157,7 +167,5 @@ public class JH_Enemy : MonoBehaviour
             if(audio == hitSound2)
                 Destroy(gameObject, 0.3f);
         }
-
     }
-    
 }

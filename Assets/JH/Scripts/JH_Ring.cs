@@ -90,17 +90,14 @@ public class JH_Ring : MonoBehaviour
     {
         if (player)
         {
-            // �÷��̾��� ������ ������ +1 �ϰ� �������� �ʹ�.
             if (other.gameObject.name.Contains("Player"))
             {
                 Collect();
 
                 if (!player.isBooster)
                 {
-                    // ���� ����
                     JH_Score.Instance.SCORE++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
-                    // ����
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
                     Destroy(gameObject, 0.2f);
                 }

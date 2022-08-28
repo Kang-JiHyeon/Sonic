@@ -37,8 +37,16 @@ public class NK_PathFollower : MonoBehaviour
         if (pathCreator != null)
         {
             playerMove.enabled = false;
-            if(!isIncline)
+            if (!isIncline)
+            {
                 railEffect.SetActive(true);
+
+                // 레일 사운드 재생
+                if (!JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].isPlaying)
+                {
+                    JH_SoundManager.Instance.PlaySound("FlyingBlock");
+                }
+            }
 
             distanceTravelled += speed * Time.deltaTime;
             transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
@@ -59,6 +67,12 @@ public class NK_PathFollower : MonoBehaviour
                 {
                     playerMove.enabled = true;
                 }
+
+                //// 레일 사운드 정지
+                //if (JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].isPlaying)
+                //{
+                //    JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].Stop();
+                //}
             }
         }
     }

@@ -83,8 +83,9 @@ public class JH_Bezier : MonoBehaviour
             isFlying = true;
             NK_PlayerMove.Instance.enabled = false;
             NK_PathFollower.Instance.enabled = false;
-            
-            if (gameObject.name.Contains("FlyingBlock_H") || gameObject.name.Contains("Sphere"))
+
+ 
+            if (gameObject.name.Contains("FlyingBlock_H"))
             {
                 isHor = true;
             }
@@ -96,10 +97,17 @@ public class JH_Bezier : MonoBehaviour
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
             Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
 
-            if (!JH_SoundManager.Instance.audioSourceDic["Fly"].isPlaying)
-            {
-                JH_SoundManager.Instance.PlaySound("Fly");
-            }
+            // 사운드 재생
+            //if (gameObject.name.Contains("Ring"))
+            //{
+                if (!JH_SoundManager.Instance.audioSourceDic["FlyingRing"].isPlaying)
+                    JH_SoundManager.Instance.PlaySound("FlyingRing");
+            //}
+            //else
+            //{
+            //    if (!JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].isPlaying)
+            //        JH_SoundManager.Instance.PlaySound("FlyingBlock");
+            //}
         }
     }
 }
