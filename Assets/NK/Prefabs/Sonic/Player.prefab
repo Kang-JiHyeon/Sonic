@@ -345,8 +345,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b762d23c5b49ee42a6372d5040eddf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   enemys: []
   enemy: {fileID: 0}
   aimFactory: {fileID: 7186860984744445285, guid: 492255a7891acc14b92e0228fb8c9fca, type: 3}
@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c74addfd5023154c8bfb6bad0673aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   boosterFactory: {fileID: 100008, guid: ef7f65177026bb24c930fd2e940ffe0e, type: 3}
   boostSpeed: 60
   boostTime: 5
@@ -383,8 +383,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d2d6d2dc7c9fd844a87bb4c08a3edf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   pathCreator: {fileID: 0}
   endOfPathInstruction: 2
   speed: 50
@@ -399,8 +399,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75c091f5c3787f42bfa7cf72a280cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   coinFactory: {fileID: 1015780934767744, guid: c7888a39625224f469ab0f21a5feba24, type: 3}
   damageTime: 0.5
   isDamage: 0
@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 867fdcfe011706b41b378efcc5031876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   speed: 40
   jumpSpeed: 10
   jumpPower: 3
@@ -435,10 +435,10 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 528839b6959b1834ba7ab8eb28df9412, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   speed: 20
-  trailRenderer: {fileID: 0}
+  trailRenderer: {fileID: 1487518964}
   movements:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -453,8 +453,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63872750c138eee418cefc759f49958a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!82 &2413957959220457910
 AudioSource:
   m_ObjectHideFlags: 0
@@ -561,8 +561,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c69abc916808e74428bfa637cc8bbe14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   audioClipList: []
 --- !u!1 &4872763056725071861
 GameObject:
@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b81520610100e34a84c55291739392f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &558193068318180976
 PrefabInstance:
   m_ObjectHideFlags: 0
