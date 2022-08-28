@@ -9,14 +9,13 @@ public class GameManager : MonoBehaviour
 {
     public enum GameState
     {
+        Load,
         Ready,
         Start,
         Playing,
         GameOver,
         Ending
     }
-
-    public GameState m_state = GameState.Ready;
     public static GameManager gameManager;
 
     public GameObject startUI;
@@ -27,6 +26,7 @@ public class GameManager : MonoBehaviour
     public Text playTime;
     public Text textScore;
 
+    public GameState m_state = GameState.Ready;
 
     public void Awake()
     {
@@ -35,60 +35,90 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        switch (m_state)
+        switch (SceneManager.GetActiveScene().buildIndex)
         {
-            case GameState.Ready:
-                ReadyState();
+            case 0:
+                LoadState();
                 break;
-            case GameState.Start:
+            case 1:
                 StartState();
                 break;
-            case GameState.Playing:
+            case 2:
+                // SelectScene
+                break;
+            case 3:
                 PlayingState();
                 break;
+            //case 4:
+            //    EndingState();
+            //    break;
+        }
+
+        switch (m_state)
+        {
+            //case GameState.Load:
+            //    LoadState();
+            //    break;
+            //case GameState.Ready:
+            //    ReadyState();
+                //break;
+            //case GameState.Start:
+            //    StartState();
+            //    break;
+            //case GameState.Playing:
+            //    PlayingState();
+            //    break;
             case GameState.GameOver:
                 GameOverState();
                 break;
             case GameState.Ending:
                 EndingState();
                 break;
-
         }
     }
-    
-    float currentTime = 0;
-    public float readyDelayTime = 2;
-    float startDelayTime = 1;
-    private void ReadyState()
+    float currentTime = 0f;
+    float loadDelayTime = 5f;
+    private void LoadState()
     {
-
+        currentTime += Time.deltaTime;
+        if (currentTime > loadDelayTime)
+        {
+            currentTime = 0;
+            SceneManager.LoadScene("StartScene");
+        }
     }
 
+    float startDelayTime = 1f;
+    bool isStart = false;
     private void StartState()
     {
+        if (!isStart)
+            return;
+
         currentTime += Time.deltaTime;
         if (currentTime > startDelayTime)
         {
             DontDestroyOnLoad(GameObject.Find("BGM"));
-            SceneManager.LoadScene(1);
-            m_state = GameState.Playing;
+            SceneManager.LoadScene(2);  // SelectScene
             currentTime = 0;
         }
     }
 
     private void PlayingState()
     {
+
     }
 
-    float gameoverDelayTime = 5;
+    float gameoverDelayTime = 2f;
     private void GameOverState()
     {
         gameoverUI.SetActive(true);
         currentTime += Time.deltaTime;
         if (currentTime > gameoverDelayTime)
         {
-            SceneManager.LoadScene("EndScene");
+            m_state = GameState.Ending;
             currentTime = 0;
+            SceneManager.LoadScene("EndScene");
         }
     }
 
@@ -100,20 +130,18 @@ public class GameManager : MonoBehaviour
 
     public void OnClickStart()
     {
-        m_state = GameState.Start;
+        isStart = true;
     }
 
     public void OnClickCharacterSelection()
     {
-        //SceneManager.LoadScene("JH_MapScene1");
         Destroy(GameObject.Find("BGM"));
-        SceneManager.LoadScene(2);
-
+        SceneManager.LoadScene(3);
     }
 
     public void OnClickReStart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void OnClickExit()
