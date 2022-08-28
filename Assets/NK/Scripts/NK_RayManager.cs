@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NK_RayManager : MonoBehaviour
 {
-    public float gravity = 50;
-
     CharacterController controller;
     Vector3 dir;
 

@@ -564,12 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69abc916808e74428bfa637cc8bbe14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioList:
-  - {fileID: 0}
-  - {fileID: 8300000, guid: 6cf45d6be328d124b824d1bc9203c039, type: 3}
-  - {fileID: 8300000, guid: 7ec8d230be7f4ed4ea16405a4cc9d23d, type: 3}
-  state: 0
-  isStart: 0
+  audioClipList: []
 --- !u!1 &4872763056725071861
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +955,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &13115510953236878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987581071934148698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2429af300590b47a084021f08feca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5655573506963311328 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 812cfa10e78b7f244bbbb6e509c81e35, type: 3}

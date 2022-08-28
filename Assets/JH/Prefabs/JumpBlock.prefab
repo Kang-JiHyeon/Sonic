@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originJumpPower: 0
   jumpBlockPower: 2
+  jumpEffectFactory: {fileID: 100010, guid: 46e6c7ca5c9b7e1468578c5bab971339, type: 3}
 --- !u!1 &1152498393479599694
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originJumpPower: 0
   jumpBlockPower: 2
+  jumpEffectFactory: {fileID: 100010, guid: 46e6c7ca5c9b7e1468578c5bab971339, type: 3}
 --- !u!1 &1152498394155652447
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,3 +375,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originJumpPower: 0
   jumpBlockPower: 2
+  jumpEffectFactory: {fileID: 100010, guid: 46e6c7ca5c9b7e1468578c5bab971339, type: 3}

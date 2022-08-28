@@ -8,6 +8,7 @@ public class NK_ShuckShuck : MonoBehaviour
     public TrailRenderer trailRenderer;
     public Vector3[] movements = new Vector3[3] { Vector3.zero, Vector3.zero, Vector3.zero };
 
+    bool isKeyDown;
     float currentTime;
     CharacterController controller;
     Vector3 movement;
@@ -30,13 +31,17 @@ public class NK_ShuckShuck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        if (isKeyDown)
         {
             currentTime += Time.deltaTime;
-            if (currentTime > 1f)
+            if (currentTime < 0.5f)
             {
                 JH_SoundManager.Instance.PlaySound("Shuck");
                 trailRenderer.enabled = true;
+            }
+            else
+            {
+                isKeyDown = false;
                 currentTime = 0;
             }
         }
@@ -48,11 +53,13 @@ public class NK_ShuckShuck : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
+            isKeyDown = true;
             index--;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
+            isKeyDown = true;
             index++;
         }
 

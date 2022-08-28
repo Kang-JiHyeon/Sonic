@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject playUI;
     public GameObject endUI;
     public GameObject gameoverUI;
+    public GameObject loadingUI;
 
     public Text playTime;
     public Text textScore;
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void OnClickCharacterSelection()
     {
-        //SceneManager.LoadScene("JH_MapScene1");
+        loadingUI.SetActive(true);
         SceneManager.LoadScene(2);
 
     }
