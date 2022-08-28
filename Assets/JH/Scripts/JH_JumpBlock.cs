@@ -20,6 +20,9 @@ public class JH_JumpBlock : MonoBehaviour
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
             NK_PlayerMove.Instance.jumpPower = originJumpPower * jumpBlockPower;
+
+            // 사운드 재생
+            JH_SoundManager.Instance.PlaySound("JumpBlock");
         }
     }
     private void OnTriggerExit(Collider other)

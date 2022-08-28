@@ -22,7 +22,7 @@ public class JH_Ring : MonoBehaviour
 
     // �� ȸ��
     public float rotationSpeed;
-    public AudioSource collectSound;
+    AudioSource collectSound;
     public GameObject collectEffect;
 
     // Start is called before the first frame update
@@ -47,10 +47,8 @@ public class JH_Ring : MonoBehaviour
 
     private void Follow()
     {
-        // �÷��̾��� ���� �Ÿ� �ȿ� �ְ�, �÷��̾ �ν��� �����̸� �÷��̾� ������ �̵��ϰ� �ʹ�.
         if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
         {
-            // ���� �ð����ȸ� ���󰡰� �ϰ� �ʹ�.
             isFollow = true;
 
             curTime += Time.deltaTime;
@@ -66,21 +64,15 @@ public class JH_Ring : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, target.transform.position) < 1f)
                 {
-                    // ���� ����
                     JH_Score.Instance.SCORE++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
 
                     collectSound.Play();
                     GetComponent<MeshRenderer>().enabled = false;
-                    Invoke("OnDestroy", 0.2f);
+                    Destroy(gameObject, 0.2f);
                 }
             }
         }
-    }
-
-    public void OnDestroy()
-    {
-        Destroy(gameObject);
     }
 
     public void Collect()
@@ -95,19 +87,16 @@ public class JH_Ring : MonoBehaviour
     {
         if (player)
         {
-            // �÷��̾��� ������ ������ +1 �ϰ� �������� �ʹ�.
             if (other.gameObject.name.Contains("Player"))
             {
                 Collect();
 
                 if (!player.isBooster)
                 {
-                    // ���� ����
                     JH_Score.Instance.SCORE++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
-                    // ����
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
-                    Invoke("OnDestroy", 0.2f);
+                    Destroy(gameObject, 0.2f);
                 }
             }
         }

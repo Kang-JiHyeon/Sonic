@@ -10,6 +10,7 @@ public class JH_EndingPoint : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Player"))
         {
+            JH_SoundManager.Instance.PlaySound("Ending");
             GameManager.gameManager.m_state = GameManager.GameState.GameOver;
         }
     }

@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioList:
-  - {fileID: 8300000, guid: 905ae444d8ce6e34ea4d465cdafc69e1, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: 6cf45d6be328d124b824d1bc9203c039, type: 3}
   - {fileID: 8300000, guid: 7ec8d230be7f4ed4ea16405a4cc9d23d, type: 3}
   state: 0

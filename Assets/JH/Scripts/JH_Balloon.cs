@@ -15,13 +15,22 @@ public class JH_Balloon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.name.Contains("Player") && NK_Attack.Instance.isAttack)
         {
             NK_Attack.Instance.enemys.Remove(gameObject);
             GameObject hitEffect = Instantiate(balloonEffectFactory);
             hitEffect.transform.position = gameObject.transform.position;
-            Destroy(gameObject);
+
             NK_ScoreManager.scoreManager.sumScore += 1000;
+
+
+            // 오디오 재생
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponentInChildren<MeshRenderer>().enabled = false;
+                GetComponent<AudioSource>().Play();
+                Destroy(gameObject, 0.3f);
+            }
         }
     }
 }

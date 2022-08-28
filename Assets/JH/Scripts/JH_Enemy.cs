@@ -32,8 +32,6 @@ public class JH_Enemy : MonoBehaviour
     public float boosterRange = 5f;
     public float speed = 50f;
     bool isHit = false;
-    bool isPlaySound = false;
-    float curTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +59,6 @@ public class JH_Enemy : MonoBehaviour
 
                 NK_Attack.Instance.enemys.Remove(gameObject);
                 isHit = false;
-                isPlaySound = true;
 
                 // 폭발 이펙트
                 GameObject explosion = Instantiate(explosionFactory);
@@ -69,13 +66,14 @@ public class JH_Enemy : MonoBehaviour
 
                 robot.SetActive(false);
 
+                // 피격 사운드 재생
+                PlayHit(hitSound2);
 
-                // 사운드 재생
-                if (!hitSound2.isPlaying)
-                {
-                    hitSound2.Play();
-                    Invoke("OnDestroy", 0.5f);
-                }
+                //if (!JH_SoundManager.Instance.audioSourceDic["EnemyHit2"].isPlaying)
+                //{
+                //    JH_SoundManager.Instance.PlaySound("EnemyHit2");
+                //    Destroy(gameObject, 0.5f);
+                //}
             }
         }
         // 2. 부스터
@@ -88,11 +86,6 @@ public class JH_Enemy : MonoBehaviour
                 Hit();
             }
         }
-    }
-
-    private void OnDestroy()
-    {
-        Destroy(gameObject);
     }
 
     private void Hit()
@@ -112,11 +105,8 @@ public class JH_Enemy : MonoBehaviour
             rigid.velocity = dir * speed;
             NK_ScoreManager.scoreManager.sumScore += 3000;
 
-            // 사운드
-            if (!hitSound1.isPlaying)
-            {
-                hitSound1.Play();
-            }
+            // 피격 사운드 재생
+            PlayHit(hitSound1);
 
             JH_CameraShack.Instance.PlayCameraShake();
         }
@@ -128,6 +118,7 @@ public class JH_Enemy : MonoBehaviour
         // 부딪힌 대상이 Player이면
         if (other.gameObject.name.Contains("Player") && !isHit)
         {
+            // 플레이어가 공격 중이라면
             if (NK_Attack.Instance.isAttack)
             {
                 // hit 이펙트
@@ -136,6 +127,7 @@ public class JH_Enemy : MonoBehaviour
                 Hit();
                 other.gameObject.GetComponentInChildren<Animator>().SetTrigger("AttackSuccess");
             }
+            // 플레이어가 공격 중이 아니라면
             else
             {
                 if (0 >= JH_Score.Instance.SCORE)
@@ -143,6 +135,12 @@ public class JH_Enemy : MonoBehaviour
                     NK_Life.LifeManager.Life--;
                 }
                 NK_PlayerDamage.Instance.isDamage = true;
+
+                // 플레이어 피격 사운드 출력
+                JH_SoundManager.Instance.PlaySound("DropRing");
+
+                // 플레이어 피격 사운드 출력
+                JH_SoundManager.Instance.PlaySound("PlayerHit");
             }
         }
 
@@ -152,7 +150,20 @@ public class JH_Enemy : MonoBehaviour
             // 폭발 이펙트
             GameObject explosion = Instantiate(explosionFactory);
             explosion.transform.position = transform.position;
-            Destroy(gameObject);
+
+            // 피격 사운드 재생
+            PlayHit(hitSound2);
+        }
+    }
+
+    void PlayHit(AudioSource audio)
+    {
+        // 피격 사운드 재생
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+            if(audio == hitSound2)
+                Destroy(gameObject, 0.3f);
         }
     }
 }
