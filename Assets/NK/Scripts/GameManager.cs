@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public Text playTime;
     public Text textScore;
 
+
     public void Awake()
     {
         gameManager = this;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
+    
     float currentTime = 0;
     public float readyDelayTime = 2;
     float startDelayTime = 1;
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime > startDelayTime)
         {
+            DontDestroyOnLoad(GameObject.Find("BGM"));
             SceneManager.LoadScene(1);
             m_state = GameState.Playing;
             currentTime = 0;
@@ -76,7 +78,6 @@ public class GameManager : MonoBehaviour
 
     private void PlayingState()
     {
-
     }
 
     float gameoverDelayTime = 5;
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
     public void OnClickCharacterSelection()
     {
         //SceneManager.LoadScene("JH_MapScene1");
+        Destroy(GameObject.Find("BGM"));
         SceneManager.LoadScene(2);
 
     }
