@@ -12,11 +12,7 @@ public class JH_BoosterBlock : MonoBehaviour
         {
             // 플레이어의 부스터 상태를 true로 변경하고 싶다.
             other.GetComponent<NK_Booster>().isBooster = true;
-            if (!JH_SoundManager.Instance.audioSourceDic["Booster"].isPlaying)
-            {
-                JH_SoundManager.Instance.PlaySound("Booster");
-
-            }
+            JH_SoundManager.Instance.PlaySound("Booster");
         }
     }
 }

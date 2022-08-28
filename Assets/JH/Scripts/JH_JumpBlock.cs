@@ -22,10 +22,7 @@ public class JH_JumpBlock : MonoBehaviour
             NK_PlayerMove.Instance.jumpPower = originJumpPower * jumpBlockPower;
 
             // 사운드 재생
-            if (!JH_SoundManager.Instance.audioSourceDic["JumpBlock"].isPlaying)
-            {
-                JH_SoundManager.Instance.PlaySound("JumpBlock");
-            }
+            JH_SoundManager.Instance.PlaySound("JumpBlock");
         }
     }
     private void OnTriggerExit(Collider other)

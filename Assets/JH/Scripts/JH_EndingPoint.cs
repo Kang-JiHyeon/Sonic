@@ -10,11 +10,8 @@ public class JH_EndingPoint : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Player"))
         {
-            if (!JH_SoundManager.Instance.audioSourceDic["Ending"])
-                JH_SoundManager.Instance.PlaySound("Ending");
-
+            JH_SoundManager.Instance.PlaySound("Ending");
             GameManager.gameManager.m_state = GameManager.GameState.GameOver;
-
         }
     }
 }

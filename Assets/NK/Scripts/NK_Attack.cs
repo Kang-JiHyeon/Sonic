@@ -88,13 +88,11 @@ public class NK_Attack : MonoBehaviour
                     if (enemy.name.Contains("Bee"))
                         aim.transform.Rotate(0, 90, 0);
                     aim.SetActive(true);
-
-                    if (!JH_SoundManager.Instance.audioSourceDic["Aim"].isPlaying)
-                    {
-                        JH_SoundManager.Instance.PlaySound("Aim");
-                    }
-
                     isAiming = true;
+
+                    // 에임 사운드 재생
+                    JH_SoundManager.Instance.PlaySound("Aim");
+
                 }
                 else
                 {

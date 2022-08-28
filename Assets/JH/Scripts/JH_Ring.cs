@@ -47,10 +47,8 @@ public class JH_Ring : MonoBehaviour
 
     private void Follow()
     {
-        // �÷��̾��� ���� �Ÿ� �ȿ� �ְ�, �÷��̾ �ν��� �����̸� �÷��̾� ������ �̵��ϰ� �ʹ�.
         if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
         {
-            // ���� �ð����ȸ� ���󰡰� �ϰ� �ʹ�.
             isFollow = true;
 
             curTime += Time.deltaTime;
@@ -66,7 +64,6 @@ public class JH_Ring : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, target.transform.position) < 1f)
                 {
-                    // ���� ����
                     JH_Score.Instance.SCORE++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
 

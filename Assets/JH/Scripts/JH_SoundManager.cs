@@ -52,6 +52,7 @@ public class JH_SoundManager : MonoBehaviour
             return;
         }
 
-        audioSourceDic[name].PlayOneShot(audioClipDic[name]);
+        if(!audioSourceDic[name].isPlaying)
+            audioSourceDic[name].PlayOneShot(audioClipDic[name]);
     }
 }

@@ -137,12 +137,10 @@ public class JH_Enemy : MonoBehaviour
                 NK_PlayerDamage.Instance.isDamage = true;
 
                 // 플레이어 피격 사운드 출력
-                if (!JH_SoundManager.Instance.audioSourceDic["DropRing"].isPlaying)
-                    JH_SoundManager.Instance.PlaySound("DropRing");
+                JH_SoundManager.Instance.PlaySound("DropRing");
 
                 // 플레이어 피격 사운드 출력
-                if (!JH_SoundManager.Instance.audioSourceDic["PlayerHit"].isPlaying)
-                    JH_SoundManager.Instance.PlaySound("PlayerHit");
+                JH_SoundManager.Instance.PlaySound("PlayerHit");
             }
         }
 

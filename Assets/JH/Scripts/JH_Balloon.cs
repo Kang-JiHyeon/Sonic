@@ -15,7 +15,7 @@ public class JH_Balloon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.name.Contains("Player") && NK_Attack.Instance.isAttack)
         {
             NK_Attack.Instance.enemys.Remove(gameObject);
             GameObject hitEffect = Instantiate(balloonEffectFactory);

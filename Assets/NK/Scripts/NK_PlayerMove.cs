@@ -140,10 +140,7 @@ public class NK_PlayerMove : MonoBehaviour
 
 
                 // 회전 사운드 재생
-                if (!JH_SoundManager.Instance.audioSourceDic["Spin"].isPlaying)
-                {
-                    JH_SoundManager.Instance.PlaySound("Spin");
-                }
+                JH_SoundManager.Instance.PlaySound("Spin");
             }
 
             isJumping = true;

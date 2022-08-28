@@ -42,10 +42,7 @@ public class NK_PathFollower : MonoBehaviour
                 railEffect.SetActive(true);
 
                 // 레일 사운드 재생
-                if (!JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].isPlaying)
-                {
-                    JH_SoundManager.Instance.PlaySound("FlyingBlock");
-                }
+                JH_SoundManager.Instance.PlaySound("Rail");
             }
 
             distanceTravelled += speed * Time.deltaTime;

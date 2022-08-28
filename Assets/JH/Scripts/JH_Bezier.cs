@@ -97,17 +97,11 @@ public class JH_Bezier : MonoBehaviour
             Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
             Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
 
-            // 사운드 재생
-            //if (gameObject.name.Contains("Ring"))
-            //{
-                if (!JH_SoundManager.Instance.audioSourceDic["FlyingRing"].isPlaying)
-                    JH_SoundManager.Instance.PlaySound("FlyingRing");
-            //}
-            //else
-            //{
-            //    if (!JH_SoundManager.Instance.audioSourceDic["FlyingBlock"].isPlaying)
-            //        JH_SoundManager.Instance.PlaySound("FlyingBlock");
-            //}
+            //사운드 재생
+            if (gameObject.name.Contains("Ring"))
+                JH_SoundManager.Instance.PlaySound("FlyingRing");
+            else
+                JH_SoundManager.Instance.PlaySound("FlyingBlock");
         }
     }
 }

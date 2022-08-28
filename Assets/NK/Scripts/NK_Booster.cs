@@ -40,10 +40,7 @@ public class NK_Booster : MonoBehaviour
         {
             isBooster = true;
 
-            if (!JH_SoundManager.Instance.audioSourceDic["Booster"].isPlaying)
-            {
-                JH_SoundManager.Instance.PlaySound("Booster");
-            }
+            JH_SoundManager.Instance.PlaySound("Booster");
 
         }
 
