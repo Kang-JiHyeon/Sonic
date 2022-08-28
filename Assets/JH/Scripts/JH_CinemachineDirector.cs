@@ -29,6 +29,7 @@ public class JH_CinemachineDirector : MonoBehaviour
         tails.SetActive(false);
         knuckles.SetActive(false);
 
+
         //pd.Play();
     }
 
