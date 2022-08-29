@@ -48,7 +48,6 @@ public class NK_ShuckShuck : MonoBehaviour
 
         if (Vector3.Distance(transform.position, movements[index]) < 0.5f)
         {
-            isPlay = true;
             trailRenderer.enabled = false;
         }
 
