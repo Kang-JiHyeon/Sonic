@@ -131,6 +131,8 @@ public class GameManager : MonoBehaviour
     public void OnClickReStart()
     {
         SceneManager.LoadScene(1);
+        var cm = GameObject.Find("CharacterManager");
+        Destroy(cm);
     }
 
     public void OnClickExit()
