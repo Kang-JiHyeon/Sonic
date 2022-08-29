@@ -72,7 +72,7 @@ public class NK_Life : MonoBehaviour
 
     private void RemoveLife()
     {
-        if (transform.childCount - 1 > 0)
+        if (transform.childCount - 1 >= 0)
         {
             GameObject removeLife = lifes[transform.childCount - 1];
             lifes.Remove(removeLife);
