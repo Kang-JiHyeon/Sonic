@@ -44,7 +44,7 @@ public class JH_Ring : MonoBehaviour
         Follow();
 
     }
-
+    bool isDestroy = false;
     private void Follow()
     {
         if (NK_Booster.Instance.isBooster && Vector3.Distance(transform.position, target.transform.position) < boosterDis)
@@ -62,14 +62,19 @@ public class JH_Ring : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime * speed);
 
-                if (Vector3.Distance(transform.position, target.transform.position) < 1f)
-                {
-                    //JH_Score.Instance.RING++;
-                    //NK_ScoreManager.scoreManager.sumScore += 2000;
+                if (!isDestroy) { 
+                    if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+                    {
+                        isDestroy = true;
 
-                    collectSound.Play();
-                    GetComponent<MeshRenderer>().enabled = false;
-                    Destroy(gameObject, 0.1f);
+                        JH_Score.Instance.RING++;
+                        NK_ScoreManager.scoreManager.sumScore += 2000;
+
+                        collectSound.Play();
+                        GetComponent<MeshRenderer>().enabled = false;
+                        GetComponent<SphereCollider>().enabled = false;
+                        Destroy(gameObject, 0.05f);
+                    }
                 }
             }
         }
@@ -87,15 +92,16 @@ public class JH_Ring : MonoBehaviour
     {
         if (player)
         {
-            if (other.gameObject.name.Contains("Player"))
+            if (other.gameObject.CompareTag("Player"))
             {
                 Collect();
 
-                if (!player.isBooster)
+                if (!NK_Booster.Instance.isBooster)
                 {
                     JH_Score.Instance.RING++;
                     NK_ScoreManager.scoreManager.sumScore += 2000;
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    GetComponent<SphereCollider>().enabled = false;
                     Destroy(gameObject, 0.1f);
                 }
             }

@@ -16,7 +16,7 @@ public class JH_JumpBlock : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name.Contains("Player"))
+        if(other.gameObject.CompareTag("Player"))
         {
             NK_PlayerMove.Instance.isJumpBlock = true;
             NK_PlayerMove.Instance.jumpPower = originJumpPower * jumpBlockPower;
