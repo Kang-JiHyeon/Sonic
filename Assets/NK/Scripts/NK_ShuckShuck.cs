@@ -8,10 +8,6 @@ public class NK_ShuckShuck : MonoBehaviour
     public TrailRenderer trailRenderer;
     public Vector3[] movements = new Vector3[3] { Vector3.zero, Vector3.zero, Vector3.zero };
 
-    bool isKeyDown;
-    float currentTime;
-    CharacterController controller;
-    Vector3 movement;
     int index;
     int curIndex = 0;
 
@@ -25,41 +21,24 @@ public class NK_ShuckShuck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         index = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isKeyDown)
-        {
-            currentTime += Time.deltaTime;
-            if (currentTime < 0.5f)
-            {
-                
-                trailRenderer.enabled = true;
-            }
-            else
-            {
-                isKeyDown = false;
-                trailRenderer.enabled = false;
-                currentTime = 0;
-            }
-        }
+
     }
 
     public void ShuckShuck()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            isKeyDown = true;
             index--;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            isKeyDown = true;
             index++;
         }
 
@@ -67,11 +46,18 @@ public class NK_ShuckShuck : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, movements[index], Time.deltaTime * speed);
 
-        // indexº¯È­°¡ »ý±â¸é Sound¸¦ Ãâ·ÂÇÏ°í ½Í´Ù.
+        if (Vector3.Distance(transform.position, movements[index]) < 0.5f)
+        {
+            isPlay = true;
+            trailRenderer.enabled = false;
+        }
+
+        // indexï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Soundï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
         if(Mathf.Abs(curIndex - index) > 0)
         {
             curIndex = index;
             JH_SoundManager.Instance.PlaySound("Shuck");
+            trailRenderer.enabled = true;
         }
     }
 }
