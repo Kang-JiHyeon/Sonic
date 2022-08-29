@@ -98,18 +98,23 @@ public class GameManager : MonoBehaviour
     float gameoverDelayTime = 2f;
     private void GameOverState()
     {
-        //gameoverUI.SetActive(true);
-        //currentTime += Time.deltaTime;
-        //if (currentTime > gameoverDelayTime)
-        //{
-        //    m_state = GameState.Ending;
-        //    currentTime = 0;
-        //    SceneManager.LoadScene("EndScene");
-        //}
-        //m_state = GameState.Ending;
-
-        m_state = GameState.Ending;
-        SceneManager.LoadScene("EndScene");
+        // 샘명이 없을 때 게임오버
+        if (NK_Life.LifeManager.Life <= 0)
+        {
+            gameoverUI.SetActive(true);
+            currentTime += Time.deltaTime;
+            if (currentTime > gameoverDelayTime)
+            {
+                m_state = GameState.Ending;
+                currentTime = 0;
+                SceneManager.LoadScene("EndScene");
+            }
+        }
+        else
+        {
+            m_state = GameState.Ending;
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
     private void EndingState()

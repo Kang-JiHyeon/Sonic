@@ -42,6 +42,7 @@ public class NK_ShuckShuck : MonoBehaviour
             else
             {
                 isKeyDown = false;
+                trailRenderer.enabled = false;
                 currentTime = 0;
             }
         }
@@ -49,8 +50,6 @@ public class NK_ShuckShuck : MonoBehaviour
 
     public void ShuckShuck()
     {
-        trailRenderer.enabled = false;
-
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             isKeyDown = true;

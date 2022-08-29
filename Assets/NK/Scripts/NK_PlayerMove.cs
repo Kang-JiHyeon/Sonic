@@ -61,7 +61,8 @@ public class NK_PlayerMove : MonoBehaviour
         {
             dir = Vector3.zero;
 
-            trailRenderer.enabled = false;
+            if(!isShuckShuck)
+                trailRenderer.enabled = false;
 
             anim.SetBool("IsJumping", false);
             anim.SetBool("IsSpringJumping", false);
