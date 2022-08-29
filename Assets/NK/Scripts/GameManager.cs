@@ -102,13 +102,6 @@ public class GameManager : MonoBehaviour
         if (NK_Life.LifeManager.Life <= 0)
         {
             gameoverUI.SetActive(true);
-            currentTime += Time.deltaTime;
-            if (currentTime > gameoverDelayTime)
-            {
-                m_state = GameState.Ending;
-                currentTime = 0;
-                SceneManager.LoadScene("EndScene");
-            }
         }
         else
         {
