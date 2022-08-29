@@ -8,10 +8,6 @@ public class NK_ShuckShuck : MonoBehaviour
     public TrailRenderer trailRenderer;
     public Vector3[] movements = new Vector3[3] { Vector3.zero, Vector3.zero, Vector3.zero };
 
-    bool isKeyDown;
-    float currentTime;
-    CharacterController controller;
-    Vector3 movement;
     int index;
 
     public static NK_ShuckShuck Instance;
@@ -24,7 +20,6 @@ public class NK_ShuckShuck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         index = 1;
     }
     bool isPlay = false;
@@ -32,34 +27,18 @@ public class NK_ShuckShuck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isKeyDown)
-        {
-            currentTime += Time.deltaTime;
-            if (currentTime < 0.5f)
-            {
-                
-                trailRenderer.enabled = true;
-            }
-            else
-            {
-                isKeyDown = false;
-                trailRenderer.enabled = false;
-                currentTime = 0;
-            }
-        }
+
     }
 
     public void ShuckShuck()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
-            isKeyDown = true;
             index--;
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
-            isKeyDown = true;
             index++;
         }
 
@@ -70,6 +49,7 @@ public class NK_ShuckShuck : MonoBehaviour
         if (Vector3.Distance(transform.position, movements[index]) < 0.5f)
         {
             isPlay = true;
+            trailRenderer.enabled = false;
         }
 
         // index변화가 생기면 Sound를 출력하고 싶다.
@@ -77,6 +57,7 @@ public class NK_ShuckShuck : MonoBehaviour
         {
             curIndex = index;
             JH_SoundManager.Instance.PlaySound("Shuck");
+            trailRenderer.enabled = true;
         }
     }
 }
