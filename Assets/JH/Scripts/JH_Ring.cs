@@ -73,7 +73,7 @@ public class JH_Ring : MonoBehaviour
                         collectSound.Play();
                         GetComponent<MeshRenderer>().enabled = false;
                         GetComponent<SphereCollider>().enabled = false;
-                        Destroy(gameObject, 0.05f);
+                        Destroy(gameObject, 0.1f);
                     }
                 }
             }
