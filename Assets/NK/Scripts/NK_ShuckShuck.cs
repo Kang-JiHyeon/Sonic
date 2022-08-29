@@ -13,6 +13,7 @@ public class NK_ShuckShuck : MonoBehaviour
     CharacterController controller;
     Vector3 movement;
     int index;
+    int curIndex = 0;
 
     public static NK_ShuckShuck Instance;
 
@@ -27,8 +28,7 @@ public class NK_ShuckShuck : MonoBehaviour
         controller = GetComponent<CharacterController>();
         index = 1;
     }
-    bool isPlay = false;
-    int curIndex = 0;
+
     // Update is called once per frame
     void Update()
     {
@@ -66,11 +66,6 @@ public class NK_ShuckShuck : MonoBehaviour
         index = Mathf.Clamp(index, 0, 2);
 
         transform.position = Vector3.Lerp(transform.position, movements[index], Time.deltaTime * speed);
-
-        if (Vector3.Distance(transform.position, movements[index]) < 0.5f)
-        {
-            isPlay = true;
-        }
 
         // index변화가 생기면 Sound를 출력하고 싶다.
         if(Mathf.Abs(curIndex - index) > 0)
