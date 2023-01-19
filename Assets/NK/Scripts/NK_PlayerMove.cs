@@ -47,7 +47,7 @@ public class NK_PlayerMove : MonoBehaviour
 
     private void Move()
     {
-        if (NK_Attack.Instance.isAttack || JH_Bezier.Instance.isFlying)
+        if (NK_Attack.Instance.isAttack || JH_FlyingBlock.Instance.isFlying)
         {
             return;
         }

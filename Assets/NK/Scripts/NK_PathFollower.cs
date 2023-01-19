@@ -60,7 +60,7 @@ public class NK_PathFollower : MonoBehaviour
                 NK_PlayerMove.Instance.dir = Vector3.zero;
                 railEffect.SetActive(false);
                 isIncline = false;
-                if (!JH_Bezier.Instance.isFlying)
+                if (!JH_FlyingBlock.Instance.isFlying)
                 {
                     playerMove.enabled = true;
                 }

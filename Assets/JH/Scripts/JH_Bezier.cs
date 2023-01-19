@@ -1,107 +1,54 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 베지어 곡선 그리기
 public class JH_Bezier : MonoBehaviour
 {
-    public Transform start;
-    public Transform handle;
-    public Transform end;
-    public Transform player;
+    // 베지어 곡선의 Control Points
+    public List<Vector3> cPoints = new List<Vector3>();
 
-    // Start is called before the first frame update
+    // 베지어 곡선을 이루는 좌표 리스트 
+    public List<Vector3> points = new List<Vector3>();
+
     void Start()
     {
-        player = NK_PlayerMove.Instance.gameObject.transform;
-    }
-
-    // Update is called once per frame
-    float currentTime;
-    float flyingSpeed = 3f;
-    public bool isFlying = false;
-
-    public static JH_Bezier Instance;
-
-    private void Awake()
-    {
-        Instance = this;
+        cPoints.Add(transform.position);
+        for(int i=0; i<transform.childCount; i++)
+        {
+            cPoints.Add(transform.GetChild(i).position);
+        }
     }
 
     void Update()
     {
-        Draw();
-
-        if (isFlying)
-        {
-            currentTime += Time.deltaTime;
-            player.position = Go(currentTime / flyingSpeed);
-
-            if(Vector3.Distance(player.position, end.position) < 0.5f)
-            {
-                isFlying = false;
-                NK_PlayerMove.Instance.enabled = true;
-                NK_PathFollower.Instance.enabled = true;
-                player.position = end.position;
-                currentTime = 0;
-                Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = false;
-            }
-        }
+        DrawCurve();
     }
-    public List<Vector3> list = new List<Vector3>();
-    private void Draw()
+
+    // 베지어 곡선 그리는 함수
+    private void DrawCurve()
     {
-        list.Clear();
+        points.Clear();
+
         for (int i = 0; i < 100; i++)
         {
-            Vector3 p = Go(0.01f * i);
-            list.Add(p);
+            Vector3 p = GetPoint(0.01f * i);
+            points.Add(p);
         }
+
         for (int i = 0; i < 99; i++)
         {
-            Debug.DrawLine(list[i], list[i + 1], Color.red);
+            Debug.DrawLine(points[i], points[i + 1], Color.red);
         }
     }
 
-
-    Vector3 Go(float ratio)
+    // 베지어 곡선을 이루는 점의 좌표를 얻는 함수
+    public Vector3 GetPoint(float ratio)
     {
-        Vector3 pp1 = Vector3.Lerp(start.position, handle.position, ratio);
-        Vector3 pp2 = Vector3.Lerp(handle.position, end.position, ratio);
-        Vector3 ppp1 = Vector3.Lerp(pp1, pp2, ratio);
+        Vector3 q0 = Vector3.Lerp(cPoints[0], cPoints[1], ratio);
+        Vector3 q1 = Vector3.Lerp(cPoints[1], cPoints[2], ratio);
+        Vector3 b = Vector3.Lerp(q0, q1, ratio);
 
-        return ppp1;
-    }
-
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        bool isHor;
-
-        if (other.gameObject.name.Contains("Player"))
-        {
-            isFlying = true;
-            NK_PlayerMove.Instance.enabled = false;
-            NK_PathFollower.Instance.enabled = false;
-
- 
-            if (gameObject.name.Contains("FlyingBlock_H"))
-            {
-                isHor = true;
-            }
-            else
-            {
-                isHor = false;
-            }
-
-            Camera.main.gameObject.GetComponent<JH_Camera>().isHorizontal = isHor;
-            Camera.main.gameObject.GetComponent<JH_Camera>().isCamMove = true;
-
-            //사운드 재생
-            if (gameObject.name.Contains("Ring"))
-                JH_SoundManager.Instance.PlaySound("FlyingRing");
-            else
-                JH_SoundManager.Instance.PlaySound("FlyingBlock");
-        }
+        return b;
     }
 }
+
+
