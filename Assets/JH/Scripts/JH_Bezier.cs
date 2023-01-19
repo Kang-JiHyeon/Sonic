@@ -13,9 +13,7 @@ public class JH_Bezier : MonoBehaviour
     {
         cPoints.Add(transform.position);
         for(int i=0; i<transform.childCount; i++)
-        {
             cPoints.Add(transform.GetChild(i).position);
-        }
     }
 
     void Update()
